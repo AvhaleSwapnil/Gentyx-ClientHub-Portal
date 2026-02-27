@@ -25,6 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="font-sans antialiased">
         {/* 🔥 Auto Logout After 2 Hours */}
+        <h1>Done</h1>
         <SessionHandler />
 
         {/* App Core */}
