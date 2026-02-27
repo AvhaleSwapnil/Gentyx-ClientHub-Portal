@@ -1,0 +1,352 @@
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/admin/clients/edit/[id]",
+      "regex": "^/admin/clients/edit/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/clients/edit/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/clients/[id]",
+      "regex": "^/admin/clients/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/clients/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/clients/[id]/get",
+      "regex": "^/api/clients/([^/]+?)/get(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/clients/(?<nxtPid>[^/]+?)/get(?:/)?$"
+    },
+    {
+      "page": "/api/cpas/[id]/get",
+      "regex": "^/api/cpas/([^/]+?)/get(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/cpas/(?<nxtPid>[^/]+?)/get(?:/)?$"
+    },
+    {
+      "page": "/api/service-centers/[id]/get",
+      "regex": "^/api/service\\-centers/([^/]+?)/get(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/service\\-centers/(?<nxtPid>[^/]+?)/get(?:/)?$"
+    },
+    {
+      "page": "/api/tasks/client/[clientId]",
+      "regex": "^/api/tasks/client/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPclientId": "nxtPclientId"
+      },
+      "namedRegex": "^/api/tasks/client/(?<nxtPclientId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/cpa/clients/[id]",
+      "regex": "^/cpa/clients/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/cpa/clients/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/service-center/clients/[id]",
+      "regex": "^/service\\-center/clients/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/service\\-center/clients/(?<nxtPid>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/admin",
+      "regex": "^/admin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin(?:/)?$"
+    },
+    {
+      "page": "/admin/clients",
+      "regex": "^/admin/clients(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/clients(?:/)?$"
+    },
+    {
+      "page": "/admin/clients/new",
+      "regex": "^/admin/clients/new(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/clients/new(?:/)?$"
+    },
+    {
+      "page": "/admin/cpas",
+      "regex": "^/admin/cpas(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/cpas(?:/)?$"
+    },
+    {
+      "page": "/admin/documents",
+      "regex": "^/admin/documents(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/documents(?:/)?$"
+    },
+    {
+      "page": "/admin/email-activity",
+      "regex": "^/admin/email\\-activity(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/email\\-activity(?:/)?$"
+    },
+    {
+      "page": "/admin/email-templates",
+      "regex": "^/admin/email\\-templates(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/email\\-templates(?:/)?$"
+    },
+    {
+      "page": "/admin/help",
+      "regex": "^/admin/help(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/help(?:/)?$"
+    },
+    {
+      "page": "/admin/messages",
+      "regex": "^/admin/messages(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/messages(?:/)?$"
+    },
+    {
+      "page": "/admin/reports",
+      "regex": "^/admin/reports(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/reports(?:/)?$"
+    },
+    {
+      "page": "/admin/service-centers",
+      "regex": "^/admin/service\\-centers(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/service\\-centers(?:/)?$"
+    },
+    {
+      "page": "/admin/settings",
+      "regex": "^/admin/settings(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/settings(?:/)?$"
+    },
+    {
+      "page": "/admin/stages",
+      "regex": "^/admin/stages(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/stages(?:/)?$"
+    },
+    {
+      "page": "/admin/stages/default",
+      "regex": "^/admin/stages/default(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/stages/default(?:/)?$"
+    },
+    {
+      "page": "/admin/tasks",
+      "regex": "^/admin/tasks(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/tasks(?:/)?$"
+    },
+    {
+      "page": "/client",
+      "regex": "^/client(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/client(?:/)?$"
+    },
+    {
+      "page": "/client/documents",
+      "regex": "^/client/documents(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/client/documents(?:/)?$"
+    },
+    {
+      "page": "/client/messages",
+      "regex": "^/client/messages(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/client/messages(?:/)?$"
+    },
+    {
+      "page": "/client/profile",
+      "regex": "^/client/profile(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/client/profile(?:/)?$"
+    },
+    {
+      "page": "/client/profile/edit",
+      "regex": "^/client/profile/edit(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/client/profile/edit(?:/)?$"
+    },
+    {
+      "page": "/client/reports",
+      "regex": "^/client/reports(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/client/reports(?:/)?$"
+    },
+    {
+      "page": "/client/settings",
+      "regex": "^/client/settings(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/client/settings(?:/)?$"
+    },
+    {
+      "page": "/client/stages",
+      "regex": "^/client/stages(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/client/stages(?:/)?$"
+    },
+    {
+      "page": "/client/tasks",
+      "regex": "^/client/tasks(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/client/tasks(?:/)?$"
+    },
+    {
+      "page": "/cpa",
+      "regex": "^/cpa(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/cpa(?:/)?$"
+    },
+    {
+      "page": "/cpa/clients-list",
+      "regex": "^/cpa/clients\\-list(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/cpa/clients\\-list(?:/)?$"
+    },
+    {
+      "page": "/cpa/messages",
+      "regex": "^/cpa/messages(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/cpa/messages(?:/)?$"
+    },
+    {
+      "page": "/cpa/settings",
+      "regex": "^/cpa/settings(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/cpa/settings(?:/)?$"
+    },
+    {
+      "page": "/cpa/tasks",
+      "regex": "^/cpa/tasks(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/cpa/tasks(?:/)?$"
+    },
+    {
+      "page": "/documents",
+      "regex": "^/documents(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/documents(?:/)?$"
+    },
+    {
+      "page": "/help",
+      "regex": "^/help(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/help(?:/)?$"
+    },
+    {
+      "page": "/inbox",
+      "regex": "^/inbox(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/inbox(?:/)?$"
+    },
+    {
+      "page": "/login",
+      "regex": "^/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/login(?:/)?$"
+    },
+    {
+      "page": "/service-center",
+      "regex": "^/service\\-center(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/service\\-center(?:/)?$"
+    },
+    {
+      "page": "/service-center/clients-list",
+      "regex": "^/service\\-center/clients\\-list(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/service\\-center/clients\\-list(?:/)?$"
+    },
+    {
+      "page": "/service-center/messages",
+      "regex": "^/service\\-center/messages(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/service\\-center/messages(?:/)?$"
+    },
+    {
+      "page": "/service-center/settings",
+      "regex": "^/service\\-center/settings(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/service\\-center/settings(?:/)?$"
+    },
+    {
+      "page": "/service-center/tasks",
+      "regex": "^/service\\-center/tasks(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/service\\-center/tasks(?:/)?$"
+    },
+    {
+      "page": "/settings",
+      "regex": "^/settings(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/settings(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}
