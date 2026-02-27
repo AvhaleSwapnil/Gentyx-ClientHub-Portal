@@ -91,13 +91,13 @@ async function handleEmailNotifications(params: EmailNotificationParams) {
     // SCENARIO 1: Admin/Support messaging a Client
     if ((senderRole === "ADMIN" || senderRole === "SUPPORT") && receiverRole === "CLIENT" && clientId) {
       const { data: client } = await supabase
-        .from('clients')
-        .select('name, primary_contact_email, primary_contact_name')
-        .eq('id', clientId)
+        .from('Clients')
+        .select('client_name, primary_contact_email, primary_contact_name')
+        .eq('client_id', clientId)
         .single();
 
       if (client?.primary_contact_email) {
-        let recipientName = isValidName(client.primary_contact_name) ? client.primary_contact_name : (isValidName(client.name) ? client.name : "Valued Client");
+        let recipientName = isValidName(client.primary_contact_name) ? client.primary_contact_name : (isValidName(client.client_name) ? client.client_name : "Valued Client");
         await sendMessageNotification({
           recipientEmail: client.primary_contact_email,
           recipientName,
@@ -112,14 +112,14 @@ async function handleEmailNotifications(params: EmailNotificationParams) {
     if (senderRole === "ADMIN" && receiverRole === "SERVICE_CENTER" && serviceCenterId) {
       const { data: sc } = await supabase
         .from('service_centers')
-        .select('name, email')
-        .eq('id', serviceCenterId)
+        .select('center_name, email')
+        .eq('service_center_id', serviceCenterId)
         .single();
 
       if (sc?.email) {
         await sendMessageNotification({
           recipientEmail: sc.email,
-          recipientName: sc.name || "Service Center",
+          recipientName: sc.center_name || "Service Center",
           senderName: "Admin - ClientHub",
           messagePreview: messageBody,
           clientId: clientId || 0
@@ -131,14 +131,14 @@ async function handleEmailNotifications(params: EmailNotificationParams) {
     if (senderRole === "ADMIN" && receiverRole === "CPA" && cpaId) {
       const { data: cpa } = await supabase
         .from('cpa_centers')
-        .select('name, email')
-        .eq('id', cpaId)
+        .select('cpa_name, email')
+        .eq('cpa_id', cpaId)
         .single();
 
       if (cpa?.email) {
         await sendMessageNotification({
           recipientEmail: cpa.email,
-          recipientName: cpa.name || "CPA",
+          recipientName: cpa.cpa_name || "CPA",
           senderName: "Admin - ClientHub",
           messagePreview: messageBody,
           clientId: clientId || 0
@@ -149,12 +149,12 @@ async function handleEmailNotifications(params: EmailNotificationParams) {
     // SCENARIO 4: Client messaging ADMIN
     if (senderRole === "CLIENT" && receiverRole === "ADMIN" && clientId) {
       const { data: client } = await supabase
-        .from('clients')
-        .select('name, primary_contact_name')
-        .eq('id', clientId)
+        .from('Clients')
+        .select('client_name, primary_contact_name')
+        .eq('client_id', clientId)
         .single();
-      
-      const clientName = client?.name || "Client";
+
+      const clientName = client?.client_name || "Client";
       const senderName = isValidName(client?.primary_contact_name) ? client.primary_contact_name : clientName;
 
       const admins = await getAdminsWithNotificationsEnabled();
@@ -172,25 +172,25 @@ async function handleEmailNotifications(params: EmailNotificationParams) {
 
     // SCENARIO 5: Client messaging SC
     if (senderRole === "CLIENT" && receiverRole === "SERVICE_CENTER" && clientId) {
-        const { data: client } = await supabase
-            .from('clients')
-            .select(`
-                name,
-                service_center:service_centers(name, email)
+      const { data: client } = await supabase
+        .from('Clients')
+        .select(`
+                client_name,
+                service_center:service_centers(center_name, email)
             `)
-            .eq('id', clientId)
-            .single();
-        
-        const sc = Array.isArray(client?.service_center) ? client.service_center[0] : client.service_center;
-        if (sc?.email) {
-            await sendMessageNotification({
-                recipientEmail: sc.email,
-                recipientName: sc.name || "Service Center",
-                senderName: client.name || "Client",
-                messagePreview: messageBody,
-                clientId
-            });
-        }
+        .eq('client_id', clientId)
+        .single();
+
+      const sc = Array.isArray(client?.service_center) ? client.service_center[0] : client.service_center;
+      if (sc?.email) {
+        await sendMessageNotification({
+          recipientEmail: sc.email,
+          recipientName: sc.center_name || "Service Center",
+          senderName: client.client_name || "Client",
+          messagePreview: messageBody,
+          clientId
+        });
+      }
     }
 
   } catch (err) {

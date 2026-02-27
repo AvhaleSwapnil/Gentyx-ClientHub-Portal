@@ -26,29 +26,29 @@ export async function POST(req: Request) {
         console.log(`🗑️ Starting deletion of client: ${client.client_name} (ID: ${clientId})`);
 
         // Perform deletions (individual calls since we don't have a cascade RPC yet)
-        
+
         // a. Delete client messages
-        await supabase.from('onboarding_messages').delete().eq('client_id', Number(clientId));
-        
+        await supabase.from('messages').delete().eq('client_id', Number(clientId));
+
         // b. Delete manual onboarding tasks
         await supabase.from('onboarding_tasks').delete().eq('client_id', Number(clientId));
-        
+
         // c. Delete client stage subtasks (requires joining or finding IDs)
         const { data: stages } = await supabase.from('client_stages').select('client_stage_id').eq('client_id', Number(clientId));
         if (stages && stages.length > 0) {
             const stageIds = stages.map(s => s.client_stage_id);
             await supabase.from('client_stage_subtasks').delete().in('client_stage_id', stageIds);
         }
-        
+
         // d. Delete client stages
         await supabase.from('client_stages').delete().eq('client_id', Number(clientId));
-        
+
         // e. Delete client users
         await supabase.from('client_users').delete().eq('client_id', Number(clientId));
-        
+
         // f. Delete audit logs
         await supabase.from('audit_logs').delete().eq('client_id', Number(clientId));
-        
+
         // g. Delete user credentials
         if (client.primary_contact_email) {
             await supabase.from('Users').delete().eq('email', client.primary_contact_email).eq('role', 'CLIENT');

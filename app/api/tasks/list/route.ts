@@ -14,7 +14,7 @@ export async function GET(req: Request) {
         id:task_id,
         stageId:stage_id,
         clientId:client_id,
-        clientName:public_Clients(client_name),
+        clientName:Clients(client_name),
         title:task_title,
         assigneeRole:assigned_to_role,
         status,

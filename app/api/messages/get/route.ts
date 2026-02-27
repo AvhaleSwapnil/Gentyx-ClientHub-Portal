@@ -31,7 +31,7 @@ export async function GET(req: Request) {
       .from('messages')
       .select(`
         *,
-        client:clients(name)
+        client:Clients(client_name)
       `);
 
     // Build filters
@@ -62,8 +62,8 @@ export async function GET(req: Request) {
 
     // Flatten client_name from join
     const processedMessages = (messages || []).map(m => ({
-        ...m,
-        client_name: Array.isArray(m.client) ? m.client[0]?.name : (m.client as any)?.name || null
+      ...m,
+      client_name: Array.isArray(m.client) ? m.client[0]?.client_name : (m.client as any)?.client_name || null
     }));
 
     return NextResponse.json({

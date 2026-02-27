@@ -58,11 +58,12 @@ export async function logAudit({
         const fullAction = details ? `${action}: ${details}` : action;
 
         const { error } = await supabase
-            .from('onboarding_audit_log')
+            .from('audit_logs')
             .insert({
                 client_id: Number(clientId),
-                action: fullAction,
+                action: action,
                 actor_role: actorRole,
+                details: details,
                 created_at: new Date().toISOString()
             });
 

@@ -50,17 +50,22 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: "Invalid clientId" }, { status: 404 });
     }
 
-    // 2. Get a safe stage ID
-    const { data: stage, error: stageError } = await supabase
+    // 2. Determine Stage ID (Default to the first onboarding stage if none found)
+    const { data: stageData, error: stageError } = await supabase
       .from('onboarding_stages')
       .select('stage_id')
       .order('stage_id', { ascending: true })
-      .limit(1)
-      .single();
+      .limit(1);
 
-    if (stageError || !stage) {
-      return NextResponse.json({ success: false, error: "No onboarding stages configured" }, { status: 500 });
+    if (stageError || !stageData || stageData.length === 0) {
+      console.error("❌ No onboarding stages found:", stageError || "Empty table");
+      return NextResponse.json({
+        success: false,
+        error: "System Configuration Error: No onboarding stages found. Please ensure onboarding stages are configured in the database."
+      }, { status: 500 });
     }
+
+    const stage = stageData[0];
 
     // 3. Auto-increment order number
     const { data: maxOrderData, error: orderError } = await supabase

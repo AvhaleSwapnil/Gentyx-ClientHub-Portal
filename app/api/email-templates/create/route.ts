@@ -3,7 +3,7 @@ import { createServerClient } from "@/lib/supabase";
 
 export async function POST(req: Request) {
   try {
-    const { name, subject, body } = await req.json();
+    const { name, subject, body, is_default = false } = await req.json();
 
     const supabase = createServerClient();
 
@@ -13,6 +13,7 @@ export async function POST(req: Request) {
         name,
         subject,
         body,
+        is_default,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       });

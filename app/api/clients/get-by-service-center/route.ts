@@ -31,40 +31,40 @@ export async function GET(req: Request) {
 
     // 2. Fetch last message for each client
     const clientIds = (clients || []).map(c => c.client_id);
-    
+
     if (clientIds.length === 0) {
-        return NextResponse.json({ success: true, data: [] });
+      return NextResponse.json({ success: true, data: [] });
     }
 
     const { data: messages, error: messagesError } = await supabase
-        .from('onboarding_messages')
-        .select('client_id, body, created_at, sender_role')
-        .in('client_id', clientIds)
-        .or(`service_center_id.eq.${serviceCenterId},service_center_id.is.null`)
-        .order('created_at', { ascending: false });
+      .from('messages')
+      .select('client_id, message_text, created_at, sender_role')
+      .in('client_id', clientIds)
+      .or(`service_center_id.eq.${serviceCenterId},service_center_id.is.null`)
+      .order('created_at', { ascending: false });
 
     if (messagesError) throw messagesError;
 
     // Map last message to client
     const lastMessageByClient: Record<number, any> = {};
     for (const msg of (messages || [])) {
-        if (!lastMessageByClient[msg.client_id]) {
-            lastMessageByClient[msg.client_id] = msg;
-        }
+      if (!lastMessageByClient[msg.client_id]) {
+        lastMessageByClient[msg.client_id] = msg;
+      }
     }
 
     const result = (clients || []).map(c => ({
-        ...c,
-        last_message_at: lastMessageByClient[c.client_id]?.created_at || null,
-        last_message_body: lastMessageByClient[c.client_id]?.body || null,
-        last_message_sender_role: lastMessageByClient[c.client_id]?.sender_role || null
+      ...c,
+      last_message_at: lastMessageByClient[c.client_id]?.created_at || null,
+      last_message_body: lastMessageByClient[c.client_id]?.message_text || null,
+      last_message_sender_role: lastMessageByClient[c.client_id]?.sender_role || null
     }));
 
     // Re-sort by last message date
     result.sort((a, b) => {
-        const dateA = a.last_message_at ? new Date(a.last_message_at).getTime() : new Date(a.created_at).getTime();
-        const dateB = b.last_message_at ? new Date(b.last_message_at).getTime() : new Date(b.created_at).getTime();
-        return dateB - dateA;
+      const dateA = a.last_message_at ? new Date(a.last_message_at).getTime() : new Date(a.created_at).getTime();
+      const dateB = b.last_message_at ? new Date(b.last_message_at).getTime() : new Date(b.created_at).getTime();
+      return dateB - dateA;
     });
 
     return NextResponse.json({
