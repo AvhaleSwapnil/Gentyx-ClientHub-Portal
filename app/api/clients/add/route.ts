@@ -79,6 +79,7 @@ export async function POST(req: Request) {
         updated_at: new Date().toISOString(),
         progress: 0,
         status: 'Active',
+        is_archived: false,
         cpa_id: cpaId || null,
         service_center_id: serviceCenterId || null
       })
@@ -100,11 +101,11 @@ export async function POST(req: Request) {
       });
 
     if (!userError) {
-        try {
-            await sendClientWelcomeEmail(primaryContactEmail, fullContactName, finalClientName, code || undefined);
-        } catch (emailErr) {
-            console.error("Welcome email failed:", emailErr);
-        }
+      try {
+        await sendClientWelcomeEmail(primaryContactEmail, fullContactName, finalClientName, code || undefined);
+      } catch (emailErr) {
+        console.error("Welcome email failed:", emailErr);
+      }
     }
 
     // 5. Associated Users
