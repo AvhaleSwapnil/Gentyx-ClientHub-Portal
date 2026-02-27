@@ -10,16 +10,16 @@ export async function POST(req: Request) {
 
         // 1. Get current admin email before update
         const { data: currentAdmin } = await supabase
-            .from('admin_settings')
+            .from('AdminSettings')
             .select('email')
             .limit(1)
             .single();
-        
+
         const oldEmail = currentAdmin?.email;
 
         // 2. Update AdminSettings
         const { error: updateError } = await supabase
-            .from('admin_settings')
+            .from('AdminSettings')
             .update({
                 full_name,
                 email,
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
                 updated_at: new Date().toISOString()
             })
             .eq('id', 1); // Assuming ID 1 or the only record. 
-            // Better to find by current email if ID is unknown, but AdminSettings usually has one row.
+        // Better to find by current email if ID is unknown, but AdminSettings usually has one row.
 
         if (updateError) throw updateError;
 

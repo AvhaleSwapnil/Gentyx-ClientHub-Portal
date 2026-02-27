@@ -13,11 +13,11 @@ export async function POST(req: Request) {
 
         // 1. Get current admin email from settings
         const { data: adminSettings, error: adminError } = await supabase
-            .from('admin_settings')
+            .from('AdminSettings')
             .select('email')
             .limit(1)
             .single();
-        
+
         const adminEmail = adminSettings?.email;
 
         if (adminError || !adminEmail) {

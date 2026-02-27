@@ -20,7 +20,7 @@ export async function POST(req: Request) {
         const { data: cpa, error: cpaError } = await supabase
             .from('cpa_centers')
             .select('email')
-            .eq('id', cpaId)
+            .eq('cpa_id', cpaId)  // Fixed: was .eq('id', cpaId) — 'id' column does not exist
             .single();
 
         if (cpaError || !cpa) {
@@ -33,9 +33,9 @@ export async function POST(req: Request) {
             return NextResponse.json({ success: false, error: "CPA email not found" }, { status: 400 });
         }
 
-        // 2. Update the password in users table
+        // 2. Update the password in Users table
         const { error: updateError } = await supabase
-            .from('users')
+            .from('Users')  // Fixed: was 'users' (wrong casing)
             .update({ password: newPassword })
             .eq('email', email);
 

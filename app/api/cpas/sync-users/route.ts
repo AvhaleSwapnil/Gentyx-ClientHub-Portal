@@ -10,12 +10,12 @@ export async function POST() {
         // 1. Get all CPAs that don't have a user account yet
         const { data: cpas, error: cpaError } = await supabase
             .from('cpa_centers')
-            .select('id, name, email');
+            .select('cpa_id, cpa_name, email');
 
         if (cpaError) throw cpaError;
 
         const { data: users, error: userError } = await supabase
-            .from('users')
+            .from('Users')
             .select('email');
 
         if (userError) throw userError;
@@ -29,14 +29,13 @@ export async function POST() {
         for (const cpa of cpasToCreate) {
             try {
                 const { error: insertError } = await supabase
-                    .from('users')
+                    .from('Users')
                     .insert({
                         email: cpa.email,
                         password: DEFAULT_PASSWORD,
-                        role: "CPA",
-                        created_at: new Date().toISOString()
+                        role: "CPA"
                     });
-                
+
                 if (insertError) throw insertError;
 
                 createdCount++;

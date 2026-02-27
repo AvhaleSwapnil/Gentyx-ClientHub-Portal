@@ -7,7 +7,7 @@ export async function GET() {
 
         // 1. Single admin settings row
         const { data: admin, error } = await supabase
-            .from('admin_settings')
+            .from('AdminSettings')
             .select('*')
             .limit(1)
             .single();
@@ -15,14 +15,14 @@ export async function GET() {
         if (error || !admin) {
             // If missing, return a default profile instead of erroring
             // In a real system, the initial admin should be seeded.
-            return NextResponse.json({ 
-                success: true, 
+            return NextResponse.json({
+                success: true,
                 data: {
                     full_name: 'Administrator',
                     email: 'admin@mail.com',
                     phone: '',
                     role: 'Administrator'
-                } 
+                }
             });
         }
 

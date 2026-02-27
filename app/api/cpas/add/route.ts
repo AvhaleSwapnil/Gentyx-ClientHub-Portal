@@ -17,15 +17,15 @@ export async function POST(req: Request) {
     // 1. Check for duplicate CPA name
     const { data: existingCpa } = await supabase
       .from('cpa_centers')
-      .select('id, name')
-      .ilike('name', name.trim())
+      .select('cpa_id, cpa_name')
+      .ilike('cpa_name', name.trim())
       .limit(1)
       .single();
 
     if (existingCpa) {
       return NextResponse.json({
         success: false,
-        message: `A CPA named "${existingCpa.name}" already exists`
+        message: `A CPA named "${existingCpa.cpa_name}" already exists`
       }, { status: 409 });
     }
 
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
     if (email && email.trim()) {
       const lowerEmail = email.trim().toLowerCase();
       const { data: existingUser } = await supabase
-        .from('users')
+        .from('Users')
         .select('id, role')
         .eq('email', lowerEmail)
         .single();
@@ -49,14 +49,14 @@ export async function POST(req: Request) {
     // 3. Generate Next CPA Code
     const { data: lastCpa } = await supabase
       .from('cpa_centers')
-      .select('code')
-      .order('id', { ascending: false })
+      .select('cpa_code')
+      .order('cpa_id', { ascending: false })
       .limit(1)
       .single();
 
     let nextCode = "CPA001";
-    if (lastCpa && lastCpa.code) {
-      const numMatch = lastCpa.code.match(/\d+/);
+    if (lastCpa && lastCpa.cpa_code) {
+      const numMatch = lastCpa.cpa_code.match(/\d+/);
       const num = numMatch ? parseInt(numMatch[0]) + 1 : 1;
       nextCode = "CPA" + num.toString().padStart(3, "0");
     }
@@ -65,13 +65,13 @@ export async function POST(req: Request) {
     const { data: newCpa, error: insertError } = await supabase
       .from('cpa_centers')
       .insert({
-        code: nextCode,
-        name: name,
+        cpa_code: nextCode,
+        cpa_name: name,
         email: email,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       })
-      .select('id')
+      .select('cpa_id')
       .single();
 
     if (insertError) throw insertError;
@@ -79,12 +79,11 @@ export async function POST(req: Request) {
     // 5. Create User for CPA login
     if (email) {
       const { error: userError } = await supabase
-        .from('users')
+        .from('Users')
         .insert({
           email: email,
           password: DEFAULT_PASSWORD,
-          role: "CPA",
-          created_at: new Date().toISOString()
+          role: "CPA"
         });
 
       if (!userError) {
@@ -98,7 +97,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       success: true,
-      id: newCpa.id,
+      id: newCpa.cpa_id,
       code: nextCode,
       message: `CPA created successfully. Login: ${email} / ${DEFAULT_PASSWORD}`,
     });

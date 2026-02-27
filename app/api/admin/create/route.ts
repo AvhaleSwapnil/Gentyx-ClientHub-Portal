@@ -11,9 +11,9 @@ export async function POST(req: Request) {
 
         const supabase = createServerClient();
 
-        // 1. Get current master admin email (from admin_settings)
+        // 1. Get current master admin email (from AdminSettings)
         const { data: adminSettings, error: adminError } = await supabase
-            .from('admin_settings')
+            .from('AdminSettings')  // Fixed: was 'admin_settings'
             .select('email')
             .limit(1)
             .single();
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
 
         // 2. Verify current password against the Master Admin
         const { data: currentUser, error: userError } = await supabase
-            .from('users')
+            .from('Users')  // Fixed: was 'users'
             .select('*')
             .eq('email', adminEmail)
             .eq('role', 'ADMIN')
@@ -36,9 +36,9 @@ export async function POST(req: Request) {
             return NextResponse.json({ success: false, error: "Incorrect current password" }, { status: 401 });
         }
 
-        // 3. Check if new email already exists in users
+        // 3. Check if new email already exists in Users
         const { count: userCount } = await supabase
-            .from('users')
+            .from('Users')  // Fixed: was 'users'
             .select('*', { count: 'exact', head: true })
             .eq('email', newEmail);
 
@@ -46,9 +46,9 @@ export async function POST(req: Request) {
             return NextResponse.json({ success: false, error: "Email already exists in Users" }, { status: 400 });
         }
 
-        // Check if email already exists in admin_settings
+        // Check if email already exists in AdminSettings
         const { count: adminCount } = await supabase
-            .from('admin_settings')
+            .from('AdminSettings')  // Fixed: was 'admin_settings'
             .select('*', { count: 'exact', head: true })
             .eq('email', newEmail);
 
@@ -58,19 +58,19 @@ export async function POST(req: Request) {
 
         // 4. Create new Admin user
         const { error: insertUserError } = await supabase
-            .from('users')
+            .from('Users')  // Fixed: was 'users'
             .insert({
                 email: newEmail,
                 password: newPassword,
-                role: 'ADMIN',
-                created_at: new Date().toISOString()
+                role: 'ADMIN'
+                // Removed created_at — Users table has no such column
             });
 
         if (insertUserError) throw insertUserError;
 
-        // 5. Add to admin_settings with notifications enabled by default
+        // 5. Add to AdminSettings
         const { error: insertSettingsError } = await supabase
-            .from('admin_settings')
+            .from('AdminSettings')  // Fixed: was 'admin_settings'
             .insert({
                 full_name: 'New Admin',
                 email: newEmail,
