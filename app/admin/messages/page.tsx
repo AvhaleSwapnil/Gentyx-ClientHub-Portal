@@ -191,7 +191,7 @@ export default function AdminMessages() {
                                                             ? "bg-blue-500 text-white"
                                                             : "bg-blue-100 text-blue-700"
                                                     )}>
-                                                        {client.name.substring(0, 2).toUpperCase()}
+                                                        {(client.name || "?").substring(0, 2).toUpperCase()}
                                                         {unread && (
                                                             <span className="absolute top-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-white ring-2 ring-white"></span>
                                                         )}
@@ -306,7 +306,7 @@ export default function AdminMessages() {
                                                             ? "bg-emerald-500 text-white"
                                                             : "bg-emerald-100 text-emerald-700"
                                                     )}>
-                                                        {sc.name.substring(0, 2).toUpperCase()}
+                                                        {(sc.name || "?").substring(0, 2).toUpperCase()}
                                                         {unread && (
                                                             <span className="absolute top-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-white ring-2 ring-white"></span>
                                                         )}
@@ -420,7 +420,7 @@ export default function AdminMessages() {
                                                             ? "bg-amber-500 text-white"
                                                             : "bg-amber-100 text-amber-700"
                                                     )}>
-                                                        {cpa.name.substring(0, 2).toUpperCase()}
+                                                        {(cpa.name || "?").substring(0, 2).toUpperCase()}
                                                         {unread && (
                                                             <span className="absolute top-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-white ring-2 ring-white"></span>
                                                         )}

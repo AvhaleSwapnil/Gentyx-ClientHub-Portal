@@ -96,7 +96,7 @@ export async function POST(req: Request) {
       .insert({
         email: lowerEmail,
         password: "ClientHub@2025", // Default password – should be hashed in production
-        role: "client",
+        role: "CLIENT",
       });
 
     if (userError) {

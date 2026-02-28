@@ -103,7 +103,7 @@ export default function ClientSettingsPage() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    client_id: parseInt(clientId),
+                    clientId: parseInt(clientId),
                     client_name: profileData.clientName,
                     primary_contact_name: profileData.contactName,
                     primary_contact_email: profileData.email,

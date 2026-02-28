@@ -81,7 +81,7 @@ export async function POST(req: Request) {
         .insert({
           email: lowerEmail,
           password: "ServiceCenter@2025",
-          role: "service_center",
+          role: "SERVICE_CENTER",
         });
 
       if (userError) {
