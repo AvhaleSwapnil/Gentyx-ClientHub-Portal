@@ -74,22 +74,25 @@ export async function POST(req: Request) {
     const centerId = newCenter.service_center_id;
 
     // 5. Create User entry for Service Center login
-    if (email) {
+    if (email && email.trim()) {
+      const lowerEmail = email.trim().toLowerCase();
       const { error: userError } = await supabase
         .from('Users')
         .insert({
-          email: email,
+          email: lowerEmail,
           password: "ServiceCenter@2025",
-          role: "SERVICE_CENTER",
-          created_at: new Date().toISOString()
+          role: "service_center",
         });
 
-      if (!userError) {
-        try {
-          await sendServiceCenterWelcomeEmail(email, name, centerCode);
-        } catch (emailErr) {
-          console.error("Welcome email failed for Service Center:", emailErr);
-        }
+      if (userError) {
+        console.error("Failed to insert service center user into Users table:", userError);
+        throw new Error(`User creation failed: ${userError.message}`);
+      }
+
+      try {
+        await sendServiceCenterWelcomeEmail(lowerEmail, name, centerCode);
+      } catch (emailErr) {
+        console.error("Welcome email failed for Service Center (non-blocking):", emailErr);
       }
     }
 

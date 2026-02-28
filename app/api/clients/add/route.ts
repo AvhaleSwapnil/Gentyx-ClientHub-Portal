@@ -94,18 +94,20 @@ export async function POST(req: Request) {
     const { error: userError } = await supabase
       .from('Users')
       .insert({
-        email: primaryContactEmail,
-        password: "ClientHub@2025", // Securely hashed in production, though supabase usually handles auth. Using legacy Users table for now as requested.
-        role: "CLIENT",
-        created_at: new Date().toISOString()
+        email: lowerEmail,
+        password: "ClientHub@2025", // Default password – should be hashed in production
+        role: "client",
       });
 
-    if (!userError) {
-      try {
-        await sendClientWelcomeEmail(primaryContactEmail, fullContactName, finalClientName, code || undefined);
-      } catch (emailErr) {
-        console.error("Welcome email failed:", emailErr);
-      }
+    if (userError) {
+      console.error("Failed to insert user into Users table:", userError);
+      throw new Error(`User creation failed: ${userError.message}`);
+    }
+
+    try {
+      await sendClientWelcomeEmail(primaryContactEmail, fullContactName, finalClientName, code || undefined);
+    } catch (emailErr) {
+      console.error("Welcome email failed (non-blocking):", emailErr);
     }
 
     // 5. Associated Users
