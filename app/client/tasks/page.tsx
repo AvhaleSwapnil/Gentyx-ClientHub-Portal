@@ -68,9 +68,9 @@ type StageItem = {
 };
 
 type SubtaskItem = {
-  subtask_id: number;
+  id: number;
   client_stage_id: number;
-  subtask_title: string;
+  title: string;
   status: string;
   order_number: number;
   due_date?: string | null;
@@ -205,8 +205,8 @@ export default function ClientTasks() {
     stagesWithSubtasks.forEach((stage) => {
       stage.subtasks.forEach((sub) => {
         mappedOnboarding.push({
-          id: sub.subtask_id, // Note: ID collision possible if not handled by DB IDs properly. Assuming distinct for now or OK for display.
-          title: sub.subtask_title,
+          id: sub.id, // ✅ Corrected from subtask_id
+          title: sub.title, // ✅ Corrected from subtask_title
           stage: stage.stage_name,
           status: sub.status || "Not Started",
           dueDate: sub.due_date || null, // ✅ Fix: Ensure undefined becomes null
@@ -332,13 +332,13 @@ export default function ClientTasks() {
   const handleSubtaskStatusChange = async (subtaskId: number, newStatus: string) => {
     // If changing to Completed, show the document upload modal
     if (newStatus === "Completed") {
-      const subtask = subtasksFlat.find((s) => s.subtask_id === subtaskId);
+      const subtask = subtasksFlat.find((s) => s.id === subtaskId);
       if (subtask) {
         // Find the stage that this subtask belongs to
         const stage = stages.find((s) => s.client_stage_id === subtask.client_stage_id);
         setPendingTask({
           id: subtaskId,
-          title: subtask.subtask_title,
+          title: subtask.title,
           type: "onboarding",
           stageName: stage?.stage_name, // Include stage name for folder structure
         });

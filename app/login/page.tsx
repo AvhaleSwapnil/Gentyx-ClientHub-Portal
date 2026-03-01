@@ -186,9 +186,9 @@ export default function LoginPage() {
         </form>
       </div>
 
-      <div className="powered-by-text">POWERED BY HUBONE SYSTEMS</div>
+      <div className="powered-by-text">POWERED BY GENTYX SYSTEMS</div>
       <p className="footer-text">
-        © 2014–{new Date().getFullYear()} HubOne Systems Inc. – All Rights Reserved
+        © 2014–{new Date().getFullYear()} Gentyx Systems Inc. – All Rights Reserved
       </p>
     </div>
   );
@@ -197,69 +197,71 @@ export default function LoginPage() {
   // NEW LOGIN UI
   return (
     <div className="login-page-new">
-      {/* LOGO */}
-      <div className="logo-container">
-        <img
-          src="/images/ClientPortal%20Full-Logo.png"
-          alt="Legacy Accounting Services"
-          className="logo-img"
-        />
-      </div>
-
-      {/* TITLE */}
-      <h1 className="portal-title">Client Portal</h1>
-
-      {/* FORM */}
-      <form onSubmit={handleSubmit} className="login-form-container">
-        <div className="input-group">
-          <label className="input-label">Email Address</label>
-          <input
-            type="email"
-            placeholder="user@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="input-field"
-            required
+      <div className="login-card-container">
+        {/* LOGO */}
+        <div className="logo-container">
+          <img
+            src="/images/gentyxfinallogo.png"
+            alt="Gentyx Logo"
+            className="logo-img"
           />
         </div>
 
-        <div className="input-group">
-          <label className="input-label">Password</label>
-          <div className="password-wrapper">
+        {/* TITLE */}
+        <h1 className="portal-title">Gentyx Client Portal</h1>
+
+        {/* FORM */}
+        <form onSubmit={handleSubmit} className="login-form-container">
+          <div className="input-group">
+            <label className="input-label">Email Address</label>
             <input
-              type={showPassword ? "text" : "password"}
-              placeholder="********"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type="email"
+              placeholder="name@company.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="input-field"
               required
             />
-            <button
-              type="button"
-              className="eye-btn"
-              onClick={() => setShowPassword((prev) => !prev)}
-            >
-              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-            </button>
           </div>
-        </div>
 
-        {errorMsg && (
-          <p className="error-text">
-            {errorMsg}
-          </p>
-        )}
+          <div className="input-group">
+            <label className="input-label">Password</label>
+            <div className="password-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="input-field"
+                required
+              />
+              <button
+                type="button"
+                className="eye-btn"
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+            </div>
+          </div>
 
-        <button type="submit" className="login-button-new" disabled={loading}>
-          {loading ? "Logging in..." : "LOG IN"}
-        </button>
-      </form>
+          {errorMsg && (
+            <p className="error-text">
+              {errorMsg}
+            </p>
+          )}
+
+          <button type="submit" className="login-button-new" disabled={loading}>
+            {loading ? "Signing in..." : "Log In"}
+          </button>
+        </form>
+      </div>
 
       {/* FOOTER */}
       <div className="footer-container">
-        <div className="powered-by">POWERED BY HUBONE SYSTEMS</div>
+        <div className="powered-by">POWERED BY GENTYX</div>
         <p>
-          © 2014–{new Date().getFullYear()} HubOne Systems Inc.  All Rights Reserved
+          © 2014–{new Date().getFullYear()} Gentyx Inc. All Rights Reserved
         </p>
       </div>
     </div>

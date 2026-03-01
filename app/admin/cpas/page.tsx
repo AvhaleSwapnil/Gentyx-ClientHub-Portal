@@ -322,12 +322,12 @@ export default function CPAsPage() {
           {filteredCPAs.map((c) => (
             <Card key={c.cpa_id} className="hover:shadow-md transition-shadow group relative overflow-hidden flex flex-col">
               {/* Top Accent Border */}
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-teal-500" />
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-accent" />
 
               <CardHeader className="pb-3 pt-5">
                 <div className="flex justify-between items-start">
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                    <div className="h-10 w-10 rounded-lg bg-accent/10 text-accent flex items-center justify-center shrink-0">
                       <UserCheck className="h-5 w-5" />
                     </div>
                     <div className="min-w-0">

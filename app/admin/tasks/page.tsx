@@ -27,8 +27,8 @@ const STATUS_OPTIONS = ["Not Started", "In Progress", "Completed"] as const;
 
 const STATUS_COLORS: Record<string, string> = {
   "Not Started": "bg-amber-100 text-amber-700",
-  "In Progress": "bg-blue-100 text-blue-700",
-  "Completed": "bg-green-100 text-green-700",
+  "In Progress": "bg-primary/10 text-primary",
+  "Completed": "bg-accent/10 text-accent",
 };
 
 
@@ -155,8 +155,8 @@ export default function AdminTasksPage() {
         return (
           <span
             className={`px-2 py-1 rounded-full text-xs font-semibold ${isOnboarding
-              ? "bg-indigo-50 text-indigo-700"
-              : "bg-slate-100 text-slate-700"
+              ? "bg-primary/10 text-primary"
+              : "bg-muted text-muted-foreground"
               }`}
           >
             {isOnboarding ? "Onboarding" : "Assigned"}
@@ -297,9 +297,9 @@ export default function AdminTasksPage() {
             size="sm"
             variant="outline"
             onClick={() => {
-              const rowClientId = row.clientId || row.client_id;
+              const rowClientId = row.clientId;
               const tasksForClient = allTasks.filter(
-                (t: any) => Number(t.clientId || t.client_id) === Number(rowClientId)
+                (t: any) => Number(t.clientId) === Number(rowClientId)
               );
 
               setSelectedClientTasks(tasksForClient);

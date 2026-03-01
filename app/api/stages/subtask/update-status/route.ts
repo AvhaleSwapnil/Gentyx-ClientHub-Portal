@@ -25,13 +25,13 @@ export async function POST(req: Request) {
                 title,
                 status,
                 client_stages (
-                    name,
+                    stage_name,
                     client_id,
-                    clients (
-                        name,
+                    Clients (
+                        client_name,
                         primary_contact_name,
-                        cpa:cpa_centers(name),
-                        service_center:service_centers(name)
+                        cpa:cpa_centers(cpa_name),
+                        service_center:service_centers(center_name)
                     )
                 )
             `)
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
         // 2. Update subtask status
         const { error: updateError } = await supabase
             .from('client_stage_subtasks')
-            .update({ 
+            .update({
                 status: status,
                 updated_at: new Date().toISOString()
             })
@@ -62,16 +62,16 @@ export async function POST(req: Request) {
                 const admins = await getAdminsWithNotificationsEnabled();
                 if (admins.length > 0) {
                     const stage = subtaskData.client_stages as any;
-                    const client = stage.clients as any;
+                    const client = stage.Clients as any;
                     const cpa = Array.isArray(client.cpa) ? client.cpa[0] : client.cpa;
                     const sc = Array.isArray(client.service_center) ? client.service_center[0] : client.service_center;
 
                     const whoRole = (completedByRole || "CLIENT").toUpperCase();
                     let whoName = completedByName || "";
                     if (!whoName) {
-                        if (whoRole === "CLIENT") whoName = client.primary_contact_name || client.name || "Client";
-                        else if (whoRole === "CPA") whoName = cpa?.name || "CPA";
-                        else if (whoRole === "SERVICE_CENTER") whoName = sc?.name || "Service Center";
+                        if (whoRole === "CLIENT") whoName = client.primary_contact_name || client.client_name || "Client";
+                        else if (whoRole === "CPA") whoName = cpa?.cpa_name || "CPA";
+                        else if (whoRole === "SERVICE_CENTER") whoName = sc?.center_name || "Service Center";
                         else whoName = "User";
                     }
 
@@ -80,11 +80,11 @@ export async function POST(req: Request) {
                             adminEmail: admin.email,
                             adminName: admin.name || "Admin",
                             taskTitle: subtaskData.title,
-                            clientName: client.name || "Unknown Client",
+                            clientName: client.client_name || "Unknown Client",
                             completedByRole: whoRole as any,
                             completedByName: whoName,
                             taskType: "ONBOARDING",
-                            stageName: stage.name,
+                            stageName: stage.stage_name,
                         });
                     }
                 }

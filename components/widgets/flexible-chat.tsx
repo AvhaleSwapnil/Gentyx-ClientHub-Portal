@@ -40,17 +40,17 @@ interface FlexibleChatProps {
 }
 
 const AVATAR_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-    ADMIN: { bg: "bg-violet-100", text: "text-violet-700", border: "border-violet-200" },
-    CLIENT: { bg: "bg-blue-100", text: "text-blue-700", border: "border-blue-200" },
-    SERVICE_CENTER: { bg: "bg-emerald-100", text: "text-emerald-700", border: "border-emerald-200" },
+    ADMIN: { bg: "bg-[#05164D]/10", text: "text-[#05164D]", border: "border-[#05164D]/20" },
+    CLIENT: { bg: "bg-slate-100", text: "text-slate-700", border: "border-slate-200" },
+    SERVICE_CENTER: { bg: "bg-[#61A800]/10", text: "text-[#61A800]", border: "border-[#61A800]/20" },
     CPA: { bg: "bg-amber-100", text: "text-amber-700", border: "border-amber-200" },
 }
 
 const BUBBLE_COLORS: Record<string, string> = {
-    ADMIN: "bg-violet-500",
-    CLIENT: "bg-blue-500",
-    SERVICE_CENTER: "bg-emerald-500",
-    CPA: "bg-amber-500",
+    ADMIN: "bg-[#05164D]",
+    CLIENT: "bg-slate-600",
+    SERVICE_CENTER: "bg-[#61A800]",
+    CPA: "bg-amber-600",
 }
 
 export function FlexibleChat({

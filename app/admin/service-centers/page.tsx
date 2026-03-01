@@ -358,12 +358,12 @@ export default function ServiceCentersPage() {
           {filteredCenters.map((center) => (
             <Card key={center.center_id} className="hover:shadow-md transition-shadow group relative overflow-hidden flex flex-col">
               {/* Top Accent Border */}
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500" />
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-accent" />
 
               <CardHeader className="pb-3 pt-5">
                 <div className="flex justify-between items-start">
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
                       <Building2 className="h-5 w-5" />
                     </div>
                     <div className="min-w-0">

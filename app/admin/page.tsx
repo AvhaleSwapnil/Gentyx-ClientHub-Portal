@@ -318,14 +318,14 @@ export default function AdminDashboard() {
     <>
       <div className="space-y-6">
         {/* ---------- HEADER ---------- */}
-        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+        <h1 className="text-2xl font-bold text-primary">Admin Dashboard</h1>
 
         {/* ---------- KPI CARDS ---------- */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {kpis.map((k) => (
             <Card
               key={k.label}
-              className="cursor-pointer border border-slate-200/70 shadow-sm transition hover:shadow-md"
+              className="cursor-pointer border border-slate-200/70 shadow-sm transition hover:shadow-md hover:border-primary/30"
               onClick={k.onClick}
             >
               <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -333,7 +333,7 @@ export default function AdminDashboard() {
                 <k.icon className={`h-4 w-4 ${k.color}`} />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{k.value}</div>
+                <div className="text-2xl font-bold text-primary">{k.value}</div>
                 <p className="mt-1 text-xs text-muted-foreground">{k.helper}</p>
               </CardContent>
             </Card>
@@ -346,7 +346,7 @@ export default function AdminDashboard() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
-                <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
                   <UserCheck className="h-3.5 w-3.5 text-white" />
                 </div>
                 Client Onboarding Progress
@@ -361,12 +361,12 @@ export default function AdminDashboard() {
                 (() => {
                   // Group clients by completion percentage
                   const groups = [
-                    { label: "Not Started", range: [0, 0], color: "#9ca3af" },
-                    { label: "Early (1-25%)", range: [1, 25], color: "#f59e0b" },
-                    { label: "Mid (26-50%)", range: [26, 50], color: "#3b82f6" },
-                    { label: "Advanced (51-75%)", range: [51, 75], color: "#8b5cf6" },
-                    { label: "Near Done (76-99%)", range: [76, 99], color: "#10b981" },
-                    { label: "Completed", range: [100, 100], color: "#059669" },
+                    { label: "Not Started", range: [0, 0], color: "#CBD5E1" },
+                    { label: "Early (1-25%)", range: [1, 25], color: "#F59E0B" },
+                    { label: "Mid (26-50%)", range: [26, 50], color: "#05164D" },
+                    { label: "Advanced (51-75%)", range: [51, 75], color: "#6366F1" },
+                    { label: "Near Done (76-99%)", range: [76, 99], color: "#61A800" },
+                    { label: "Completed", range: [100, 100], color: "#15803D" },
                   ];
 
                   const chartData = groups.map(group => {
@@ -441,11 +441,11 @@ export default function AdminDashboard() {
                         ))}
                         <div className="pt-2 mt-2 border-t grid grid-cols-2 gap-2 text-center">
                           <div>
-                            <div className="text-lg font-bold text-blue-600">{totalClients}</div>
+                            <div className="text-lg font-bold text-primary">{totalClients}</div>
                             <div className="text-xs text-muted-foreground">Total</div>
                           </div>
                           <div>
-                            <div className="text-lg font-bold text-green-600">{completedCount}</div>
+                            <div className="text-lg font-bold text-brand-accent">{completedCount}</div>
                             <div className="text-xs text-muted-foreground">Done</div>
                           </div>
                         </div>
@@ -461,7 +461,7 @@ export default function AdminDashboard() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
-                <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
+                <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-primary via-primary/80 to-accent flex items-center justify-center">
                   <ListChecks className="h-3.5 w-3.5 text-white" />
                 </div>
                 Task Status Overview
@@ -475,11 +475,11 @@ export default function AdminDashboard() {
               ) : (
                 (() => {
                   const statusConfig = [
-                    { status: "Pending", color: "#f59e0b" },
-                    { status: "In Progress", color: "#3b82f6" },
-                    { status: "In Review", color: "#8b5cf6" },
-                    { status: "Completed", color: "#10b981" },
-                    { status: "Approved", color: "#059669" },
+                    { status: "Pending", color: "#F59E0B" },
+                    { status: "In Progress", color: "#05164D" },
+                    { status: "In Review", color: "#6366F1" },
+                    { status: "Completed", color: "#61A800" },
+                    { status: "Approved", color: "#15803D" },
                   ];
 
                   const chartData = statusConfig.map(item => ({
@@ -552,11 +552,11 @@ export default function AdminDashboard() {
                             <div className="text-xs text-muted-foreground">Total</div>
                           </div>
                           <div>
-                            <div className="text-lg font-bold text-red-600">{overdueTasks}</div>
+                            <div className="text-lg font-bold text-destructive">{overdueTasks}</div>
                             <div className="text-xs text-muted-foreground">Overdue</div>
                           </div>
                           <div>
-                            <div className="text-lg font-bold text-green-600">{doneCount}</div>
+                            <div className="text-lg font-bold text-brand-accent">{doneCount}</div>
                             <div className="text-xs text-muted-foreground">Done</div>
                           </div>
                         </div>

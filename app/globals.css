@@ -5,50 +5,50 @@
 
 :root {
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: #002E36;
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: #002E36;
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  /* Primary button color: Bright Blue #00B0F0 */
-  --primary: oklch(0.65 0.22 220);
+  --popover-foreground: #002E36;
+  /* Gentyx Primary Navy Blue: #05164D */
+  --primary: #05164D;
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  /* Accent/CTA hover: Mid Green #8BC53D */
-  --accent: oklch(0.72 0.18 120);
-  --accent-foreground: oklch(0.145 0 0);
+  /* Subtle UI Accent for hovers, dropdowns etc. - Using a light navy tint */
+  --accent: #F0F2F9;
+  --accent-foreground: #05164D;
+  /* Gentyx Accent Lime Green (stored in a separate brand token) */
+  --brand-accent: #61A800;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: #05164D;
   /* Chart colors: In Progress, Pending, Needs Fix, Approved */
-  --chart-1: oklch(0.72 0.18 120);
+  --chart-1: #61A800;
   --chart-2: oklch(0.65 0.2 40);
   --chart-3: oklch(0.5 0.2 20);
-  --chart-4: oklch(0.65 0.22 220);
+  --chart-4: #05164D;
   --chart-5: oklch(0.769 0.188 70.08);
   --radius: 0.625rem;
-  /* Sidebar: White background with black text */
+  /* Sidebar: White background with navy accents */
   --sidebar: #FFFFFF;
   --sidebar-foreground: #334155;
-  /* Active tab: Transparent/White BG with Burgundy Text */
+  /* Active tab: Transparent/White BG with Gentyx Navy */
   --sidebar-primary: #FFFFFF;
-  --sidebar-primary-foreground: #470D1B;
-  /* Hover state: Very light gray to indicate interactivity, but keeping it subtle */
-  --sidebar-accent: #F8FAFC;
-  --sidebar-accent-foreground: #470D1B;
+  --sidebar-primary-foreground: #05164D;
+  /* Hover state: Light Gentyx Green tint */
+  --sidebar-accent: #F4FAE8;
+  --sidebar-accent-foreground: #61A800;
   --sidebar-border: #E2E8F0;
-  --sidebar-ring: #470D1B;
+  --sidebar-ring: #05164D;
 
   /* Company color tokens */
-  --color-success: oklch(0.8 0.15 120);
+  --color-success: #61A800;
   --color-warning: oklch(0.65 0.2 40);
   --color-error: oklch(0.5 0.2 20);
-  --color-info: oklch(0.85 0.1 220);
+  --color-info: #05164D;
 }
 
 .dark {
@@ -58,41 +58,41 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.145 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  /* Dark mode primary: Bright Blue */
-  --primary: oklch(0.7 0.22 220);
-  --primary-foreground: oklch(0.145 0 0);
+  /* Gentyx Primary Navy Blue (adapted for dark mode): #2d3a6d */
+  --primary: #2d3a6d;
+  --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  /* Dark mode accent: Mid Green */
-  --accent: oklch(0.75 0.18 120);
-  --accent-foreground: oklch(0.145 0 0);
+  /* Dark mode subtle accent */
+  --accent: #1E293B;
+  --accent-foreground: oklch(0.985 0 0);
+  /* Gentyx Accent Lime Green for dark mode */
+  --brand-accent: #a3e635;
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
   --border: oklch(0.269 0 0);
   --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
+  --ring: #2d3a6d;
   /* Dark mode chart colors adapted */
-  --chart-1: oklch(0.75 0.18 120);
+  --chart-1: #a3e635;
   --chart-2: oklch(0.65 0.2 40);
   --chart-3: oklch(0.55 0.2 20);
-  --chart-4: oklch(0.7 0.22 220);
+  --chart-4: #2d3a6d;
   --chart-5: oklch(0.645 0.246 16.439);
-  /* Dark mode sidebar: Soft green adapted */
-  --sidebar: oklch(0.25 0.02 120);
-  --sidebar-foreground: oklch(0.9 0.02 120);
-  --sidebar-primary: oklch(0.75 0.18 120);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.75 0.18 120);
-  --sidebar-accent-foreground: oklch(1 0 0);
-  --sidebar-border: oklch(0.3 0.02 120);
-  --sidebar-ring: oklch(0.439 0 0);
+  /* Dark mode sidebar: Gentyx Navy background */
+  --sidebar: #05164D;
+  --sidebar-foreground: #f1f5f9;
+  --sidebar-primary: #f1f5f9;
+  --sidebar-primary-foreground: #05164D;
+  --sidebar-accent: #1e293b;
+  --sidebar-accent-foreground: #f1f5f9;
+  --sidebar-border: #1e293b;
+  --sidebar-ring: #64748b;
   /* Dark mode company colors */
-  --color-success: oklch(0.75 0.15 120);
+  --color-success: #a3e635;
   --color-warning: oklch(0.65 0.2 40);
   --color-error: oklch(0.55 0.2 20);
-  --color-info: oklch(0.75 0.1 220);
+  --color-info: #2d3a6d;
 }
 
 @theme {
@@ -119,6 +119,8 @@
 
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+
+  --color-brand-accent: var(--brand-accent);
 
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);

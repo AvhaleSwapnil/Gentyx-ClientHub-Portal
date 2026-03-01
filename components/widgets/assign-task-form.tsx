@@ -530,8 +530,8 @@ export function AssignTaskForm({ context }: { context?: Record<string, any> }) {
                               .replace(/\{\{taskTitle\}\}/gi, taskTitle || "")
                               .replace(/\{\{dueDate\}\}/gi, dueDate || "")
                               .replace(/\{\{assigneeRole\}\}/gi, assigneeRole?.replace("_", " ") || "")
-                              .replace(/\{\{Company_Name\}\}/gi, "MySage ClientHub")
-                              .replace(/\{\{Support_Email\}\}/gi, "support@clienthub.com")
+                              .replace(/\{\{Company_Name\}\}/gi, "Gentyx Portal")
+                              .replace(/\{\{Support_Email\}\}/gi, "support@gentyx.com")
                           }));
                           toast({ title: "Auto-filled", description: "Variables replaced with actual values" });
                         }}

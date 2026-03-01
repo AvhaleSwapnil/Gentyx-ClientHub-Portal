@@ -94,20 +94,20 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         {/* LOGO SECTION - Clickable to navigate to dashboard */}
         <Link
           href={getDashboardUrl()}
-          className="h-24 flex flex-col items-center justify-center px-2 border-b border-white/10 bg-[#470D1B] cursor-pointer hover:bg-[#5a1f2d] transition-colors"
+          className="h-20 flex flex-col items-center justify-center px-4 border-b border-slate-200 bg-white cursor-pointer hover:bg-slate-50 transition-colors"
           title="Go to Dashboard"
         >
           {sidebarCollapsed ? (
             <img
-              src="/images/imagepng.png"
+              src="/images/gentyxfinallogo.png"
               alt="Logo"
               className="w-10 h-10 object-contain"
             />
           ) : (
             <img
-              src="/images/legacy%20client%20portal%20branding%20logo.png"
-              alt="Legacy Client Portal"
-              className="max-w-[190px] max-h-[93px] w-auto h-auto object-contain"
+              src="/images/gentyxfinallogo.png"
+              alt="Gentyx Logo"
+              className="max-w-[160px] max-h-[50px] w-auto h-auto object-contain"
             />
           )}
         </Link>
@@ -164,7 +164,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <footer className="mt-10 border-t pt-4 text-sm text-muted-foreground">
               <div className="flex items-center justify-between">
                 <span>
-                  © 2014–{new Date().getFullYear()} HubOne Systems Inc.  All Rights Reserved
+                  © 2014–{new Date().getFullYear()} Gentyx Inc. All Rights Reserved
                 </span>
                 <RoleBadge />
               </div>

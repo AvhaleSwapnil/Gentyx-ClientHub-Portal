@@ -35,7 +35,7 @@ export const ROLE_CONTENT: Record<string, RoleHelpContent> = {
         title: "Admin",
         icon: Shield,
         description: "Full system access and administrative control. Oversees the entire onboarding lifecycle.",
-        color: "text-blue-600 dark:text-blue-400",
+        color: "text-primary dark:text-primary",
         responsibilities: [
             "Create and manage Client, Preparer, and Service Center profiles",
             "Configure onboarding stages and associated tasks",
@@ -80,7 +80,7 @@ export const ROLE_CONTENT: Record<string, RoleHelpContent> = {
         title: "Client",
         icon: Handshake,
         description: "The end-user organization undergoing the onboarding process.",
-        color: "text-green-600 dark:text-green-400",
+        color: "text-accent dark:text-accent",
         responsibilities: [
             "Complete assigned onboarding tasks",
             "Upload required documentation",
@@ -124,7 +124,7 @@ export const ROLE_CONTENT: Record<string, RoleHelpContent> = {
         title: "Preparer",
         icon: FileCheck,
         description: "Compliance and review role responsible for validating client tasks and documents.",
-        color: "text-purple-600 dark:text-purple-400",
+        color: "text-primary dark:text-primary",
         responsibilities: [
             "Review client tasks and submitted documents",
             "Upload documents when assigned specific Preparer tasks",
@@ -164,7 +164,7 @@ export const ROLE_CONTENT: Record<string, RoleHelpContent> = {
         title: "Service Center",
         icon: Headphones,
         description: "Operational support role assisting clients through the onboarding journey.",
-        color: "text-orange-600 dark:text-orange-400",
+        color: "text-accent dark:text-accent",
         responsibilities: [
             "Provide operational support for assigned clients",
             "Review and complete assigned tasks",

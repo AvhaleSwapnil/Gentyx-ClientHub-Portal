@@ -212,8 +212,8 @@ export default function AdminClientsList() {
         <Badge
           variant={row.is_archived ? "secondary" : "default"}
           className={row.is_archived
-            ? "bg-gray-100 text-gray-600 border-gray-300"
-            : "bg-green-50 text-green-700 border-green-300"
+            ? "bg-muted text-muted-foreground border-border"
+            : "bg-accent/10 text-accent border-accent/20"
           }
         >
           {row.is_archived ? "Inactive" : "Active"}
@@ -249,7 +249,7 @@ export default function AdminClientsList() {
         >
           All Clients
           {archiveFilter === "ALL" && (
-            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900 rounded-t-full" />
+            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-t-full" />
           )}
         </button>
         <button
@@ -264,7 +264,7 @@ export default function AdminClientsList() {
         >
           Active Clients
           {archiveFilter === "active" && (
-            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900 rounded-t-full" />
+            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-t-full" />
           )}
         </button>
         <button
@@ -279,7 +279,7 @@ export default function AdminClientsList() {
         >
           Archived Clients
           {archiveFilter === "archived" && (
-            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900 rounded-t-full" />
+            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-t-full" />
           )}
         </button>
       </div>

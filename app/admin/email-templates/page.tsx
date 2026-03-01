@@ -322,7 +322,7 @@ export default function EmailTemplatesPage() {
               {/* TOOLBAR */}
               <div className="flex items-center justify-between p-4 border-b bg-muted/10 shrink-0">
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center">
+                  <div className="h-10 w-10 bg-primary/10 text-primary rounded-lg flex items-center justify-center">
                     <LayoutTemplate className="h-5 w-5" />
                   </div>
                   <div>

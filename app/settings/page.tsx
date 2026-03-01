@@ -306,12 +306,12 @@ export default function SettingsPage() {
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="p-4 rounded-lg bg-green-50 border border-green-200">
+              <div className="p-4 rounded-lg bg-accent/5 border border-accent/20">
                 <div className="flex items-start gap-3">
-                  <Bell className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                  <Bell className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-medium text-green-800">All Notifications Active</div>
-                    <div className="text-sm text-green-700 mt-1">
+                    <div className="font-medium text-primary">All Notifications Active</div>
+                    <div className="text-sm text-foreground/70 mt-1">
                       All administrators receive email notifications for the following events:
                       <ul className="list-disc list-inside mt-2 space-y-1">
                         <li>A client sends a message to the admin team</li>
@@ -492,10 +492,10 @@ export default function SettingsPage() {
                       className="flex items-center justify-between rounded-lg border p-3 hover:bg-muted/50 transition-colors"
                     >
                       <div className="flex items-center gap-3">
-                        <div className={`h-2 w-2 rounded-full ${a.action?.includes('CREATE') ? 'bg-green-500' :
-                          a.action?.includes('UPDATE') ? 'bg-blue-500' :
-                            a.action?.includes('DELETE') ? 'bg-red-500' :
-                              'bg-gray-500'
+                        <div className={`h-2 w-2 rounded-full ${a.action?.includes('CREATE') ? 'bg-accent' :
+                          a.action?.includes('UPDATE') ? 'bg-primary' :
+                            a.action?.includes('DELETE') ? 'bg-destructive' :
+                              'bg-muted-foreground'
                           }`} />
                         <div>
                           <p className="font-medium text-sm">{a.action}</p>

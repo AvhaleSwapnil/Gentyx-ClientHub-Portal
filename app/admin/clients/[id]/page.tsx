@@ -1405,14 +1405,14 @@ export default function ClientProfilePage() {
                 </div>
 
                 {/* Created */}
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 rounded-xl p-4">
+                <div className="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 rounded-xl p-4">
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="bg-blue-100 rounded-lg p-1.5">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <div className="bg-primary/10 rounded-lg p-1.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
                     </div>
-                    <span className="text-xs text-blue-600 font-medium uppercase tracking-wide">Created</span>
+                    <span className="text-xs text-primary font-medium uppercase tracking-wide">Created</span>
                   </div>
                   <p className="text-sm font-semibold text-slate-800">
                     {client?.created_at
@@ -1449,18 +1449,18 @@ export default function ClientProfilePage() {
                 </div>
 
                 {/* Progress */}
-                <div className="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 rounded-xl p-4">
+                <div className="bg-gradient-to-br from-brand-accent/5 to-brand-accent/10 border border-brand-accent/20 rounded-xl p-4">
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="bg-emerald-100 rounded-lg p-1.5">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <div className="bg-brand-accent/10 rounded-lg p-1.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                       </svg>
                     </div>
-                    <span className="text-xs text-emerald-600 font-medium uppercase tracking-wide">Progress</span>
+                    <span className="text-xs text-brand-accent font-medium uppercase tracking-wide">Progress</span>
                   </div>
                   <div className="flex items-end gap-1">
-                    <p className="text-2xl font-bold text-emerald-600">{progress}</p>
-                    <p className="text-sm font-medium text-emerald-600 mb-0.5">%</p>
+                    <p className="text-2xl font-bold text-brand-accent">{progress}</p>
+                    <p className="text-sm font-medium text-brand-accent mb-0.5">%</p>
                   </div>
                 </div>
               </div>
@@ -1510,7 +1510,7 @@ export default function ClientProfilePage() {
                       {/* Overall Progress Header */}
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-gray-700">Overall Progress</span>
-                        <span className="text-sm font-semibold text-emerald-600">{progressPercent}%</span>
+                        <span className="text-sm font-semibold text-brand-accent">{progressPercent}%</span>
                       </div>
 
                       {/* Progress Bar */}
@@ -1519,7 +1519,7 @@ export default function ClientProfilePage() {
                           className="h-full rounded-full transition-all duration-500 ease-out"
                           style={{
                             width: `${progressPercent}%`,
-                            background: 'linear-gradient(90deg, #22c55e 0%, #4ade80 50%, #86efac 100%)',
+                            background: 'linear-gradient(90deg, #61A800 0%, #84CC16 50%, #A3E635 100%)',
                           }}
                         />
                       </div>
@@ -1548,9 +1548,9 @@ export default function ClientProfilePage() {
                             <span key={stage.client_stage_id} className="flex items-center">
                               <span
                                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${isCompleted
-                                  ? "bg-green-50 border border-green-400 text-green-700"
+                                  ? "bg-brand-accent/5 border border-brand-accent/40 text-brand-accent"
                                   : isInProgress
-                                    ? "bg-blue-50 border border-blue-400 text-blue-700 animate-pulse"
+                                    ? "bg-primary/5 border border-primary/40 text-primary animate-pulse"
                                     : "bg-gray-100 border border-gray-300 text-gray-600"
                                   }`}
                               >
@@ -1591,10 +1591,10 @@ export default function ClientProfilePage() {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Service Center Card */}
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 rounded-xl p-4">
+                <div className="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="bg-blue-100 rounded-full p-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <div className="bg-primary/10 rounded-full p-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                       </svg>
                     </div>
@@ -2025,12 +2025,12 @@ export default function ClientProfilePage() {
 
                       {stage.subtasks.map((st: any) => (
                         <div
-                          key={st.subtask_id}
+                          key={st.id}
                           className="flex items-center justify-between border p-2 rounded"
                         >
                           <div>
                             <p className="font-medium">
-                              {st.subtask_title}
+                              {st.title}
                             </p>
 
                             <div className="flex gap-4 text-xs text-muted-foreground">

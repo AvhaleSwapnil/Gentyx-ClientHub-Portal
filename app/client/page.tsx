@@ -266,11 +266,11 @@ export default function ClientHome() {
       {/* WELCOME HEADER */}
       <div className="flex flex-wrap items-center justify-between gap-4 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent rounded-xl p-6 border">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">
-            Welcome back{client?.client_name ? `, ${client.client_name}` : ""}!
+          <h1 className="text-2xl font-bold text-primary">
+            Welcome to Gentyx{client?.client_name ? `, ${client.client_name}` : ""}!
           </h1>
           <p className="text-muted-foreground mt-1">
-            Here's an overview of your onboarding progress and recent activity.
+            Track your Gentyx onboarding progress and manage your documentation.
           </p>
         </div>
         <div className="flex items-center gap-4">
@@ -494,8 +494,8 @@ export default function ClientHome() {
                   {pendingTasksCount}
                 </p>
               </div>
-              <div className="h-12 w-12 rounded-full bg-amber-100 flex items-center justify-center">
-                <Clock className="h-6 w-6 text-amber-600" />
+              <div className="h-12 w-12 rounded-full bg-primary/5 flex items-center justify-center">
+                <Clock className="h-6 w-6 text-primary" />
               </div>
             </div>
           </CardContent>
@@ -515,8 +515,8 @@ export default function ClientHome() {
                   {completedTasksCount}
                 </p>
               </div>
-              <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
-                <CheckCircle2 className="h-6 w-6 text-green-600" />
+              <div className="h-12 w-12 rounded-full bg-accent/10 flex items-center justify-center">
+                <CheckCircle2 className="h-6 w-6 text-accent" />
               </div>
             </div>
           </CardContent>
@@ -536,8 +536,8 @@ export default function ClientHome() {
                   {totalDocsCount}
                 </p>
               </div>
-              <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
-                <Folder className="h-6 w-6 text-blue-600" />
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <Folder className="h-6 w-6 text-primary" />
               </div>
             </div>
           </CardContent>
@@ -560,8 +560,8 @@ export default function ClientHome() {
                   {unreadMessagesCount}
                 </p>
               </div>
-              <div className="h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center">
-                <MessageSquare className="h-6 w-6 text-purple-600" />
+              <div className="h-12 w-12 rounded-full bg-accent/5 flex items-center justify-center">
+                <MessageSquare className="h-6 w-6 text-accent" />
               </div>
             </div>
           </CardContent>
