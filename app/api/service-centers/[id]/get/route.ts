@@ -5,20 +5,20 @@ export async function GET(req: Request, { params }: any) {
   try {
     const { id } = await params;
     const numericId = Number(id);
-    
+
     const supabase = createServerClient();
 
     const { data, error } = await supabase
       .from('service_centers')
       .select(`
-        id, 
-        name, 
-        code,
+        service_center_id, 
+        center_name, 
+        center_code,
         email,
         created_at,
         updated_at
       `)
-      .eq('id', numericId)
+      .eq('service_center_id', numericId)
       .single();
 
     if (error) throw error;
