@@ -125,7 +125,7 @@ export default function AdminTasksPage() {
     {
       key: "clientId",
       header: "Client Name",
-      render: (row) => getClientName(row.clientId),
+      render: (row: any) => getClientName(row.clientId || row.client_id),
     },
     {
       key: "title",
@@ -169,9 +169,10 @@ export default function AdminTasksPage() {
     {
       key: "dueDate",
       header: "Due",
-      render: (row) => {
-        if (!row.dueDate) return <span className="text-muted-foreground">-</span>;
-        const dueDate = new Date(row.dueDate);
+      render: (row: any) => {
+        const dueDateRaw = row.dueDate || row.due_date;
+        if (!dueDateRaw) return <span className="text-muted-foreground">-</span>;
+        const dueDate = new Date(dueDateRaw);
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         const isOverdue = dueDate < today && row.status !== "Completed";
@@ -296,13 +297,14 @@ export default function AdminTasksPage() {
             size="sm"
             variant="outline"
             onClick={() => {
+              const rowClientId = row.clientId || row.client_id;
               const tasksForClient = allTasks.filter(
-                (t) => Number(t.clientId) === Number(row.clientId)
+                (t: any) => Number(t.clientId || t.client_id) === Number(rowClientId)
               );
 
               setSelectedClientTasks(tasksForClient);
-              setSelectedClientName(getClientName(row.clientId));
-              setSelectedClientId(row.clientId); // ✅ REQUIRED FOR VIEW CLIENT BUTTON
+              setSelectedClientName(getClientName(rowClientId));
+              setSelectedClientId(rowClientId); // ✅ REQUIRED FOR VIEW CLIENT BUTTON
               setOpenClientTasks(true);
             }}
 
@@ -400,19 +402,20 @@ export default function AdminTasksPage() {
     }
 
     // DUE DATE
-    if (filterDue === "WITH_DUE" && !task.dueDate) {
+    const taskDueDate = task.dueDate || task.due_date;
+    if (filterDue === "WITH_DUE" && !taskDueDate) {
       return false;
     }
 
     if (filterDue === "OVERDUE") {
-      if (!task.dueDate) return false;
-      if (new Date(task.dueDate) >= new Date()) return false;
+      if (!taskDueDate) return false;
+      if (new Date(taskDueDate) >= new Date()) return false;
     }
 
     if (filterDue === "CUSTOM") {
-      if (!task.dueDate) return false;
+      if (!taskDueDate) return false;
 
-      const taskDue = new Date(task.dueDate);
+      const taskDue = new Date(taskDueDate);
 
       const fromDate = dueFrom ? new Date(dueFrom) : null;
       const toDate = dueTo ? new Date(dueTo) : null;
@@ -585,9 +588,10 @@ export default function AdminTasksPage() {
 
         {/* OVERDUE COUNT BADGE */}
         {(() => {
-          const overdueCount = allTasks.filter((t) => {
-            if (!t.dueDate || t.status === "Completed") return false;
-            const dueDate = new Date(t.dueDate);
+          const overdueCount = allTasks.filter((t: any) => {
+            const tDueDate = t.dueDate || t.due_date;
+            if (!tDueDate || t.status === "Completed") return false;
+            const dueDate = new Date(tDueDate);
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             return dueDate < today;

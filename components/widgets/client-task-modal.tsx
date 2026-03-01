@@ -90,8 +90,8 @@ export function ClientTaskModal({
                       </td>
 
                       <td className="p-2 text-center">
-                        {t.dueDate
-                          ? new Date(t.dueDate).toLocaleDateString()
+                        {t.dueDate || t.due_date
+                          ? new Date(t.dueDate || t.due_date).toLocaleDateString()
                           : "-"}
                       </td>
 

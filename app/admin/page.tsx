@@ -188,9 +188,10 @@ export default function AdminDashboard() {
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Start of today for accurate comparison
 
-  const overdueTasks = taskRows.filter((t) => {
-    if (!t.dueDate) return false;
-    const due = new Date(t.dueDate);
+  const overdueTasks = taskRows.filter((t: any) => {
+    const dDate = t.dueDate || t.due_date;
+    if (!dDate) return false;
+    const due = new Date(dDate);
     due.setHours(23, 59, 59, 999); // End of due date
     const status = (t.status || "").toLowerCase();
     return due < today && status !== "approved" && status !== "completed";
@@ -290,9 +291,10 @@ export default function AdminDashboard() {
     {
       key: "dueDate",
       header: "Due",
-      render: (r) => {
-        if (!r.dueDate) return <span className="text-muted-foreground">-</span>;
-        const dueDate = new Date(r.dueDate);
+      render: (r: any) => {
+        const dDate = r.dueDate || r.due_date;
+        if (!dDate) return <span className="text-muted-foreground">-</span>;
+        const dueDate = new Date(dDate);
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         const status = (r.status || "").toLowerCase();

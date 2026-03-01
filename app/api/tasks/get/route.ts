@@ -54,9 +54,18 @@ export async function GET(req: Request) {
 
     if (error) throw error;
 
+    // Map to camelCase for frontend consistency
+    const formattedTasks = (tasks || []).map(t => ({
+      ...t,
+      clientId: t.client_id, // ✅ Critical for name lookup
+      dueDate: t.due_date,
+      assignedRole: t.assigned_role,
+      taskType: t.task_type
+    }));
+
     return NextResponse.json({
       success: true,
-      data: tasks,
+      data: formattedTasks,
       total: count || 0,
       page,
       pageSize
