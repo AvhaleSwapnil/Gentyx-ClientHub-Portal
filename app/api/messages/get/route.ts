@@ -1,13 +1,35 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
+import { verifySession } from "@/lib/auth-utils";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
+    const { session, response: authResponse } = await verifySession(req);
+    if (authResponse) return authResponse;
+
     const url = new URL(req.url);
     const clientId = url.searchParams.get("clientId");
     const conversationBetween = url.searchParams.get("conversationBetween");
     const serviceCenterId = url.searchParams.get("serviceCenterId");
     const cpaId = url.searchParams.get("cpaId");
+
+    // RBAC: Verify that the user has access to these IDs
+    if (session?.role === 'CLIENT') {
+      const secureClientId = req.cookies.get("clienthub_clientId")?.value;
+      if (clientId && secureClientId !== clientId) {
+        return NextResponse.json({ success: false, error: "Forbidden: You cannot access another client's messages" }, { status: 403 });
+      }
+    } else if (session?.role === 'SERVICE_CENTER') {
+      const secureScId = req.cookies.get("clienthub_serviceCenterId")?.value;
+      if (serviceCenterId && secureScId !== serviceCenterId) {
+        return NextResponse.json({ success: false, error: "Forbidden: You cannot access another service center's messages" }, { status: 403 });
+      }
+    } else if (session?.role === 'CPA') {
+      const secureCpaId = req.cookies.get("clienthub_cpaId")?.value;
+      if (cpaId && secureCpaId !== cpaId) {
+        return NextResponse.json({ success: false, error: "Forbidden: You cannot access another CPA's messages" }, { status: 403 });
+      }
+    }
 
     console.log("📨 Fetching messages:", { clientId, conversationBetween, serviceCenterId, cpaId });
 

@@ -1,8 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
 import { calculateClientProgress } from "@/lib/progress";
 import { logAudit, AuditActions } from "@/lib/audit";
 import { sendOnboardingOverviewEmail } from "@/lib/email";
+import { verifySession } from "@/lib/auth-utils";
 
 // Server-side stage status calculation
 function computeFinalStageStatus(subtasks: any[]) {
@@ -11,12 +12,15 @@ function computeFinalStageStatus(subtasks: any[]) {
   return allCompleted ? "Completed" : "In Progress";
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
+    const { session, response: authResponse } = await verifySession(req, ["ADMIN"]);
+    if (authResponse) return authResponse;
+
     const body = await req.json();
     const { clientId, sendEmailNotification = true } = body;
-    const stages = Array.isArray(body.stages) 
-      ? [...body.stages].sort((a, b) => (a.order || 0) - (b.order || 0)) 
+    const stages = Array.isArray(body.stages)
+      ? [...body.stages].sort((a, b) => (a.order || 0) - (b.order || 0))
       : [];
 
     if (!clientId) {
@@ -70,13 +74,13 @@ export async function POST(req: Request) {
           recipientName: clientData.primary_contact_name || clientData.client_name,
           clientName: clientData.client_name,
           stages: processedStages.map(s => ({
-              name: s.name,
-              status: s.status,
-              subtasks: (s.subtasks || []).map((st: any) => ({
-                  title: st.title,
-                  status: st.status || 'Not Started',
-                  due_date: st.due_date
-              }))
+            name: s.name,
+            status: s.status,
+            subtasks: (s.subtasks || []).map((st: any) => ({
+              title: st.title,
+              status: st.status || 'Not Started',
+              due_date: st.due_date
+            }))
           })),
         });
       } catch (emailErr) {

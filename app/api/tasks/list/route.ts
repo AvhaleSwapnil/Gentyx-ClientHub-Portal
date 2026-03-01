@@ -1,10 +1,22 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
+import { verifySession } from "@/lib/auth-utils";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
+    const { session, response: authResponse } = await verifySession(req);
+    if (authResponse) return authResponse;
+
     const { searchParams } = new URL(req.url);
     const clientId = searchParams.get("clientId");
+
+    // RBAC check: Non-admins can only see their own client's tasks
+    if (session?.role === 'CLIENT') {
+      const secureClientId = req.cookies.get("clienthub_clientId")?.value;
+      if (clientId && Number(secureClientId) !== Number(clientId)) {
+        return NextResponse.json({ success: false, error: "Forbidden: You cannot access another client's tasks" }, { status: 403 });
+      }
+    }
 
     const supabase = createServerClient();
 
@@ -14,7 +26,7 @@ export async function GET(req: Request) {
         id:task_id,
         stageId:stage_id,
         clientId:client_id,
-        clientName:Clients(client_name),
+        client:Clients(client_name),
         title:task_title,
         assigneeRole:assigned_to_role,
         status,
@@ -32,10 +44,11 @@ export async function GET(req: Request) {
 
     if (error) throw error;
 
-    // Supabase returns the joined clientName as an object/array, so we need to flatten it
+    // Supabase returns the joined client as an object/array, so we need to flatten it
     const flattenedData = data?.map((task: any) => ({
       ...task,
-      clientName: Array.isArray(task.clientName) ? task.clientName[0]?.client_name : task.clientName?.client_name || "Unknown Client"
+      clientName: Array.isArray(task.client) ? task.client[0]?.client_name : task.client?.client_name || "Unknown Client",
+      client_name: Array.isArray(task.client) ? task.client[0]?.client_name : task.client?.client_name || "Unknown Client"
     }));
 
     return NextResponse.json({

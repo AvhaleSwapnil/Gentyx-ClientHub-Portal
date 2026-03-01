@@ -12,7 +12,9 @@ import { fetchClients, fetchServiceCenters, fetchCPAs } from "@/lib/api";
 
 interface Client {
     id: number;
+    client_id?: number;
     name: string;
+    client_name?: string;
     primary_contact_email?: string;
     last_message_at?: string;
     last_message_body?: string;
@@ -21,7 +23,9 @@ interface Client {
 
 interface ServiceCenter {
     id: number;
+    service_center_id?: number;
     name: string;
+    center_name?: string;
     code?: string;
     email?: string;
     last_message_at?: string;
@@ -31,7 +35,9 @@ interface ServiceCenter {
 
 interface CPA {
     id: number;
+    cpa_id?: number;
     name: string;
+    cpa_name?: string;
     email?: string;
     last_message_at?: string;
     last_message_body?: string;
@@ -84,15 +90,24 @@ export default function AdminMessages() {
     // Fetch Lists
     const { data: clientsData, isLoading: clientsLoading } = useSWR(
         ["admin-clients-messages", clientSearch], // Key
-        () => fetchClients({ page: 1, pageSize: 50, q: clientSearch }) // Fetcher
+        () => fetchClients({ page: 1, pageSize: 100, q: clientSearch }) // Fetcher
     );
-    const clients: Client[] = clientsData?.data || [];
+    const clients: Client[] = (clientsData?.data || []).map((c: any) => ({
+        ...c,
+        id: c.id || c.client_id,
+        name: c.name || c.client_name
+    }));
 
     const { data: scData, isLoading: scLoading } = useSWR(
         "admin-sc-messages",
         fetchServiceCenters
     );
-    const serviceCenters: ServiceCenter[] = scData?.data || [];
+    const serviceCenters: ServiceCenter[] = (scData?.data || []).map((sc: any) => ({
+        ...sc,
+        id: sc.id || sc.service_center_id,
+        name: sc.name || sc.center_name
+    }));
+
     const filteredSCs = serviceCenters.filter(sc =>
         sc.name?.toLowerCase().includes(scSearch.toLowerCase())
     );
@@ -101,7 +116,12 @@ export default function AdminMessages() {
         "admin-cpas-messages",
         fetchCPAs
     );
-    const cpas: CPA[] = cpaData?.data || [];
+    const cpas: CPA[] = (cpaData?.data || []).map((c: any) => ({
+        ...c,
+        id: c.id || c.cpa_id,
+        name: c.name || c.cpa_name
+    }));
+
     const filteredCPAs = cpas.filter(cpa =>
         cpa.name?.toLowerCase().includes(cpaSearch.toLowerCase())
     );

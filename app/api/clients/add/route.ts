@@ -1,6 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
 import { sendClientWelcomeEmail } from "@/lib/email";
+import { verifySession } from "@/lib/auth-utils";
 
 type AssociatedUser = {
   name: string;
@@ -9,8 +10,11 @@ type AssociatedUser = {
   phone?: string;
 };
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
+    const { session, response: authResponse } = await verifySession(req, ["ADMIN"]);
+    if (authResponse) return authResponse;
+
     const body = await req.json();
 
     const {

@@ -1,19 +1,33 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
 import { sendUpdateNotification } from "@/lib/email";
+import { verifySession } from "@/lib/auth-utils";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   return handleUpdate(req);
 }
 
-export async function PUT(req: Request) {
+export async function PUT(req: NextRequest) {
   return handleUpdate(req);
 }
 
-async function handleUpdate(req: Request) {
+async function handleUpdate(req: NextRequest) {
   try {
+    const { session, response: authResponse } = await verifySession(req);
+    if (authResponse) return authResponse;
+
     const body = await req.json();
     const { cpa_id, cpa_name, cpa_code, name, email } = body;
+
+    // RBAC: Only ADMIN or the specific CPA can update
+    if (session?.role === 'CPA') {
+      const secureCpaId = req.cookies.get("clienthub_cpaId")?.value;
+      if (cpa_id && secureCpaId !== String(cpa_id)) {
+        return NextResponse.json({ success: false, message: "Forbidden: You cannot update another CPA's profile" }, { status: 403 });
+      }
+    } else if (session?.role !== 'ADMIN') {
+      return NextResponse.json({ success: false, message: "Forbidden: Insufficient permissions" }, { status: 403 });
+    }
 
     if (!cpa_id) {
       return NextResponse.json({ success: false, message: "CPA ID is required" }, { status: 400 });
@@ -50,7 +64,7 @@ async function handleUpdate(req: Request) {
         .neq('cpa_id', Number(cpa_id))
         .limit(1)
         .single();
-      
+
       if (existingInCpas) {
         return NextResponse.json({
           success: false,
@@ -65,7 +79,7 @@ async function handleUpdate(req: Request) {
       .select('email')
       .eq('cpa_id', Number(cpa_id))
       .single();
-    
+
     const oldEmail = oldCpaData?.email;
 
     // 4. Update CPA center

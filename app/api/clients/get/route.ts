@@ -1,8 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
+import { verifySession } from "@/lib/auth-utils";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
+    const { session, response: authResponse } = await verifySession(req, ["ADMIN", "CPA", "SERVICE_CENTER"]);
+    if (authResponse) return authResponse;
+
     const { searchParams } = new URL(req.url);
 
     const page = Math.max(parseInt(searchParams.get("page") || "1"), 1);

@@ -1,16 +1,28 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
+import { verifySession } from "@/lib/auth-utils";
 
 export async function GET(
-  _req: Request,
+  req: NextRequest,
   context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { session, response: authResponse } = await verifySession(req);
+    if (authResponse) return authResponse;
+
     const { id } = await context.params;
     const clientId = Number(id);
 
     if (!clientId || Number.isNaN(clientId)) {
       return NextResponse.json({ success: false, error: "Invalid client ID" }, { status: 400 });
+    }
+
+    // RBAC check: Non-admins can only see their own client data (if applicable)
+    if (session?.role === 'CLIENT') {
+      const clientToken = req.cookies.get("clienthub_clientId")?.value;
+      if (Number(clientToken) !== clientId) {
+        return NextResponse.json({ success: false, error: "Forbidden: You cannot access this client's data" }, { status: 403 });
+      }
     }
 
     const supabase = createServerClient();
@@ -46,9 +58,9 @@ export async function GET(
     let completedStagesCount = 0;
 
     for (const stage of stages) {
-        // In a real app we'd fetch the counts differently or use the aggregate feature
-        // But for simplicity here, we'll assume most UI logic will re-calculate anyway.
-        if (stage.status === 'Completed') completedStagesCount++;
+      // In a real app we'd fetch the counts differently or use the aggregate feature
+      // But for simplicity here, we'll assume most UI logic will re-calculate anyway.
+      if (stage.status === 'Completed') completedStagesCount++;
     }
 
     const progress = totalStages > 0 ? Math.round((completedStagesCount / totalStages) * 100) : 0;

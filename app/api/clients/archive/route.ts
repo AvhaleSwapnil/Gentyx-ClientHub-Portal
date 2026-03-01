@@ -1,8 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
+import { verifySession } from "@/lib/auth-utils";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
     try {
+        const { session, response: authResponse } = await verifySession(req, ["ADMIN"]);
+        if (authResponse) return authResponse;
+
         const body = await req.json();
         const { clientId, archive } = body;
 
@@ -27,8 +31,8 @@ export async function POST(req: Request) {
         const isArchived = archive === true;
         const { error: updateError } = await supabase
             .from('Clients')
-            .update({ 
-                is_archived: isArchived, 
+            .update({
+                is_archived: isArchived,
                 updated_at: new Date().toISOString()
             })
             .eq('client_id', Number(clientId));

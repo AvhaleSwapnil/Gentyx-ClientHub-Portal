@@ -1,11 +1,21 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
 import { sendMessageNotification, sendAdminMessageNotification, getAdminsWithNotificationsEnabled } from "@/lib/email";
 import { logAudit, AuditActions } from "@/lib/audit";
+import { verifySession } from "@/lib/auth-utils";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
-    const { client_id, sender_role, receiver_role, body, parent_message_id, attachment_url, attachment_name, service_center_id, cpa_id } = await req.json();
+    const { session, response: authResponse } = await verifySession(req);
+    if (authResponse) return authResponse;
+
+    const bodyData = await req.json();
+    const { client_id, sender_role, receiver_role, body, parent_message_id, attachment_url, attachment_name, service_center_id, cpa_id } = bodyData;
+
+    // Prevent role spoofing
+    if (session?.role !== sender_role?.toUpperCase()) {
+      return NextResponse.json({ success: false, error: "Forbidden: Sender role mismatch" }, { status: 403 });
+    }
 
     const supabase = createServerClient();
 

@@ -1,9 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
 import { sendTaskNotificationEmail, sendOnboardingTaskNotificationEmail } from "@/lib/email";
+import { verifySession } from "@/lib/auth-utils";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
     try {
+        const { session, response: authResponse } = await verifySession(req, ["ADMIN", "CPA", "SERVICE_CENTER"]);
+        if (authResponse) return authResponse;
+
         const body = await req.json();
         console.log("📧 Task notification request:", body);
 

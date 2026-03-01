@@ -1,14 +1,29 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
 import { logAudit, AuditActions } from "@/lib/audit";
 import { sendUpdateNotification } from "@/lib/email";
+import { verifySession } from "@/lib/auth-utils";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const { session, response: authResponse } = await verifySession(req);
+    if (authResponse) return authResponse;
 
+    const body = await req.json();
+    const { clientId } = body;
+
+    if (!clientId) {
+      return NextResponse.json({ success: false, error: "Client ID missing" }, { status: 400 });
+    }
+
+    // RBAC check: Non-admins can only update their own data
+    if (session?.role === 'CLIENT') {
+      const secureClientId = req.cookies.get("clienthub_clientId")?.value;
+      if (Number(secureClientId) !== Number(clientId)) {
+        return NextResponse.json({ success: false, error: "Forbidden: You cannot update another client's data" }, { status: 403 });
+      }
+    }
     const {
-      clientId,
       client_name,
       code,
       primary_contact_first_name,
@@ -20,10 +35,6 @@ export async function POST(req: Request) {
       cpa_id,
       associatedUsers,
     } = body;
-
-    if (!clientId) {
-      return NextResponse.json({ success: false, error: "Client ID missing" }, { status: 400 });
-    }
 
     const supabase = createServerClient();
 

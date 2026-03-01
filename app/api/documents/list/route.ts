@@ -1,6 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
 import { getClientRootFolder } from "@/lib/storage-utils";
+import { verifySession } from "@/lib/auth-utils";
 
 export const dynamic = "force-dynamic";
 
@@ -11,8 +12,11 @@ function cleanFolderPath(folderPath: string | null) {
   return p;
 }
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
+    const { session, response: authResponse } = await verifySession(req);
+    if (authResponse) return authResponse;
+
     const { searchParams } = new URL(req.url);
     const clientIdParam = searchParams.get("clientId") || searchParams.get("id");
     const folderParam = searchParams.get("folderPath") || searchParams.get("folder") || searchParams.get("path");
@@ -63,9 +67,9 @@ export async function GET(req: Request) {
       });
 
     // Filtering visibility for non-admins
-    const role = (searchParams.get("role") || "ADMIN").toUpperCase();
-    const filteredItems = role === "ADMIN" 
-      ? items 
+    const role = (session?.role || "CLIENT").toUpperCase();
+    const filteredItems = role === "ADMIN"
+      ? items
       : items.filter(item => item.visibility !== "private");
 
     return NextResponse.json({

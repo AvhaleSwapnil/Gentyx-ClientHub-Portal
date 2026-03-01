@@ -1,8 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
 import { logAudit, AuditActions, AuditActorRole } from "@/lib/audit";
 import { queueDocumentUploadNotification } from "@/lib/notification-batcher";
 import { getClientRootFolder } from "@/lib/storage-utils";
+import { verifySession } from "@/lib/auth-utils";
 
 export const dynamic = "force-dynamic";
 
@@ -18,8 +19,11 @@ function cleanSegment(input: string) {
     .join("/");
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
+    const { session, response: authResponse } = await verifySession(req);
+    if (authResponse) return authResponse;
+
     const formData = await req.formData();
     const clientId = (formData.get("clientId") as string)?.trim();
     const rawFolderName = (formData.get("folderName") as string | null) || null;
@@ -29,9 +33,17 @@ export async function POST(req: Request) {
       ? duplicateActionRaw
       : "ask") as DuplicateAction;
 
-    const role = ((formData.get("role") as string)?.trim() || "ADMIN") as AuditActorRole;
+    const role = (session?.role || "ADMIN") as AuditActorRole;
     let visibility = ((formData.get("visibility") as string)?.trim() || "shared") as "shared" | "private";
     if (role !== "ADMIN") visibility = "shared";
+
+    // RBAC: Non-admins can only upload to their own clientId
+    if (session?.role === 'CLIENT') {
+      const secureClientId = req.cookies.get("clienthub_clientId")?.value;
+      if (clientId && secureClientId !== clientId) {
+        return NextResponse.json({ success: false, error: "Forbidden: You cannot upload to another client's folder" }, { status: 403 });
+      }
+    }
 
     if (!clientId || !file) {
       return NextResponse.json({ success: false, error: "Client and file are required" }, { status: 400 });
@@ -116,7 +128,7 @@ export async function POST(req: Request) {
             .select('client_name')
             .eq('client_id', clientId)
             .single();
-          
+
           const clientName = clientData?.client_name || `Client ${clientId}`;
 
           queueDocumentUploadNotification({

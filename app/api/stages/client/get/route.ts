@@ -1,13 +1,25 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
+import { verifySession } from "@/lib/auth-utils";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
+    const { session, response: authResponse } = await verifySession(req);
+    if (authResponse) return authResponse;
+
     const { searchParams } = new URL(req.url);
     const clientId = searchParams.get("clientId");
 
     if (!clientId) {
       return NextResponse.json({ success: false, error: "Client ID required" }, { status: 400 });
+    }
+
+    // RBAC check: Non-admins can only see their own client's stages
+    if (session?.role === 'CLIENT') {
+      const secureClientId = req.cookies.get("clienthub_clientId")?.value;
+      if (Number(secureClientId) !== Number(clientId)) {
+        return NextResponse.json({ success: false, error: "Forbidden: You cannot access another client's stages" }, { status: 403 });
+      }
     }
 
     const supabase = createServerClient();
@@ -37,8 +49,8 @@ export async function GET(req: Request) {
       success: true,
       data: stages,
       subtasks: subtasks.map(s => {
-          const { client_stage, ...rest } = s;
-          return rest;
+        const { client_stage, ...rest } = s;
+        return rest;
       }),
     });
 

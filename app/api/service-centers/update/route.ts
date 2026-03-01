@@ -1,11 +1,25 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
 import { sendUpdateNotification } from "@/lib/email";
+import { verifySession } from "@/lib/auth-utils";
 
-export async function PUT(req: Request) {
+export async function PUT(req: NextRequest) {
   try {
+    const { session, response: authResponse } = await verifySession(req);
+    if (authResponse) return authResponse;
+
     const body = await req.json();
     const { center_id, center_name, center_code, email, users } = body;
+
+    // RBAC: Only ADMIN or the specific Service Center can update
+    if (session?.role === 'SERVICE_CENTER') {
+      const secureScId = req.cookies.get("clienthub_serviceCenterId")?.value;
+      if (center_id && secureScId !== String(center_id)) {
+        return NextResponse.json({ success: false, error: "Forbidden: You cannot update another service center's profile" }, { status: 403 });
+      }
+    } else if (session?.role !== 'ADMIN') {
+      return NextResponse.json({ success: false, error: "Forbidden: Insufficient permissions" }, { status: 403 });
+    }
 
     if (!center_id) {
       return NextResponse.json({ success: false, error: "center_id is required" }, { status: 400 });
@@ -41,7 +55,7 @@ export async function PUT(req: Request) {
         .neq('service_center_id', Number(center_id))
         .limit(1)
         .single();
-      
+
       if (existingInCenters) {
         return NextResponse.json({
           success: false,
@@ -56,7 +70,7 @@ export async function PUT(req: Request) {
       .select('email')
       .eq('service_center_id', Number(center_id))
       .single();
-    
+
     const oldEmail = oldCenterData?.email;
 
     // 4. Update Service Center
@@ -104,7 +118,7 @@ export async function PUT(req: Request) {
     // 7. Associated Users
     if (Array.isArray(users)) {
       await supabase.from('service_center_users').delete().eq('service_center_id', Number(center_id));
-      
+
       const usersToInsert = users
         .filter(u => u.name && u.email)
         .map(u => ({

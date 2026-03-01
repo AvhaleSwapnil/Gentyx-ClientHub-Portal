@@ -1,12 +1,27 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
-import { logAudit, AuditActions } from "@/lib/audit";
+import { logAudit, AuditActions, AuditActorRole } from "@/lib/audit";
 import { queueFolderCreatedNotification } from "@/lib/notification-batcher";
 import { getClientRootFolder } from "@/lib/storage-utils";
+import { verifySession } from "@/lib/auth-utils";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
-    const { clientId, folderName, parentFolder, role = "ADMIN" } = await req.json();
+    const { session, response: authResponse } = await verifySession(req);
+    if (authResponse) return authResponse;
+
+    const body = await req.json();
+    const { clientId, folderName, parentFolder, role: bodyRole = "ADMIN" } = body;
+
+    const role = (session?.role || "ADMIN");
+
+    // RBAC: Non-admins can only create folders for their own clientId
+    if (session?.role === 'CLIENT') {
+      const secureClientId = req.cookies.get("clienthub_clientId")?.value;
+      if (clientId && secureClientId !== String(clientId)) {
+        return NextResponse.json({ success: false, error: "Forbidden: You cannot create a folder for another client" }, { status: 403 });
+      }
+    }
 
     if (!clientId || !folderName) {
       return NextResponse.json({ success: false, error: "Missing required fields" }, { status: 400 });
@@ -27,7 +42,7 @@ export async function POST(req: Request) {
     if (listError) throw listError;
 
     const normalizedNewName = folderName.toLowerCase().trim();
-    const duplicate = existingItems?.find(item => 
+    const duplicate = existingItems?.find(item =>
       !item.id && item.name.toLowerCase() === normalizedNewName
     );
 
@@ -52,7 +67,7 @@ export async function POST(req: Request) {
     logAudit({
       clientId: Number(clientId),
       action: AuditActions.FOLDER_CREATED,
-      actorRole: role,
+      actorRole: role as AuditActorRole,
       details: folderName,
     });
 
@@ -72,7 +87,7 @@ export async function POST(req: Request) {
             .select('client_name')
             .eq('client_id', clientId)
             .single();
-          
+
           const clientName = clientData?.client_name || `Client ${clientId}`;
 
           queueFolderCreatedNotification({

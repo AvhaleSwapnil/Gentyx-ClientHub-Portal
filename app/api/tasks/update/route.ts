@@ -1,11 +1,15 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase";
 import { calculateClientProgress } from "@/lib/progress";
 import { logAudit, AuditActions } from "@/lib/audit";
 import { sendTaskNotificationEmail, sendAdminTaskCompletionEmail, getAdminsWithNotificationsEnabled } from "@/lib/email";
+import { verifySession } from "@/lib/auth-utils";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
+    const { session, response: authResponse } = await verifySession(req);
+    if (authResponse) return authResponse;
+
     const body = await req.json();
     const {
       taskId,
@@ -102,10 +106,10 @@ export async function POST(req: Request) {
         const whoRole = (completedByRole || taskData.assigned_to_role || "CLIENT").toUpperCase();
         let whoName = completedByName || "";
         if (!whoName) {
-            if (whoRole === "CLIENT") whoName = client.primary_contact_name || client.client_name || "Client";
-            else if (whoRole === "CPA") whoName = cpa?.cpa_name || "CPA";
-            else if (whoRole === "SERVICE_CENTER") whoName = sc?.center_name || "Service Center";
-            else whoName = "User";
+          if (whoRole === "CLIENT") whoName = client.primary_contact_name || client.client_name || "Client";
+          else if (whoRole === "CPA") whoName = cpa?.cpa_name || "CPA";
+          else if (whoRole === "SERVICE_CENTER") whoName = sc?.center_name || "Service Center";
+          else whoName = "User";
         }
 
         for (const admin of admins) {
