@@ -208,7 +208,7 @@ export default function LoginPage() {
         </div>
 
         {/* TITLE */}
-        <h1 className="portal-title">Gentyx Client Portal</h1>
+        <h1 className="portal-title">Client Portal</h1>
 
         {/* FORM */}
         <form onSubmit={handleSubmit} className="login-form-container">
