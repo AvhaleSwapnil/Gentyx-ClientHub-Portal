@@ -154,7 +154,7 @@ export function Sidebar({ collapsed = false }: SidebarProps) {
         <Button
           variant="ghost"
           className={cn(
-            "w-full text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+            "w-full text-sidebar-foreground hover:bg-transparent",
             collapsed ? "justify-center px-2" : "justify-start"
           )}
           onClick={handleLogout}

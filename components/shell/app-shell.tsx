@@ -94,7 +94,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         {/* LOGO SECTION - Clickable to navigate to dashboard */}
         <Link
           href={getDashboardUrl()}
-          className="h-20 flex flex-col items-center justify-center px-4 border-b border-slate-200 bg-white cursor-pointer hover:bg-slate-50 transition-colors"
+          className="h-20 flex flex-col items-center justify-center px-4 border-b border-slate-200 bg-white cursor-pointer transition-colors"
           title="Go to Dashboard"
         >
           {sidebarCollapsed ? (
@@ -122,7 +122,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           <Button
             variant="ghost"
             size="sm"
-            className="w-full justify-center text-sidebar-foreground hover:bg-sidebar-accent"
+            className="w-full justify-center text-sidebar-foreground hover:bg-transparent"
             onClick={toggleSidebar}
             title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >

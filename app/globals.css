@@ -35,12 +35,12 @@
   /* Sidebar: White background with navy accents */
   --sidebar: #FFFFFF;
   --sidebar-foreground: #334155;
-  /* Active tab: Transparent/White BG with Gentyx Navy */
-  --sidebar-primary: #FFFFFF;
-  --sidebar-primary-foreground: #05164D;
-  /* Hover state: Light Gentyx Green tint */
-  --sidebar-accent: #F4FAE8;
-  --sidebar-accent-foreground: #61A800;
+  /* Active tab: Gentyx Navy BG with White text */
+  --sidebar-primary: #05164D;
+  --sidebar-primary-foreground: #FFFFFF;
+  /* Hover state: Remove background color */
+  --sidebar-accent: transparent;
+  --sidebar-accent-foreground: #334155;
   --sidebar-border: #E2E8F0;
   --sidebar-ring: #05164D;
 
@@ -84,7 +84,7 @@
   --sidebar-foreground: #f1f5f9;
   --sidebar-primary: #f1f5f9;
   --sidebar-primary-foreground: #05164D;
-  --sidebar-accent: #1e293b;
+  --sidebar-accent: transparent;
   --sidebar-accent-foreground: #f1f5f9;
   --sidebar-border: #1e293b;
   --sidebar-ring: #64748b;

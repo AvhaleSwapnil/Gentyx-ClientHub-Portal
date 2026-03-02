@@ -287,7 +287,7 @@ export default function AdminDashboard() {
   const taskCols: Column<TaskRowWithClientName>[] = [
     { key: "client_name", header: "Client" },
     { key: "title", header: "Title" },
-    { key: "assigneeRole", header: "Assigned User" },
+    { key: "assignedRole", header: "Assigned User" },
     {
       key: "dueDate",
       header: "Due",
