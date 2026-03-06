@@ -33,10 +33,21 @@ export async function GET(req: NextRequest) {
     console.log(`[DOCS LIST] Client: ${clientId}, Root: "${rootFolder}", Prefix: "${prefix}"`);
 
     const supabase = createServerClient();
-    const bucketName = process.env.SUPABASE_STORAGE_BUCKET || "clienthub";
+    const bucketName = process.env.SUPABASE_STORAGE_BUCKET || "Documents";
 
-    // ✅ Supabase storage.list() returns items directly under the prefix
-    const { data: entries, error } = await supabase.storage
+    // 1. Fetch from database (metadata source of truth)
+    const { data: dbFiles, error: dbError } = await supabase
+      .from('documents')
+      .select('*')
+      .eq('client_id', clientId)
+      .like('file_path', `${prefix}/%`);
+
+    if (dbError) {
+      console.warn("DB Metadata fetch failed, falling back to storage list:", dbError.message);
+    }
+
+    // 2. Fetch from storage (for folder structure and any files not in DB)
+    const { data: entries, error: storageError } = await supabase.storage
       .from(bucketName)
       .list(prefix, {
         limit: 100,
@@ -44,25 +55,30 @@ export async function GET(req: NextRequest) {
         sortBy: { column: 'name', order: 'asc' },
       });
 
-    if (error) throw error;
+    if (storageError) throw storageError;
 
     const items = entries
       .filter(entry => entry.name !== ".keep")
       .map(entry => {
-        const isFolder = !entry.id; // In Supabase .list(), folders don't have an ID
+        const isFolder = !entry.id;
         const fileName = entry.name;
         const fullPath = prefix ? `${prefix}/${fileName}` : fileName;
 
+        // Try to find matching DB record
+        const dbRecord = dbFiles?.find(f => f.file_path === fullPath);
+
         return {
+          id: dbRecord?.id || entry.id,
           clientId,
           name: fileName,
           type: isFolder ? "folder" : "file",
           path: isFolder ? `${fullPath}/` : fullPath,
-          size: entry.metadata?.size ?? 0,
+          size: (dbRecord?.size || entry.metadata?.size) ?? 0,
+          url: dbRecord?.file_url || null,
           contentType: entry.metadata?.mimetype ?? null,
-          lastModified: entry.created_at,
+          lastModified: dbRecord?.created_at || entry.created_at,
           visibility: entry.metadata?.visibility || "shared",
-          uploadedBy: entry.metadata?.uploadedby || "unknown",
+          uploadedBy: dbRecord?.uploaded_by || entry.metadata?.uploadedby || "unknown",
         };
       });
 

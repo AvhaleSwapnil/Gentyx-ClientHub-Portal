@@ -7,6 +7,9 @@ import { verifySession } from "@/lib/auth-utils";
 
 export const dynamic = "force-dynamic";
 
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const ALLOWED_EXTENSIONS = ["pdf", "jpg", "jpeg", "png", "doc", "docx", "xls", "xlsx", "txt", "csv", "zip"];
+
 type DuplicateAction = "ask" | "replace" | "skip";
 
 function cleanSegment(input: string) {
@@ -49,15 +52,27 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: "Client and file are required" }, { status: 400 });
     }
 
+    // Validation: File Name
     if (file.name === ".keep") {
       return NextResponse.json({ success: false, error: "Invalid file name" }, { status: 400 });
+    }
+
+    // Validation: File Size
+    if (file.size > MAX_FILE_SIZE) {
+      return NextResponse.json({ success: false, error: "File size exceeds 10MB limit" }, { status: 400 });
+    }
+
+    // Validation: File Extension
+    const extension = file.name.split(".").pop()?.toLowerCase() || "";
+    if (!ALLOWED_EXTENSIONS.includes(extension)) {
+      return NextResponse.json({ success: false, error: `File type .${extension} not allowed` }, { status: 400 });
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
     const fileName = file.name;
     const safeFolder = rawFolderName ? cleanSegment(rawFolderName) : null;
     const rootFolder = await getClientRootFolder(clientId);
-    const bucket = process.env.SUPABASE_STORAGE_BUCKET || "clienthub";
+    const bucket = process.env.SUPABASE_STORAGE_BUCKET || "Documents";
     const supabase = createServerClient();
 
     const parentPath = safeFolder ? `${rootFolder}/${safeFolder}` : rootFolder;
@@ -97,7 +112,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // 2. Upload to Supabase
+    // 2. Upload to Supabase Storage
     const { error: uploadError } = await supabase.storage
       .from(bucket)
       .upload(fullPath, buffer, {
@@ -107,7 +122,26 @@ export async function POST(req: NextRequest) {
 
     if (uploadError) throw uploadError;
 
-    // 3. Audit Log
+    // 3. Store Metadata in Database
+    const { data: publicUrlData } = supabase.storage.from(bucket).getPublicUrl(fullPath);
+
+    const { error: dbError } = await supabase
+      .from('documents')
+      .upsert({
+        file_name: fileName,
+        file_path: fullPath,
+        file_url: publicUrlData.publicUrl,
+        uploaded_by: session?.userId || role,
+        client_id: Number(clientId),
+        created_at: new Date().toISOString()
+      }, { onConflict: 'file_path' });
+
+    if (dbError) {
+      console.error("DB Metadata insertion failed:", dbError);
+      // We don't throw here as the file is already uploaded, but we log the error
+    }
+
+    // 4. Audit Log
     logAudit({
       clientId: Number(clientId),
       action: AuditActions.DOCUMENT_UPLOADED,
@@ -115,7 +149,7 @@ export async function POST(req: NextRequest) {
       details: exists && duplicateAction === "replace" ? `Replaced: ${fileName}` : fileName,
     });
 
-    // 4. Notifications
+    // 5. Notifications
     const isAdminOnlyFolder =
       safeFolder === "Admin Only" || safeFolder === "Admin Restricted" ||
       (safeFolder && (safeFolder.startsWith("Admin Only/") || safeFolder.startsWith("Admin Restricted/")));
@@ -144,8 +178,6 @@ export async function POST(req: NextRequest) {
         }
       })();
     }
-
-    const { data: publicUrlData } = supabase.storage.from(bucket).getPublicUrl(fullPath);
 
     return NextResponse.json({
       success: true,

@@ -1,27 +1,30 @@
 import { createServerClient } from "./supabase";
 import { v4 as uuid } from "uuid";
 
-const containerName = process.env.SUPABASE_STORAGE_BUCKET || "clienthub";
+const containerName = process.env.SUPABASE_STORAGE_BUCKET || "Documents";
 
 /**
- * Upload a file buffer to Storage
- * Returns the public URL and the relative path (blobName)
+ * Upload a file to the Documents bucket
  */
-export async function uploadFile(buffer: Buffer, originalName: string, folderPath?: string) {
+export async function uploadDocument(
+  file: File | Buffer,
+  fileName: string,
+  clientId: string | number,
+  folderPath?: string,
+  metadata?: Record<string, any>
+) {
   const supabase = createServerClient();
-  const extension = originalName.split(".").pop();
-  const fileName = `${uuid()}.${extension}`;
-  const filePath = folderPath ? `${folderPath}/${fileName}` : fileName;
+  const filePath = folderPath ? `${clientId}/${folderPath}/${fileName}` : `${clientId}/${fileName}`;
 
-  const { error } = await supabase.storage
+  const { data, error } = await supabase.storage
     .from(containerName)
-    .upload(filePath, buffer, {
+    .upload(filePath, file, {
       upsert: true,
-      contentType: getMimeType(extension || ""),
+      contentType: getMimeType(fileName.split(".").pop() || ""),
     });
 
   if (error) {
-    throw new Error(`Failed to upload to Supabase: ${error.message}`);
+    throw new Error(`Failed to upload to Supabase Storage: ${error.message}`);
   }
 
   const { data: publicUrlData } = supabase.storage
@@ -29,30 +32,62 @@ export async function uploadFile(buffer: Buffer, originalName: string, folderPat
     .getPublicUrl(filePath);
 
   return {
-    blobName: filePath,
+    filePath,
     url: publicUrlData.publicUrl,
   };
 }
 
 /**
- * Delete a file from Storage
+ * Get a public URL for a document
  */
-export async function deleteFile(filePath: string) {
+export function getDocumentUrl(filePath: string) {
+  const supabase = createServerClient();
+  const { data } = supabase.storage
+    .from(containerName)
+    .getPublicUrl(filePath);
+  return data.publicUrl;
+}
+
+/**
+ * Generate a signed URL for secure download (expires in 1 hour)
+ */
+export async function getSignedDownloadUrl(filePath: string, expiresIn = 3600) {
+  const supabase = createServerClient();
+  const { data, error } = await supabase.storage
+    .from(containerName)
+    .createSignedUrl(filePath, expiresIn, {
+      download: true,
+    });
+
+  if (error) {
+    throw new Error(`Failed to generate signed URL: ${error.message}`);
+  }
+
+  return data.signedUrl;
+}
+
+/**
+ * Delete a document from Storage
+ */
+export async function deleteDocument(filePath: string) {
   const supabase = createServerClient();
   const { error } = await supabase.storage
     .from(containerName)
     .remove([filePath]);
 
   if (error) {
-    console.error(`Failed to delete file from Supabase: ${error.message}`);
+    console.error(`Failed to delete document from Storage: ${error.message}`);
+    throw error;
   }
 }
 
 /**
- * List files and folders in a directory
+ * List documents in a client's folder or subfolder
  */
-export async function listDirectory(prefix: string) {
+export async function listDocuments(clientId: string | number, folderPath?: string) {
   const supabase = createServerClient();
+  const prefix = folderPath ? `${clientId}/${folderPath}` : `${clientId}`;
+
   const { data, error } = await supabase.storage
     .from(containerName)
     .list(prefix, {
@@ -62,14 +97,14 @@ export async function listDirectory(prefix: string) {
     });
 
   if (error) {
-    throw new Error(`Failed to list directory: ${error.message}`);
+    throw new Error(`Failed to list documents: ${error.message}`);
   }
 
   return data;
 }
 
 /**
- * Get MIME type based on extension
+ * Helper to get MIME type based on file extension
  */
 function getMimeType(extension: string): string {
   const mimes: Record<string, string> = {
@@ -80,6 +115,10 @@ function getMimeType(extension: string): string {
     zip: "application/zip",
     docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     doc: "application/msword",
+    xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    xls: "application/vnd.ms-excel",
+    txt: "text/plain",
+    csv: "text/csv",
   };
   return mimes[extension.toLowerCase()] || "application/octet-stream";
 }
