@@ -122,7 +122,8 @@ interface WelcomeEmailOptions {
  * Get login URL for the application
  */
 function getLoginUrl(): string {
-  return 'https://legacy.hubonesystems.net/login';
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://clienthub.gentyx.com';
+  return `${baseUrl}/login`;
 }
 
 /**
@@ -161,7 +162,7 @@ export async function sendWelcomeEmail({
     day: 'numeric'
   });
 
-  const subject = `🎉 Welcome to Legacy ClientHub - Your ${roleInfo.title} Account is Ready!`;
+  const subject = `🎉 Welcome to Gentyx ClientHub - Your ${roleInfo.title} Account is Ready!`;
 
   const html = `
     <!DOCTYPE html>
@@ -169,7 +170,7 @@ export async function sendWelcomeEmail({
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Welcome to Legacy ClientHub</title>
+      <title>Welcome to Gentyx ClientHub</title>
     </head>
     <body style="margin: 0; padding: 0; background-color: #f0f4f8; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
       <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f0f4f8;">
@@ -177,23 +178,23 @@ export async function sendWelcomeEmail({
           <td style="padding: 40px 20px;">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto; max-width: 600px;">
               
-              <!-- Header - Legacy Accounting Services Branding (Outlook Compatible) -->
+              <!-- Header - Gentyx Systems Branding (Outlook Compatible) -->
               <tr>
-                <td bgcolor="#5a1f2d" style="background-color: #5a1f2d; padding: 35px 40px 30px; border-radius: 16px 16px 0 0; text-align: center;">
+                <td bgcolor="#1e293b" style="background-color: #1e293b; padding: 35px 40px 30px; border-radius: 16px 16px 0 0; text-align: center;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
                         <!-- Company Name - Clean Text Branding -->
                         <div style="margin-bottom: 8px;">
-                          <span style="font-size: 26px; color: #d4a574; font-weight: 700; letter-spacing: 2px; font-family: Georgia, 'Times New Roman', serif;">LEGACY</span>
+                          <span style="font-size: 26px; color: #ffffff; font-weight: 700; letter-spacing: 2px; font-family: 'Segoe UI', Arial, sans-serif;">GENTY<span style="color: #6366f1;">X</span></span>
                         </div>
                         <div style="margin-bottom: 20px;">
-                          <span style="font-size: 11px; color: #e8d5c4; letter-spacing: 3px; text-transform: uppercase;">ACCOUNTING SERVICES</span>
+                          <span style="font-size: 11px; color: #94a3b8; letter-spacing: 3px; text-transform: uppercase;">SYSTEMS INC</span>
                         </div>
                         <!-- ClientHub Badge -->
                         <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: 0 auto 20px;">
                           <tr>
-                            <td bgcolor="#7a3344" style="background-color: #7a3344; padding: 6px 14px; border-radius: 15px;">
+                            <td bgcolor="#334155" style="background-color: #334155; padding: 6px 14px; border-radius: 15px;">
                               <span style="font-size: 11px; color: #ffffff; font-weight: 500; letter-spacing: 1px;">ClientHub Portal</span>
                             </td>
                           </tr>
@@ -203,8 +204,8 @@ export async function sendWelcomeEmail({
                     <tr>
                       <td style="text-align: center;">
                         <h1 style="color: #ffffff; margin: 0 0 8px; font-size: 24px; font-weight: 600;">Welcome, ${recipientName}!</h1>
-                        <p style="color: #d4a574; margin: 8px 0 0; font-size: 15px; font-weight: 500;">Your Account has been created</p>
-                        <p style="color: #cccccc; margin: 8px 0 0; font-size: 12px;">${formattedDate}</p>
+                        <p style="color: #94a3b8; margin: 8px 0 0; font-size: 15px; font-weight: 500;">Your Account has been created</p>
+                        <p style="color: #64748b; margin: 8px 0 0; font-size: 12px;">${formattedDate}</p>
                       </td>
                     </tr>
                   </table>
@@ -219,7 +220,7 @@ export async function sendWelcomeEmail({
                       <td>
                         <p style="margin: 0 0 20px; font-size: 18px; color: #1e293b; font-weight: 500;">Hello ${recipientName},</p>
                         <p style="margin: 0 0 25px; font-size: 15px; color: #475569; line-height: 1.6;">
-                          Congratulations! Your <strong style="color: ${roleInfo.color};">${roleInfo.title}</strong> account has been successfully created on Legacy ClientHub. 
+                          Congratulations! Your <strong style="color: ${roleInfo.color};">${roleInfo.title}</strong> account has been successfully created on Gentyx ClientHub. 
                           You can now access the platform using the credentials below.
                         </p>
                       </td>
@@ -230,13 +231,11 @@ export async function sendWelcomeEmail({
                       <td style="padding: 0 0 30px;">
                         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-left: 4px solid ${roleInfo.color};">
                           <tr>
-                            <td bgcolor="#f8fafc" style="background-color: #f8fafc; border-radius: 12px; padding: 0;">
-                              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                            <td style="padding: 24px;">
+                            <td bgcolor="#f8fafc" style="background-color: #f8fafc; border-radius: 12px; padding: 24px;">
                               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                   <td style="padding-bottom: 15px;">
-                                    <span style="display: inline-block; background: ${roleInfo.color}; color: white; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">🔐 Your Login Credentials</span>
+                                    <span style="display: inline-block; background: ${roleInfo.color}; color: #ffffff; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">🔐 Your Login Credentials</span>
                                   </td>
                                 </tr>
                                 <tr>
@@ -288,10 +287,19 @@ export async function sendWelcomeEmail({
                     <!-- CTA Button -->
                     <tr>
                       <td style="text-align: center; padding: 10px 0 30px;">
+                        <!--[if mso]>
+                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${loginUrl}" style="height:50px;v-text-anchor:middle;width:250px;" arcsize="20%" stroke="f" fillcolor="${roleInfo.color}">
+                          <w:anchorlock/>
+                          <center>
+                        <![endif]-->
                         <a href="${loginUrl}" 
-                           style="display: inline-block; background-color: ${roleInfo.color}; background: linear-gradient(135deg, ${roleInfo.color} 0%, #8b5cf6 100%); color: white; font-size: 16px; font-weight: 600; padding: 16px 40px; text-decoration: none; border-radius: 10px; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);">
-                          Login to Your Account →
+                           style="background-color: ${roleInfo.color}; border-radius: 10px; color: #ffffff; display: inline-block; font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; font-size: 16px; font-weight: 700; line-height: 50px; text-align: center; text-decoration: none; width: 250px; -webkit-text-size-adjust: none;">
+                          Login to Your Account
                         </a>
+                        <!--[if mso]>
+                          </center>
+                        </v:roundrect>
+                        <![endif]-->
                       </td>
                     </tr>
 
@@ -357,19 +365,19 @@ export async function sendWelcomeEmail({
                 </td>
               </tr>
               
-              <!-- Footer - Legacy Accounting Services Branding (Outlook Compatible) -->
+              <!-- Footer - Gentyx Systems Branding (Outlook Compatible) -->
               <tr>
-                <td bgcolor="#5a1f2d" style="background-color: #5a1f2d; padding: 30px 40px; border-radius: 0 0 16px 16px;">
+                <td bgcolor="#1e293b" style="background-color: #1e293b; padding: 30px 40px; border-radius: 0 0 16px 16px;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
-                        <p style="margin: 0 0 8px; font-size: 14px; color: #d4a574; font-weight: 600;">Legacy Accounting Services</p>
-                        <p style="margin: 0 0 10px; font-size: 12px; color: #cccccc;">ClientHub Portal</p>
-                        <p style="margin: 0 0 15px; font-size: 12px; color: #999999;">Need help? Contact our support team.</p>
+                        <p style="margin: 0 0 8px; font-size: 14px; color: #ffffff; font-weight: 600;">Gentyx Systems Inc.</p>
+                        <p style="margin: 0 0 10px; font-size: 12px; color: #94a3b8;">ClientHub Portal</p>
+                        <p style="margin: 0 0 15px; font-size: 12px; color: #64748b;">Need help? Contact our support team.</p>
                         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                           <tr>
-                            <td style="border-top: 1px solid #7a3344; padding-top: 15px; text-align: center;">
-                              <p style="margin: 0; font-size: 11px; color: #999999;">© ${currentYear} Legacy Accounting Services – All Rights Reserved.</p>
+                            <td style="border-top: 1px solid #334155; padding-top: 15px; text-align: center;">
+                              <p style="margin: 0; font-size: 11px; color: #64748b;">© ${currentYear} Gentyx Systems Inc. – All Rights Reserved.</p>
                             </td>
                           </tr>
                         </table>
@@ -516,7 +524,7 @@ export async function sendUpdateNotification({
     hour12: true
   });
 
-  const subject = `${config.icon} ${config.label}: ${details.title} - Legacy ClientHub`;
+  const subject = `${config.icon} ${config.label}: ${details.title} - Gentyx ClientHub`;
 
   const html = `
     <!DOCTYPE html>
@@ -540,10 +548,10 @@ export async function sendUpdateNotification({
                       <td style="text-align: center;">
                         <!-- Company Name - Clean Text Branding -->
                         <div style="margin-bottom: 5px;">
-                          <span style="font-size: 22px; color: #d4a574; font-weight: 700; letter-spacing: 2px; font-family: Georgia, 'Times New Roman', serif;">LEGACY</span>
+                          <span style="font-size: 22px; color: #ffffff; font-weight: 700; letter-spacing: 2px; font-family: 'Segoe UI', Arial, sans-serif;">GENTY<span style="color: #6366f1;">X</span></span>
                         </div>
                         <div style="margin-bottom: 15px;">
-                          <span style="font-size: 10px; color: #e8d5c4; letter-spacing: 2px;">ACCOUNTING SERVICES</span>
+                          <span style="font-size: 10px; color: #94a3b8; letter-spacing: 2px;">SYSTEMS INC</span>
                         </div>
                       </td>
                     </tr>
@@ -599,18 +607,18 @@ export async function sendUpdateNotification({
                 </td>
               </tr>
               
-              <!-- Footer - Legacy Accounting Services Branding (Outlook Compatible) -->
+              <!-- Footer - Gentyx Systems Branding (Outlook Compatible) -->
               <tr>
-                <td bgcolor="#5a1f2d" style="background-color: #5a1f2d; padding: 30px 40px; border-radius: 0 0 16px 16px;">
+                <td bgcolor="#1e293b" style="background-color: #1e293b; padding: 30px 40px; border-radius: 0 0 16px 16px;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
-                        <p style="margin: 0 0 8px; font-size: 14px; color: #d4a574; font-weight: 600;">Legacy Accounting Services</p>
-                        <p style="margin: 0 0 15px; font-size: 12px; color: #999999;">Client Portal - Automated Notification</p>
+                        <p style="margin: 0 0 8px; font-size: 14px; color: #ffffff; font-weight: 600;">Gentyx Systems Inc.</p>
+                        <p style="margin: 0 0 15px; font-size: 12px; color: #94a3b8;">Client Portal - Automated Notification</p>
                         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                           <tr>
-                            <td style="border-top: 1px solid #7a3344; padding-top: 15px; text-align: center;">
-                              <p style="margin: 0; font-size: 11px; color: #999999;">© ${currentYear} Legacy Accounting Services – All Rights Reserved.</p>
+                            <td style="border-top: 1px solid #334155; padding-top: 15px; text-align: center;">
+                              <p style="margin: 0; font-size: 11px; color: #64748b;">© ${currentYear} Gentyx Systems Inc. – All Rights Reserved.</p>
                             </td>
                           </tr>
                         </table>
@@ -642,7 +650,7 @@ export async function sendMessageNotification({
   messagePreview,
   clientId,
 }: MessageNotificationOptions) {
-  const subject = `📬 New Message from ${senderName} - Legacy ClientHub`;
+  const subject = `📬 New Message from ${senderName} - Gentyx ClientHub`;
   const currentYear = new Date().getFullYear();
   const formattedDate = new Date().toLocaleDateString('en-US', {
     weekday: 'long',
@@ -679,10 +687,10 @@ export async function sendMessageNotification({
                       <td style="text-align: center;">
                         <!-- Company Name - Clean Text Branding -->
                         <div style="margin-bottom: 5px;">
-                          <span style="font-size: 22px; color: #d4a574; font-weight: 700; letter-spacing: 2px; font-family: Georgia, 'Times New Roman', serif;">LEGACY</span>
+                          <span style="font-size: 22px; color: #ffffff; font-weight: 700; letter-spacing: 2px; font-family: 'Segoe UI', Arial, sans-serif;">GENTY<span style="color: #6366f1;">X</span></span>
                         </div>
                         <div style="margin-bottom: 15px;">
-                          <span style="font-size: 10px; color: #e8d5c4; letter-spacing: 2px;">ACCOUNTING SERVICES</span>
+                          <span style="font-size: 10px; color: #94a3b8; letter-spacing: 2px;">SYSTEMS INC</span>
                         </div>
                       </td>
                     </tr>
@@ -817,7 +825,7 @@ function getTaskNotificationRoleConfig(role: TaskNotificationOptions['recipientR
   title: string;
   dashboardUrl: string;
 } {
-  const baseUrl = 'https://legacy.hubonesystems.net';
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://clienthub.gentyx.com';
 
   switch (role) {
     case 'CLIENT':
@@ -884,8 +892,8 @@ export async function sendTaskNotificationEmail({
   const headerColor = isNewTask ? '#3b82f6' : '#f59e0b';
 
   const subject = isNewTask
-    ? `📋 New Task Assigned: ${taskTitle} - Legacy ClientHub`
-    : `✏️ Task Updated: ${taskTitle} - Legacy ClientHub`;
+    ? `📋 New Task Assigned: ${taskTitle} - Gentyx ClientHub`
+    : `✏️ Task Updated: ${taskTitle} - Gentyx ClientHub`;
 
   // Format due date nicely
   const formattedDueDate = dueDate
@@ -916,18 +924,18 @@ export async function sendTaskNotificationEmail({
           <td style="padding: 40px 20px;">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto; max-width: 600px;">
               
-              <!-- Header - Legacy Accounting Services Branding -->
+              <!-- Header - Gentyx Systems Branding -->
               <tr>
-                <td bgcolor="#5a1f2d" style="background-color: #5a1f2d; background: linear-gradient(135deg, #5a1f2d 0%, #722f3e 50%, #8b3d4d 100%); padding: 30px 40px 25px; border-radius: 16px 16px 0 0; text-align: center;">
+                <td bgcolor="#1e293b" style="background-color: #1e293b; padding: 30px 40px 25px; border-radius: 16px 16px 0 0; text-align: center;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
                         <!-- Company Name - Clean Text Branding -->
                         <div style="margin-bottom: 5px;">
-                          <span style="font-size: 22px; color: #d4a574; font-weight: 700; letter-spacing: 2px; font-family: Georgia, 'Times New Roman', serif;">LEGACY</span>
+                          <span style="font-size: 22px; color: #ffffff; font-weight: 700; letter-spacing: 2px; font-family: 'Segoe UI', Arial, sans-serif;">GENTY<span style="color: #6366f1;">X</span></span>
                         </div>
                         <div style="margin-bottom: 15px;">
-                          <span style="font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 2px;">ACCOUNTING SERVICES</span>
+                          <span style="font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 2px;">SYSTEMS INC</span>
                         </div>
                       </td>
                     </tr>
@@ -1079,17 +1087,17 @@ export async function sendTaskNotificationEmail({
                 </td>
               </tr>
               
-              <!-- Footer - Legacy Accounting Services Branding -->
+              <!-- Footer - Gentyx Systems Branding -->
               <tr>
-                <td style="background-color: #5a1f2d; padding: 30px 40px; border-radius: 0 0 16px 16px;">
+                <td style="background-color: #1e293b; padding: 30px 40px; border-radius: 0 0 16px 16px;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
-                        <p style="margin: 0 0 8px; font-size: 14px; color: #d4a574; font-weight: 600;">Legacy Accounting Services</p>
+                        <p style="margin: 0 0 8px; font-size: 14px; color: #ffffff; font-weight: 600;">Gentyx Systems Inc.</p>
                         <p style="margin: 0 0 10px; font-size: 12px; color: rgba(255,255,255,0.7);">Client Portal - Automated Notification</p>
                         <p style="margin: 0 0 15px; font-size: 11px; color: rgba(255,255,255,0.5);">Please do not reply directly to this email.</p>
                         <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; margin-top: 10px;">
-                          <p style="margin: 0; font-size: 11px; color: rgba(255,255,255,0.5);">© ${currentYear} Legacy Accounting Services – All Rights Reserved.</p>
+                          <p style="margin: 0; font-size: 11px; color: rgba(255,255,255,0.5);">© ${currentYear} Gentyx Systems Inc. – All Rights Reserved.</p>
                         </div>
                       </td>
                     </tr>
@@ -1166,7 +1174,7 @@ export async function sendOnboardingTaskNotificationEmail({
     headerColor = '#10b981';
   }
 
-  const subject = `${headerIcon} ${headerTitle}: ${subtaskTitle} - Legacy Accounting Services`;
+  const subject = `${headerIcon} ${headerTitle}: ${subtaskTitle} - Gentyx Systems`;
 
   const formattedDueDate = dueDate
     ? new Date(dueDate).toLocaleDateString('en-US', {
@@ -1191,18 +1199,18 @@ export async function sendOnboardingTaskNotificationEmail({
           <td style="padding: 40px 20px;">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto; max-width: 600px;">
               
-              <!-- Header - Legacy Accounting Services Branding -->
+              <!-- Header - Gentyx Systems Branding -->
               <tr>
-                <td bgcolor="#5a1f2d" style="background-color: #5a1f2d; background: linear-gradient(135deg, #5a1f2d 0%, #722f3e 50%, #8b3d4d 100%); padding: 30px 40px 25px; border-radius: 16px 16px 0 0; text-align: center;">
+                <td bgcolor="#1e293b" style="background-color: #1e293b; padding: 30px 40px 25px; border-radius: 16px 16px 0 0; text-align: center;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
                         <!-- Company Name - Clean Text Branding -->
                         <div style="margin-bottom: 5px;">
-                          <span style="font-size: 22px; color: #d4a574; font-weight: 700; letter-spacing: 2px; font-family: Georgia, 'Times New Roman', serif;">LEGACY</span>
+                          <span style="font-size: 22px; color: #ffffff; font-weight: 700; letter-spacing: 2px; font-family: 'Segoe UI', Arial, sans-serif;">GENTY<span style="color: #6366f1;">X</span></span>
                         </div>
                         <div style="margin-bottom: 15px;">
-                          <span style="font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 2px;">ACCOUNTING SERVICES</span>
+                          <span style="font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 2px;">SYSTEMS INC</span>
                         </div>
                       </td>
                     </tr>
@@ -1322,16 +1330,16 @@ export async function sendOnboardingTaskNotificationEmail({
                 </td>
               </tr>
               
-              <!-- Footer - Legacy Accounting Services Branding -->
+              <!-- Footer - Gentyx Systems Branding -->
               <tr>
-                <td style="background-color: #5a1f2d; padding: 30px 40px; border-radius: 0 0 16px 16px;">
+                <td style="background-color: #1e293b; padding: 30px 40px; border-radius: 0 0 16px 16px;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
-                        <p style="margin: 0 0 8px; font-size: 14px; color: #d4a574; font-weight: 600;">Legacy Accounting Services</p>
+                        <p style="margin: 0 0 8px; font-size: 14px; color: #ffffff; font-weight: 600;">Gentyx Systems Inc.</p>
                         <p style="margin: 0 0 15px; font-size: 12px; color: rgba(255,255,255,0.5);">Client Portal - Automated Notification</p>
                         <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; margin-top: 10px;">
-                          <p style="margin: 0; font-size: 11px; color: rgba(255,255,255,0.5);">© ${currentYear} Legacy Accounting Services – All Rights Reserved.</p>
+                          <p style="margin: 0; font-size: 11px; color: rgba(255,255,255,0.5);">© ${currentYear} Gentyx Systems Inc. – All Rights Reserved.</p>
                         </div>
                       </td>
                     </tr>
@@ -1383,7 +1391,7 @@ export async function sendOnboardingOverviewEmail({
   recipientName,
   clientName,
   stages,
-  loginUrl = 'https://legacy.hubonesystems.net/login',
+  loginUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://clienthub.gentyx.com'}/login`,
 }: OnboardingOverviewOptions) {
   console.log(`📧 sendOnboardingOverviewEmail called for ${recipientEmail}`);
 
@@ -1461,7 +1469,7 @@ export async function sendOnboardingOverviewEmail({
     `;
   }).join('');
 
-  const subject = `📋 Your Onboarding Journey Overview - ${clientName} - Legacy Accounting Services`;
+  const subject = `📋 Your Onboarding Journey Overview - ${clientName} - Gentyx Systems`;
 
   const html = `
     <!DOCTYPE html>
@@ -1477,18 +1485,18 @@ export async function sendOnboardingOverviewEmail({
           <td style="padding: 40px 20px;">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto; max-width: 600px;">
               
-              <!-- Header - Legacy Accounting Services Branding -->
+              <!-- Header - Gentyx Systems Branding -->
               <tr>
-                <td bgcolor="#5a1f2d" style="background-color: #5a1f2d; background: linear-gradient(135deg, #5a1f2d 0%, #722f3e 50%, #8b3d4d 100%); padding: 30px 40px 25px; border-radius: 16px 16px 0 0; text-align: center;">
+                <td bgcolor="#1e293b" style="background-color: #1e293b; padding: 30px 40px 25px; border-radius: 16px 16px 0 0; text-align: center;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
                         <!-- Company Name - Clean Text Branding -->
                         <div style="margin-bottom: 5px;">
-                          <span style="font-size: 22px; color: #d4a574; font-weight: 700; letter-spacing: 2px; font-family: Georgia, 'Times New Roman', serif;">LEGACY</span>
+                          <span style="font-size: 22px; color: #ffffff; font-weight: 700; letter-spacing: 2px; font-family: 'Segoe UI', Arial, sans-serif;">GENTY<span style="color: #6366f1;">X</span></span>
                         </div>
                         <div style="margin-bottom: 15px;">
-                          <span style="font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 2px;">ACCOUNTING SERVICES</span>
+                          <span style="font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 2px;">SYSTEMS INC</span>
                         </div>
                       </td>
                     </tr>
@@ -1567,17 +1575,17 @@ export async function sendOnboardingOverviewEmail({
                 </td>
               </tr>
               
-              <!-- Footer - Legacy Accounting Services Branding -->
+              <!-- Footer - Gentyx Systems Branding -->
               <tr>
-                <td style="background-color: #5a1f2d; padding: 30px 40px; border-radius: 0 0 16px 16px;">
+                <td style="background-color: #1e293b; padding: 30px 40px; border-radius: 0 0 16px 16px;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
-                        <p style="margin: 0 0 8px; font-size: 14px; color: #d4a574; font-weight: 600;">Legacy Accounting Services</p>
+                        <p style="margin: 0 0 8px; font-size: 14px; color: #ffffff; font-weight: 600;">Gentyx Systems Inc.</p>
                         <p style="margin: 0 0 10px; font-size: 12px; color: rgba(255,255,255,0.7);">Client Portal - Automated Notification</p>
                         <p style="margin: 0 0 15px; font-size: 11px; color: rgba(255,255,255,0.5);">Please do not reply directly to this email.</p>
                         <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; margin-top: 10px;">
-                          <p style="margin: 0; font-size: 11px; color: rgba(255,255,255,0.5);">© ${currentYear} Legacy Accounting Services – All Rights Reserved.</p>
+                          <p style="margin: 0; font-size: 11px; color: rgba(255,255,255,0.5);">© ${currentYear} Gentyx Systems Inc. – All Rights Reserved.</p>
                         </div>
                       </td>
                     </tr>
@@ -1665,18 +1673,18 @@ export async function sendAdminTaskCompletionEmail({
           <td style="padding: 40px 20px;">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto; max-width: 600px;">
               
-              <!-- Header - Legacy Accounting Services Branding -->
+              <!-- Header - Gentyx Systems Branding -->
               <tr>
-                <td bgcolor="#5a1f2d" style="background-color: #5a1f2d; background: linear-gradient(135deg, #5a1f2d 0%, #722f3e 50%, #8b3d4d 100%); padding: 30px 40px 25px; border-radius: 16px 16px 0 0; text-align: center;">
+                <td bgcolor="#1e293b" style="background-color: #1e293b; padding: 30px 40px 25px; border-radius: 16px 16px 0 0; text-align: center;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
                         <!-- Company Name - Clean Text Branding -->
                         <div style="margin-bottom: 5px;">
-                          <span style="font-size: 22px; color: #d4a574; font-weight: 700; letter-spacing: 2px; font-family: Georgia, 'Times New Roman', serif;">LEGACY</span>
+                          <span style="font-size: 22px; color: #ffffff; font-weight: 700; letter-spacing: 2px; font-family: 'Segoe UI', Arial, sans-serif;">GENTY<span style="color: #6366f1;">X</span></span>
                         </div>
                         <div style="margin-bottom: 15px;">
-                          <span style="font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 2px;">ACCOUNTING SERVICES</span>
+                          <span style="font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 2px;">SYSTEMS INC</span>
                         </div>
                       </td>
                     </tr>
@@ -1780,26 +1788,35 @@ export async function sendAdminTaskCompletionEmail({
                     <!-- CTA Button -->
                     <tr>
                       <td style="text-align: center; padding: 10px 0 0;">
-                        <a href="https://legacy.hubonesystems.net/admin" 
-                           style="display: inline-block; background-color: #10b981; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; font-size: 15px; font-weight: 600; padding: 14px 36px; text-decoration: none; border-radius: 10px; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);">
-                          View Dashboard →
+                        <!--[if mso]>
+                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://clienthub.gentyx.com'}/admin" style="height:44px;v-text-anchor:middle;width:200px;" arcsize="23%" stroke="f" fillcolor="#10b981">
+                          <w:anchorlock/>
+                          <center>
+                        <![endif]-->
+                        <a href="${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://clienthub.gentyx.com'}/admin" 
+                           style="background-color: #10b981; border-radius: 10px; color: #ffffff; display: inline-block; font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; font-size: 15px; font-weight: 600; line-height: 44px; text-align: center; text-decoration: none; width: 200px; -webkit-text-size-adjust: none;">
+                          View Dashboard
                         </a>
+                        <!--[if mso]>
+                          </center>
+                        </v:roundrect>
+                        <![endif]-->
                       </td>
                     </tr>
                   </table>
                 </td>
               </tr>
               
-              <!-- Footer - Legacy Accounting Services Branding -->
+              <!-- Footer - Gentyx Systems Branding -->
               <tr>
-                <td style="background-color: #5a1f2d; padding: 30px 40px; border-radius: 0 0 16px 16px;">
+                <td style="background-color: #1e293b; padding: 30px 40px; border-radius: 0 0 16px 16px;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
-                        <p style="margin: 0 0 8px; font-size: 14px; color: #d4a574; font-weight: 600;">Legacy Accounting Services</p>
+                        <p style="margin: 0 0 8px; font-size: 14px; color: #ffffff; font-weight: 600;">Gentyx Systems Inc.</p>
                         <p style="margin: 0 0 15px; font-size: 12px; color: rgba(255,255,255,0.5);">Client Portal - Automated Notification</p>
                         <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; margin-top: 10px;">
-                          <p style="margin: 0; font-size: 11px; color: rgba(255,255,255,0.5);">© ${currentYear} Legacy Accounting Services – All Rights Reserved.</p>
+                          <p style="margin: 0; font-size: 11px; color: rgba(255,255,255,0.5);">© ${currentYear} Gentyx Systems Inc. – All Rights Reserved.</p>
                         </div>
                       </td>
                     </tr>
@@ -1885,18 +1902,18 @@ export async function sendAdminMessageNotification({
           <td style="padding: 40px 20px;">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto; max-width: 600px;">
               
-              <!-- Header - Legacy Accounting Services Branding -->
+              <!-- Header - Gentyx Systems Branding -->
               <tr>
-                <td bgcolor="#5a1f2d" style="background-color: #5a1f2d; background: linear-gradient(135deg, #5a1f2d 0%, #722f3e 50%, #8b3d4d 100%); padding: 30px 40px 25px; border-radius: 16px 16px 0 0; text-align: center;">
+                <td bgcolor="#1e293b" style="background-color: #1e293b; padding: 30px 40px 25px; border-radius: 16px 16px 0 0; text-align: center;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
                         <!-- Company Name - Clean Text Branding -->
                         <div style="margin-bottom: 5px;">
-                          <span style="font-size: 22px; color: #d4a574; font-weight: 700; letter-spacing: 2px; font-family: Georgia, 'Times New Roman', serif;">LEGACY</span>
+                          <span style="font-size: 22px; color: #ffffff; font-weight: 700; letter-spacing: 2px; font-family: 'Segoe UI', Arial, sans-serif;">GENTY<span style="color: #6366f1;">X</span></span>
                         </div>
                         <div style="margin-bottom: 15px;">
-                          <span style="font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 2px;">ACCOUNTING SERVICES</span>
+                          <span style="font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 2px;">SYSTEMS INC</span>
                         </div>
                       </td>
                     </tr>
@@ -1985,26 +2002,35 @@ export async function sendAdminMessageNotification({
                     <!-- CTA Button -->
                     <tr>
                       <td style="text-align: center; padding: 10px 0 0;">
-                        <a href="https://legacy.hubonesystems.net/admin" 
-                           style="display: inline-block; background-color: #3b82f6; background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%); color: white; font-size: 15px; font-weight: 600; padding: 14px 36px; text-decoration: none; border-radius: 10px; box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);">
-                          Reply Now →
+                        <!--[if mso]>
+                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://clienthub.gentyx.com'}/admin" style="height:44px;v-text-anchor:middle;width:200px;" arcsize="23%" stroke="f" fillcolor="#3b82f6">
+                          <w:anchorlock/>
+                          <center>
+                        <![endif]-->
+                        <a href="${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://clienthub.gentyx.com'}/admin" 
+                           style="background-color: #3b82f6; border-radius: 10px; color: #ffffff; display: inline-block; font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; font-size: 15px; font-weight: 600; line-height: 44px; text-align: center; text-decoration: none; width: 200px; -webkit-text-size-adjust: none;">
+                          Reply Now
                         </a>
+                        <!--[if mso]>
+                          </center>
+                        </v:roundrect>
+                        <![endif]-->
                       </td>
                     </tr>
                   </table>
                 </td>
               </tr>
               
-              <!-- Footer - Legacy Accounting Services Branding -->
+              <!-- Footer - Gentyx Systems Branding -->
               <tr>
-                <td style="background-color: #5a1f2d; padding: 30px 40px; border-radius: 0 0 16px 16px;">
+                <td style="background-color: #1e293b; padding: 30px 40px; border-radius: 0 0 16px 16px;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
-                        <p style="margin: 0 0 8px; font-size: 14px; color: #d4a574; font-weight: 600;">Legacy Accounting Services</p>
+                        <p style="margin: 0 0 8px; font-size: 14px; color: #ffffff; font-weight: 600;">Gentyx Systems Inc.</p>
                         <p style="margin: 0 0 15px; font-size: 12px; color: rgba(255,255,255,0.5);">Client Portal - Automated Notification</p>
                         <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; margin-top: 10px;">
-                          <p style="margin: 0; font-size: 11px; color: rgba(255,255,255,0.5);">© ${currentYear} Legacy Accounting Services – All Rights Reserved.</p>
+                          <p style="margin: 0; font-size: 11px; color: rgba(255,255,255,0.5);">© ${currentYear} Gentyx Systems Inc. – All Rights Reserved.</p>
                         </div>
                       </td>
                     </tr>
@@ -2051,7 +2077,7 @@ export function wrapEmailContent({
   headerColor = '#6366f1',
   bodyContent,
   showActionButton = true,
-  actionButtonUrl = 'https://legacy.hubonesystems.net',
+  actionButtonUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://clienthub.gentyx.com'}`,
   actionButtonLabel = 'View in ClientHub',
 }: EmailWrapperOptions): string {
   const currentYear = new Date().getFullYear();
@@ -2084,18 +2110,18 @@ export function wrapEmailContent({
           <td style="padding: 40px 20px;">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto; max-width: 600px;">
               
-              <!-- Header - Legacy Accounting Services Branding -->
+              <!-- Header - Gentyx Systems Branding -->
               <tr>
-                <td bgcolor="#5a1f2d" style="background-color: #5a1f2d; background: linear-gradient(135deg, #5a1f2d 0%, #722f3e 50%, #8b3d4d 100%); padding: 30px 40px 25px; border-radius: 16px 16px 0 0; text-align: center;">
+                <td bgcolor="#1e293b" style="background-color: #1e293b; padding: 30px 40px 25px; border-radius: 16px 16px 0 0; text-align: center;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
                         <!-- Company Name - Clean Text Branding -->
                         <div style="margin-bottom: 5px;">
-                          <span style="font-size: 22px; color: #d4a574; font-weight: 700; letter-spacing: 2px; font-family: Georgia, 'Times New Roman', serif;">LEGACY</span>
+                          <span style="font-size: 22px; color: #ffffff; font-weight: 700; letter-spacing: 2px; font-family: 'Segoe UI', Arial, sans-serif;">GENTY<span style="color: #6366f1;">X</span></span>
                         </div>
                         <div style="margin-bottom: 15px;">
-                          <span style="font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 2px;">ACCOUNTING SERVICES</span>
+                          <span style="font-size: 10px; color: rgba(255,255,255,0.85); letter-spacing: 2px;">SYSTEMS INC</span>
                         </div>
                       </td>
                     </tr>
@@ -2140,10 +2166,19 @@ export function wrapEmailContent({
                     <!-- CTA Button -->
                     <tr>
                       <td style="text-align: center; padding: 10px 0 0;">
+                        <!--[if mso]>
+                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${actionButtonUrl}" style="height:44px;v-text-anchor:middle;width:220px;" arcsize="23%" stroke="f" fillcolor="${headerColor}">
+                          <w:anchorlock/>
+                          <center>
+                        <![endif]-->
                         <a href="${actionButtonUrl}" 
-                           style="display: inline-block; background-color: ${headerColor}; background: linear-gradient(135deg, ${headerColor} 0%, #8b5cf6 100%); color: white; font-size: 15px; font-weight: 600; padding: 14px 36px; text-decoration: none; border-radius: 10px; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);">
-                          ${actionButtonLabel} →
+                           style="background-color: ${headerColor}; border-radius: 10px; color: #ffffff; display: inline-block; font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; font-size: 15px; font-weight: 600; line-height: 44px; text-align: center; text-decoration: none; width: 220px; -webkit-text-size-adjust: none;">
+                          ${actionButtonLabel}
                         </a>
+                        <!--[if mso]>
+                          </center>
+                        </v:roundrect>
+                        <![endif]-->
                       </td>
                     </tr>
                     ` : ''}
@@ -2151,16 +2186,16 @@ export function wrapEmailContent({
                 </td>
               </tr>
               
-              <!-- Footer - Legacy Accounting Services Branding -->
+              <!-- Footer - Gentyx Systems Branding -->
               <tr>
-                <td style="background-color: #5a1f2d; padding: 30px 40px; border-radius: 0 0 16px 16px;">
+                <td style="background-color: #1e293b; padding: 30px 40px; border-radius: 0 0 16px 16px;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
-                        <p style="margin: 0 0 8px; font-size: 14px; color: #d4a574; font-weight: 600;">Legacy Accounting Services</p>
+                        <p style="margin: 0 0 8px; font-size: 14px; color: #ffffff; font-weight: 600;">Gentyx Systems Inc.</p>
                         <p style="margin: 0 0 15px; font-size: 12px; color: rgba(255,255,255,0.5);">Client Portal - Automated Notification</p>
                         <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; margin-top: 10px;">
-                          <p style="margin: 0; font-size: 11px; color: rgba(255,255,255,0.5);">© ${currentYear} Legacy Accounting Services – All Rights Reserved.</p>
+                          <p style="margin: 0; font-size: 11px; color: rgba(255,255,255,0.5);">© ${currentYear} Gentyx Systems Inc. – All Rights Reserved.</p>
                         </div>
                       </td>
                     </tr>
@@ -2558,7 +2593,7 @@ export async function sendAdminTaskCompletedNotification({
     headerIcon: '✅',
     headerColor: '#059669',
     showActionButton: true,
-    actionButtonUrl: `https://legacy.hubonesystems.net/admin/clients/${clientId}`,
+    actionButtonUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://clienthub.gentyx.com'}/admin/clients/${clientId}`,
     actionButtonLabel: 'View Client Details',
   });
 }
