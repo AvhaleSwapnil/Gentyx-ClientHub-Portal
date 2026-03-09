@@ -528,7 +528,9 @@ export function FlexibleChat({
                             size="icon"
                             className={cn(
                                 "h-9 w-9 rounded-full shrink-0 transition-all",
-                                messageText.trim() || attachmentFile ? myBubbleColor + " hover:opacity-90" : "bg-slate-300 hover:bg-slate-400"
+                                messageText.trim() || attachmentFile
+                                    ? cn(myBubbleColor, currentUserRole === "ADMIN" && "hover:bg-[#61A800]")
+                                    : "bg-slate-300 hover:bg-slate-400"
                             )}
                             disabled={(!messageText.trim() && !attachmentFile) || isSending || isUnassigned}
                         >

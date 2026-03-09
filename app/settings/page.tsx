@@ -282,7 +282,7 @@ export default function SettingsPage() {
               </div>
 
               <div className="flex justify-end">
-                <Button onClick={handleSaveProfile} className="gap-2" disabled={isSaving}>
+                <Button onClick={handleSaveProfile} className="gap-2 hover:bg-[#61A800] transition-colors" disabled={isSaving}>
                   {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
                   Save Changes
                 </Button>
@@ -375,7 +375,7 @@ export default function SettingsPage() {
                   </div>
                 </div>
                 <div className="flex justify-end">
-                  <Button onClick={handleUpdatePassword} disabled={isUpdatingPass}>
+                  <Button onClick={handleUpdatePassword} disabled={isUpdatingPass} className="hover:bg-[#61A800] transition-colors">
                     {isUpdatingPass && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Update Password
                   </Button>

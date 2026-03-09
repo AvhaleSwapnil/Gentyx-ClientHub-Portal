@@ -599,7 +599,7 @@ export default function ClientTasks() {
             <Button
               size="sm"
               variant="ghost"
-              className="h-8 gap-1 text-primary"
+              className="h-8 gap-1 text-primary hover:bg-[#61A800] hover:text-white transition-colors"
               onClick={() => {
                 // Navigate to the specific folder for this task
                 let folderPath = "";

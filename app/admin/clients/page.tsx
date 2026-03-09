@@ -229,7 +229,10 @@ export default function AdminClientsList() {
         <h1 className="text-xl font-semibold">Clients</h1>
 
         <div className="flex items-center gap-2">
-          <Button onClick={() => router.push("/admin/clients/new")}>
+          <Button
+            onClick={() => router.push("/admin/clients/new")}
+            className="hover:bg-[#61A800] transition-colors"
+          >
             New Client
           </Button>
         </div>

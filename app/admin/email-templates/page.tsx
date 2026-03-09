@@ -197,7 +197,7 @@ export default function EmailTemplatesPage() {
 
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Button onClick={() => handleOpenDialog()} className="gap-2">
+              <Button onClick={() => handleOpenDialog()} className="gap-2 hover:bg-[#61A800] transition-colors">
                 <Plus className="size-4" /> New Template
               </Button>
             </DialogTrigger>
@@ -253,7 +253,7 @@ export default function EmailTemplatesPage() {
               </div>
               <DialogFooter>
                 <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
-                <Button onClick={handleSave} disabled={isSaving}>
+                <Button onClick={handleSave} disabled={isSaving} className="hover:bg-[#61A800] transition-colors">
                   {isSaving ? "Saving..." : editingId ? "Update Template" : "Create Template"}
                 </Button>
               </DialogFooter>
@@ -386,7 +386,7 @@ export default function EmailTemplatesPage() {
               <p className="text-sm max-w-xs text-center mt-2">
                 Select a template from the list on the left to view, edit, or manage its content.
               </p>
-              <Button variant="outline" className="mt-6" onClick={() => handleOpenDialog()}>
+              <Button variant="outline" className="mt-6 hover:bg-[#61A800] hover:text-white transition-colors" onClick={() => handleOpenDialog()}>
                 <Plus className="mr-2 h-4 w-4" /> Create New Template
               </Button>
             </div>

@@ -1194,6 +1194,7 @@ export default function ClientProfilePage() {
                 stageId: client?.stage_id,
               });
             }}
+            className="hover:bg-[#61A800] transition-colors"
           >
             Assign Task
           </Button>
@@ -1699,6 +1700,7 @@ export default function ClientProfilePage() {
                         size="sm"
                         onClick={handleSaveAssociatedUsers}
                         disabled={isSavingUsers}
+                        className="hover:bg-[#61A800] transition-colors"
                       >
                         {isSavingUsers ? (
                           <>
@@ -1862,7 +1864,7 @@ export default function ClientProfilePage() {
                       <Button
                         type="button"
                         onClick={handleAddUser}
-                        className="w-full"
+                        className="w-full hover:bg-[#61A800] transition-colors"
                       >
                         <Plus className="mr-2 h-4 w-4" />
                         Add User
@@ -1954,6 +1956,7 @@ export default function ClientProfilePage() {
                 <Button
                   size="sm"
                   onClick={() => router.push(`/admin/stages?clientId=${id}`)}
+                  className="hover:bg-[#61A800] transition-colors"
                 >
                   Update Onboarding Tasks
                 </Button>
@@ -2075,6 +2078,7 @@ export default function ClientProfilePage() {
                       stageId: client?.stage_id,
                     });
                   }}
+                  className="hover:bg-[#61A800] transition-colors"
                 >
                   Assign Task
                 </Button>

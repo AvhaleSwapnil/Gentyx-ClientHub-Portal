@@ -307,6 +307,7 @@ export default function ClientDocuments() {
             {/* UPLOAD DOCUMENT BUTTON */}
             <Button
               size="sm"
+              className="hover:bg-[#61A800] transition-colors"
               onClick={() => {
                 // Auto-route to "Client Uploaded" section in blob storage
                 const uploadFolder = selectedFolder
@@ -390,7 +391,7 @@ export default function ClientDocuments() {
                         });
                       }
                     }}
-                    className="bg-amber-600 hover:bg-amber-700 text-white"
+                    className="bg-amber-600 hover:bg-[#61A800] transition-colors text-white"
                   >
                     Create
                   </Button>

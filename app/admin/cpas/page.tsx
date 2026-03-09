@@ -247,7 +247,7 @@ export default function CPAsPage() {
           </div>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Button onClick={() => handleOpenDialog()}>
+              <Button onClick={() => handleOpenDialog()} className="hover:bg-[#61A800] transition-colors">
                 <Plus className="mr-2 h-4 w-4" /> Add Preparer
               </Button>
             </DialogTrigger>
@@ -301,7 +301,7 @@ export default function CPAsPage() {
                   Cancel
                 </Button>
 
-                <Button onClick={handleSave} disabled={isSaving}>
+                <Button onClick={handleSave} disabled={isSaving} className="hover:bg-[#61A800] transition-colors">
                   {isSaving ? (editingId ? "Updating..." : "Creating...") : (editingId ? "Update Preparer" : "Create Preparer")}
                 </Button>
               </div>

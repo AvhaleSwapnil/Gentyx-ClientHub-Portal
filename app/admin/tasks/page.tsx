@@ -474,7 +474,10 @@ export default function AdminTasksPage() {
       {/* HEADER */}
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">Tasks</h1>
-        <Button onClick={() => openDrawer("assignTask", {})}>
+        <Button
+          onClick={() => openDrawer("assignTask", {})}
+          className="hover:bg-[#61A800] transition-colors"
+        >
           Assign Task
         </Button>
       </div>

@@ -737,7 +737,7 @@ export default function StagesPage() {
           {selectedClientId && !showTemplateSelector && (
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger asChild>
-                <Button onClick={() => handleOpenDialog()} className="gap-2">
+                <Button onClick={() => handleOpenDialog()} className="gap-2 hover:bg-[#61A800] transition-colors">
                   <Plus className="size-4" /> Add Stage
                 </Button>
               </DialogTrigger>
@@ -767,7 +767,7 @@ export default function StagesPage() {
                   </div>
                   <DialogFooter>
                     <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
-                    <Button onClick={handleSave}>Create Stage</Button>
+                    <Button onClick={handleSave} className="hover:bg-[#61A800] transition-colors">Create Stage</Button>
                   </DialogFooter>
                 </div>
               </DialogContent>
@@ -938,7 +938,7 @@ export default function StagesPage() {
                         </SelectContent>
                       </Select>
                       <Button
-                        className="h-11 px-6"
+                        className="h-11 px-6 hover:bg-[#61A800] transition-colors"
                         disabled={!selectedTemplateId}
                         onClick={async () => {
                           const res = await fetch(`/api/default-stages/list?templateId=${selectedTemplateId}`);
@@ -1157,7 +1157,7 @@ export default function StagesPage() {
                   <Button variant="ghost" size="sm" className="rounded-full text-muted-foreground hover:text-destructive" onClick={() => setCancelOpen(true)}>
                     <XCircle className="mr-2 h-4 w-4" /> Discard Changes
                   </Button>
-                  <Button size="sm" className="rounded-full px-6" disabled={isSaving} onClick={handleServerSave}>
+                  <Button size="sm" className="rounded-full px-6 hover:bg-[#61A800] transition-colors" disabled={isSaving} onClick={handleServerSave}>
                     <Save className="mr-2 h-4 w-4" /> {isSaving ? "Saving..." : "Save All Changes"}
                   </Button>
                 </div>
@@ -1191,7 +1191,7 @@ export default function StagesPage() {
                 <p className="text-sm text-muted-foreground max-w-sm text-center mb-6">
                   You have started a manual configuration. Click below to add your first stage.
                 </p>
-                <Button onClick={() => handleOpenDialog()}>
+                <Button onClick={() => handleOpenDialog()} className="hover:bg-[#61A800] transition-colors">
                   <Plus className="mr-2 h-4 w-4" /> Add First Stage
                 </Button>
               </div>
@@ -1227,7 +1227,7 @@ export default function StagesPage() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setEditOpen(false)}>Cancel</Button>
-            <Button onClick={handleSave}>Save Changes</Button>
+            <Button onClick={handleSave} className="hover:bg-[#61A800] transition-colors">Save Changes</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -1557,7 +1557,7 @@ export default function StagesPage() {
                 (emailMode === "template" && (!selectedEmailTemplate || !templateEmailData.subject || !templateEmailData.body)) ||
                 (emailMode === "manual" && (!manualEmailData.subject || !manualEmailData.body))
               }
-              className="gap-2"
+              className="gap-2 hover:bg-[#61A800] transition-colors"
             >
               <Send className="h-4 w-4" />
               {isSendingEmail ? "Sending..." : "Send Email"}

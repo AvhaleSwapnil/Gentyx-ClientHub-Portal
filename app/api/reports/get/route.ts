@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
         stage_id,
         progress,
         created_at,
-        stage:onboarding_stages(stage_name),
+        stage:onboarding_stages!stage_id(stage_name),
         service_center:service_centers(center_name),
         cpa:cpa_centers(cpa_name),
         tasks:onboarding_tasks(status)

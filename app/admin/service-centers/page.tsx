@@ -280,7 +280,7 @@ export default function ServiceCentersPage() {
           </div>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Button onClick={() => openDialog()}>
+              <Button onClick={() => openDialog()} className="hover:bg-[#61A800] transition-colors">
                 <Plus className="mr-2 h-4 w-4" /> Add Center
               </Button>
             </DialogTrigger>
@@ -336,7 +336,7 @@ export default function ServiceCentersPage() {
                   <Button variant="outline" type="button" onClick={() => setOpen(false)}>
                     Cancel
                   </Button>
-                  <Button type="submit" disabled={isSaving}>
+                  <Button type="submit" disabled={isSaving} className="hover:bg-[#61A800] transition-colors">
                     {isSaving ? "Saving..." : editing ? "Update Center" : "Create Center"}
                   </Button>
                 </div>
