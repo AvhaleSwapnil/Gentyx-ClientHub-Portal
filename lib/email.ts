@@ -540,9 +540,9 @@ export async function sendUpdateNotification({
           <td style="padding: 40px 20px;">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto; max-width: 600px;">
               
-              <!-- Header - Legacy Accounting Services Branding (Outlook Compatible) -->
+              <!-- Header - Gentyx Systems Inc. Branding (Outlook Compatible) -->
               <tr>
-                <td bgcolor="#5a1f2d" style="background-color: #5a1f2d; padding: 30px 40px 25px; border-radius: 16px 16px 0 0; text-align: center;">
+                <td bgcolor="#1e293b" style="background-color: #1e293b; padding: 30px 40px 25px; border-radius: 16px 16px 0 0; text-align: center;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
@@ -593,7 +593,7 @@ export async function sendUpdateNotification({
                       <td style="text-align: center; padding: 10px 0 20px;">
                         <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center">
                           <tr>
-                            <td bgcolor="#5a1f2d" style="background-color: #5a1f2d; border-radius: 10px; padding: 14px 36px;">
+                            <td bgcolor="#1e293b" style="background-color: #1e293b; border-radius: 10px; padding: 14px 36px;">
                               <a href="${details.actionUrl}" style="color: #ffffff; font-size: 15px; font-weight: 600; text-decoration: none;">
                                 ${details.actionLabel || 'View Details'} →
                               </a>
@@ -679,9 +679,9 @@ export async function sendMessageNotification({
           <td style="padding: 40px 20px;">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto; max-width: 600px;">
               
-              <!-- Header - Legacy Accounting Services Branding (Outlook Compatible) -->
+              <!-- Header - Gentyx Systems Inc. Branding (Outlook Compatible) -->
               <tr>
-                <td bgcolor="#5a1f2d" style="background-color: #5a1f2d; padding: 30px 40px 25px; border-radius: 16px 16px 0 0; text-align: center;">
+                <td bgcolor="#1e293b" style="background-color: #1e293b; padding: 30px 40px 25px; border-radius: 16px 16px 0 0; text-align: center;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
@@ -711,14 +711,14 @@ export async function sendMessageNotification({
                     <tr>
                       <td>
                         <p style="margin: 0 0 20px; font-size: 18px; color: #1e293b; font-weight: 500;">Hello ${recipientName},</p>
-                        <p style="margin: 0 0 25px; font-size: 15px; color: #475569; line-height: 1.6;">You have received a new message from <strong style="color: #5a1f2d;">${senderName}</strong>:</p>
+                        <p style="margin: 0 0 25px; font-size: 15px; color: #475569; line-height: 1.6;">You have received a new message from <strong style="color: #1e293b;">${senderName}</strong>:</p>
                       </td>
                     </tr>
                     
                     <!-- Message Box -->
                     <tr>
                       <td style="padding: 0 0 30px;">
-                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-left: 4px solid #5a1f2d;">
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-left: 4px solid #1e293b;">
                           <tr>
                             <td bgcolor="#f8fafc" style="background-color: #f8fafc; border-radius: 12px; padding: 24px;">
                               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -726,7 +726,7 @@ export async function sendMessageNotification({
                                   <td style="padding-bottom: 12px;">
                                     <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                                       <tr>
-                                        <td bgcolor="#5a1f2d" style="background-color: #5a1f2d; padding: 4px 10px; border-radius: 20px;">
+                                        <td bgcolor="#1e293b" style="background-color: #1e293b; padding: 4px 10px; border-radius: 20px;">
                                           <span style="font-size: 11px; color: #ffffff; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Message Preview</span>
                                         </td>
                                       </tr>
@@ -751,8 +751,8 @@ export async function sendMessageNotification({
                         <p style="margin: 0 0 20px; font-size: 14px; color: #64748b;">Log in to your account to view the full message and reply.</p>
                         <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center">
                           <tr>
-                            <td bgcolor="#5a1f2d" style="background-color: #5a1f2d; border-radius: 10px; padding: 14px 36px;">
-                              <a href="${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://clienthub.mysage.com'}" style="color: #ffffff; font-size: 15px; font-weight: 600; text-decoration: none;">
+                            <td bgcolor="#1e293b" style="background-color: #1e293b; border-radius: 10px; padding: 14px 36px;">
+                              <a href="${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://clienthub.gentyx.com'}" style="color: #ffffff; font-size: 15px; font-weight: 600; text-decoration: none;">
                                 View Message →
                               </a>
                             </td>
@@ -764,19 +764,19 @@ export async function sendMessageNotification({
                 </td>
               </tr>
               
-              <!-- Footer - Legacy Accounting Services Branding (Outlook Compatible) -->
+              <!-- Footer - Gentyx Systems Inc. Branding (Outlook Compatible) -->
               <tr>
-                <td bgcolor="#5a1f2d" style="background-color: #5a1f2d; padding: 30px 40px; border-radius: 0 0 16px 16px;">
+                <td bgcolor="#1e293b" style="background-color: #1e293b; padding: 30px 40px; border-radius: 0 0 16px 16px;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: center;">
-                        <p style="margin: 0 0 8px; font-size: 14px; color: #d4a574; font-weight: 600;">Legacy Accounting Services</p>
+                        <p style="margin: 0 0 8px; font-size: 14px; color: #d4a574; font-weight: 600;">Gentyx Systems Inc.</p>
                         <p style="margin: 0 0 10px; font-size: 12px; color: #cccccc;">Client Portal - Automated Notification</p>
                         <p style="margin: 0 0 15px; font-size: 11px; color: #999999;">Please do not reply directly to this email.</p>
                         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                           <tr>
                             <td style="border-top: 1px solid #7a3344; padding-top: 15px; text-align: center;">
-                              <p style="margin: 0; font-size: 11px; color: #999999;">© ${currentYear} Legacy Accounting Services – All Rights Reserved.</p>
+                              <p style="margin: 0; font-size: 11px; color: #999999;">© ${currentYear} Gentyx Systems Inc. – All Rights Reserved.</p>
                             </td>
                           </tr>
                         </table>
@@ -1061,10 +1061,19 @@ export async function sendTaskNotificationEmail({
                     <!-- CTA Button -->
                     <tr>
                       <td style="text-align: center; padding: 10px 0 25px;">
+                        <!--[if mso]>
+                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${roleConfig.dashboardUrl}" style="height:50px;v-text-anchor:middle;width:250px;" arcsize="20%" stroke="f" fillcolor="${headerColor}">
+                          <w:anchorlock/>
+                          <center>
+                        <![endif]-->
                         <a href="${roleConfig.dashboardUrl}" 
-                           style="display: inline-block; background-color: ${headerColor}; background: linear-gradient(135deg, ${headerColor} 0%, #8b5cf6 100%); color: white; font-size: 15px; font-weight: 600; padding: 14px 36px; text-decoration: none; border-radius: 10px; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);">
-                          View My Tasks →
+                           style="background-color: ${headerColor}; border-radius: 10px; color: #ffffff; display: inline-block; font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; font-size: 16px; font-weight: 700; line-height: 50px; text-align: center; text-decoration: none; width: 250px; -webkit-text-size-adjust: none;">
+                          View My Tasks
                         </a>
+                        <!--[if mso]>
+                          </center>
+                        </v:roundrect>
+                        <![endif]-->
                       </td>
                     </tr>
 
@@ -1076,7 +1085,7 @@ export async function sendTaskNotificationEmail({
                             <td style="padding: 20px 24px;">
                               <p style="margin: 0 0 10px; font-size: 14px; color: #166534; font-weight: 600;">✅ Action Required</p>
                               <p style="margin: 0; font-size: 14px; color: #166534; line-height: 1.6;">
-                                Please log in to your Legacy ClientHub account to view the complete task details and take necessary action${dueDate ? ` before the due date` : ''}.
+                                Please log in to your Gentyx ClientHub account to view the complete task details and take necessary action${dueDate ? ` before the due date` : ''}.
                               </p>
                             </td>
                           </tr>
@@ -1320,10 +1329,19 @@ export async function sendOnboardingTaskNotificationEmail({
                     <!-- CTA Button -->
                     <tr>
                       <td style="text-align: center; padding: 10px 0 25px;">
+                        <!--[if mso]>
+                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${roleConfig.dashboardUrl}" style="height:50px;v-text-anchor:middle;width:250px;" arcsize="20%" stroke="f" fillcolor="#1e293b">
+                          <w:anchorlock/>
+                          <center>
+                        <![endif]-->
                         <a href="${roleConfig.dashboardUrl}" 
-                           style="display: inline-block; background-color: #5a1f2d; background: linear-gradient(135deg, #5a1f2d 0%, #8b3d4d 100%); color: white; font-size: 15px; font-weight: 600; padding: 14px 36px; text-decoration: none; border-radius: 10px; box-shadow: 0 4px 14px rgba(90, 31, 45, 0.4);">
-                          View My Dashboard →
+                           style="background-color: #1e293b; border-radius: 10px; color: #ffffff; display: inline-block; font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; font-size: 16px; font-weight: 700; line-height: 50px; text-align: center; text-decoration: none; width: 250px; -webkit-text-size-adjust: none;">
+                          View My Dashboard
                         </a>
+                        <!--[if mso]>
+                          </center>
+                        </v:roundrect>
+                        <![endif]-->
                       </td>
                     </tr>
                   </table>
@@ -1518,7 +1536,7 @@ export async function sendOnboardingOverviewEmail({
                       <td>
                         <p style="margin: 0 0 20px; font-size: 18px; color: #1e293b; font-weight: 500;">Hello ${recipientName},</p>
                         <p style="margin: 0 0 25px; font-size: 15px; color: #475569; line-height: 1.6;">
-                          Below is a summary of your onboarding journey for <strong style="color: #5a1f2d;">${clientName}</strong>. 
+                          Below is a summary of your onboarding journey for <strong style="color: #1e293b;">${clientName}</strong>. 
                           This shows all the stages and tasks you need to complete for a successful onboarding.
                         </p>
                       </td>
@@ -1554,7 +1572,7 @@ export async function sendOnboardingOverviewEmail({
                             <td style="padding: 20px 24px;">
                               <p style="margin: 0 0 10px; font-size: 14px; color: #166534; font-weight: 600;">✅ Ready to start?</p>
                               <p style="margin: 0; font-size: 14px; color: #166534; line-height: 1.6;">
-                                Log in to your Legacy ClientHub account to view detailed task instructions, upload documents, and track your progress.
+                                Log in to your Gentyx ClientHub account to view detailed task instructions, upload documents, and track your progress.
                               </p>
                             </td>
                           </tr>
@@ -1565,10 +1583,19 @@ export async function sendOnboardingOverviewEmail({
                     <!-- CTA Button -->
                     <tr>
                       <td style="text-align: center; padding: 10px 0 0;">
+                        <!--[if mso]>
+                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${loginUrl}" style="height:50px;v-text-anchor:middle;width:250px;" arcsize="20%" stroke="f" fillcolor="#1e293b">
+                          <w:anchorlock/>
+                          <center>
+                        <![endif]-->
                         <a href="${loginUrl}" 
-                           style="display: inline-block; background-color: #5a1f2d; background: linear-gradient(135deg, #5a1f2d 0%, #8b3d4d 100%); color: white; font-size: 15px; font-weight: 600; padding: 14px 36px; text-decoration: none; border-radius: 10px; box-shadow: 0 4px 14px rgba(90, 31, 45, 0.4);">
-                          View My Dashboard →
+                           style="background-color: #1e293b; border-radius: 10px; color: #ffffff; display: inline-block; font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; font-size: 16px; font-weight: 700; line-height: 50px; text-align: center; text-decoration: none; width: 250px; -webkit-text-size-adjust: none;">
+                          View My Dashboard
                         </a>
+                        <!--[if mso]>
+                          </center>
+                        </v:roundrect>
+                        <![endif]-->
                       </td>
                     </tr>
                   </table>

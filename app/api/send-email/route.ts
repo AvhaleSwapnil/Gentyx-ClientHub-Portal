@@ -21,12 +21,29 @@ export async function POST(req: Request) {
         if (clientName) {
             processedBody = processedBody.replace(/\{\{clientName\}\}/gi, clientName);
             processedBody = processedBody.replace(/\{\{Client_Name\}\}/gi, clientName);
+            processedBody = processedBody.replace(/\{\{contact_name\}\}/gi, clientName);
         }
 
-        // Replace other common variables (with defaults or leave as is)
-        processedBody = processedBody.replace(/\{\{Company_Name\}\}/gi, "Legacy ClientHub");
-        processedBody = processedBody.replace(/\{\{Support_Email\}\}/gi, "support@legacyclienthub.com");
-        processedBody = processedBody.replace(/\{\{LC\}\}/gi, "Legacy ClientHub Team");
+        // Handle {{email}} placeholder if 'to' is provided
+        if (to) {
+            processedBody = processedBody.replace(/\{\{email\}\}/gi, to);
+        }
+
+        // Replace other common placeholders (extract from body if possible or just use common keys)
+        if (body.stageName) {
+            processedBody = processedBody.replace(/\{\{stage_name\}\}/gi, body.stageName);
+        }
+        if (body.taskTitle) {
+            processedBody = processedBody.replace(/\{\{taskTitle\}\}/gi, body.taskTitle);
+        }
+
+        // Replace other common variables with Gentyx branding
+        processedBody = processedBody.replace(/\{\{Company_Name\}\}/gi, "Gentyx Systems Inc.");
+        processedBody = processedBody.replace(/\{\{Support_Email\}\}/gi, "support@gentyx.com");
+        processedBody = processedBody.replace(/\{\{LC\}\}/gi, "Gentyx Systems Team");
+
+        // Global fallback for any lingering "mySAGE" references in body content
+        processedBody = processedBody.replace(/mySAGE/gi, "Gentyx");
 
         // Wrap the content with professional template if useTemplate is true
         let finalHtml = processedBody;
@@ -79,7 +96,7 @@ export async function POST(req: Request) {
                 headerColor,
                 bodyContent: processedBody,
                 showActionButton: true,
-                actionButtonUrl: "https://legacy.hubonesystems.net",
+                actionButtonUrl: process.env.NEXT_PUBLIC_API_BASE_URL || "https://clienthub.gentyx.com",
                 actionButtonLabel: "Open ClientHub",
             });
         }

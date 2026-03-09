@@ -130,10 +130,10 @@ export default function LoginPage() {
   return (
     <div className="login-page">
       <div className="logo-wrapper">
-        <img
-          src="/images/legacytest.png"
-          alt="mySAGE Logo"
-          className="mysage-logo"
+        <img 
+          src="/gentyx-logo.png" 
+          alt="Gentyx Logo"
+          className="gentyx-logo"
         />
       </div>
 
