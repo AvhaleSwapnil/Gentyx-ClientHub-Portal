@@ -749,15 +749,19 @@ export async function sendMessageNotification({
                     <tr>
                       <td style="text-align: center; padding: 10px 0 20px;">
                         <p style="margin: 0 0 20px; font-size: 14px; color: #64748b;">Log in to your account to view the full message and reply.</p>
-                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center">
-                          <tr>
-                            <td bgcolor="#1e293b" style="background-color: #1e293b; border-radius: 10px; padding: 14px 36px;">
-                              <a href="${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://clienthub.gentyx.com'}" style="color: #ffffff; font-size: 15px; font-weight: 600; text-decoration: none;">
-                                View Message →
-                              </a>
-                            </td>
-                          </tr>
-                        </table>
+                        <!--[if mso]>
+                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://clienthub.gentyx.com'}" style="height:50px;v-text-anchor:middle;width:250px;" arcsize="20%" stroke="f" fillcolor="#1e293b">
+                          <w:anchorlock/>
+                          <center>
+                        <![endif]-->
+                        <a href="${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://clienthub.gentyx.com'}" 
+                           style="background-color: #1e293b; border-radius: 10px; color: #ffffff; display: inline-block; font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; font-size: 16px; font-weight: 700; line-height: 50px; text-align: center; text-decoration: none; width: 250px; -webkit-text-size-adjust: none;">
+                          View Message
+                        </a>
+                        <!--[if mso]>
+                          </center>
+                        </v:roundrect>
+                        <![endif]-->
                       </td>
                     </tr>
                   </table>
@@ -2094,7 +2098,7 @@ interface EmailWrapperOptions {
 }
 
 /**
- * Wrap any email content with the professional Legacy ClientHub HTML template
+ * Wrap any email content with the professional Gentyx ClientHub HTML template
  * This ensures consistent styling with header, footer, and copyright across all emails
  */
 export function wrapEmailContent({

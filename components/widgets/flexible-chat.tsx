@@ -117,7 +117,7 @@ export function FlexibleChat({
                     id: m.message_id,
                     senderRole: m.sender_role,
                     receiverRole: m.receiver_role,
-                    body: m.body,
+                    body: m.message_text,
                     parentMessageId: m.parent_message_id,
                     attachmentUrl: m.attachment_url,
                     attachmentName: m.attachment_name,

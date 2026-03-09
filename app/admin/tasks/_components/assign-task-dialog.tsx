@@ -372,9 +372,9 @@ export function AssignTaskDialog() {
                               .replace(/\{\{taskTitle\}\}/gi, title || "")
                               .replace(/\{\{dueDate\}\}/gi, dueDate || "")
                               .replace(/\{\{assigneeRole\}\}/gi, assigneeRole || "")
-                              .replace(/\{\{Company_Name\}\}/gi, "Legacy ClientHub")
+                              .replace(/\{\{Company_Name\}\}/gi, "Gentyx ClientHub")
                               .replace(/\{\{Support_Email\}\}/gi, "support@legacyclienthub.com")
-                              .replace(/\{\{LC\}\}/gi, "Legacy ClientHub Team")
+                              .replace(/\{\{LC\}\}/gi, "Gentyx ClientHub Team")
                               .replace(/\{\{Admin_Email\}\}/gi, "admin@legacyclienthub.com")
                           );
                         }}
@@ -442,7 +442,7 @@ export function AssignTaskDialog() {
                   Email will be sent to: <strong>{selectedClient.primary_contact_email}</strong>
                 </p>
                 <p className="text-xs text-green-600 mt-1">
-                  ✓ Email will include branded header &amp; © 2026 Legacy ClientHub footer
+                  ✓ Email will include branded header &amp; © 2026 Gentyx ClientHub footer
                 </p>
               </div>
             )}

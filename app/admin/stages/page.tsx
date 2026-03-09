@@ -1311,9 +1311,9 @@ export default function StagesPage() {
                           body: prev.body
                             .replace(/\{\{clientName\}\}/gi, selectedClient?.client_name || "")
                             .replace(/\{\{Client_Name\}\}/gi, selectedClient?.client_name || "")
-                            .replace(/\{\{Company_Name\}\}/gi, "Legacy ClientHub")
+                            .replace(/\{\{Company_Name\}\}/gi, "Gentyx ClientHub")
                             .replace(/\{\{Support_Email\}\}/gi, "support@legacyclienthub.com")
-                            .replace(/\{\{LC\}\}/gi, "Legacy ClientHub Team")
+                            .replace(/\{\{LC\}\}/gi, "Gentyx ClientHub Team")
                             .replace(/\{\{Admin_Email\}\}/gi, "admin@legacyclienthub.com")
                         }));
                         toast({ title: "Auto-filled", description: "Template variables replaced with client info" });
@@ -1422,16 +1422,16 @@ export default function StagesPage() {
                             .replace(/\{\{taskTitle\}\}/gi, `<span class="bg-blue-200 px-1 rounded">{{taskTitle}}</span>`)
                             .replace(/\{\{dueDate\}\}/gi, `<span class="bg-green-200 px-1 rounded">{{dueDate}}</span>`)
                             .replace(/\{\{stageName\}\}/gi, `<span class="bg-purple-200 px-1 rounded">{{stageName}}</span>`)
-                            .replace(/\{\{Company_Name\}\}/gi, `<span class="bg-orange-200 px-1 rounded">Legacy ClientHub</span>`)
+                            .replace(/\{\{Company_Name\}\}/gi, `<span class="bg-orange-200 px-1 rounded">Gentyx ClientHub</span>`)
                             .replace(/\{\{Support_Email\}\}/gi, `<span class="bg-pink-200 px-1 rounded">support@legacyclienthub.com</span>`)
-                            .replace(/\{\{LC\}\}/gi, `<span class="bg-indigo-200 px-1 rounded">Legacy ClientHub Team</span>`)
+                            .replace(/\{\{LC\}\}/gi, `<span class="bg-indigo-200 px-1 rounded">Gentyx ClientHub Team</span>`)
                             .replace(/\{\{Admin_Email\}\}/gi, `<span class="bg-teal-200 px-1 rounded">admin@legacyclienthub.com</span>`)
                         }}
                       />
                     </div>
                     <div className="bg-green-50 px-4 py-2 border-t text-xs text-green-700 flex items-center gap-2">
                       <CheckCircle2 className="h-3.5 w-3.5" />
-                      <span>Email will include branded header, styled content, and © 2026 Legacy ClientHub footer</span>
+                      <span>Email will include branded header, styled content, and © 2026 Gentyx ClientHub footer</span>
                     </div>
                   </div>
 
