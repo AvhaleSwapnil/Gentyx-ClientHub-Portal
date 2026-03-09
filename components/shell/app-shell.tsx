@@ -122,7 +122,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           <Button
             variant="ghost"
             size="sm"
-            className="w-full justify-center text-sidebar-foreground hover:bg-transparent"
+            className="w-full justify-center text-sidebar-foreground hover:bg-transparent hover:text-sidebar-primary transition-colors"
             onClick={toggleSidebar}
             title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
