@@ -1,5 +1,6 @@
 /* login.css */
-/* login.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
 * {
   box-sizing: border-box;
 }
@@ -8,7 +9,7 @@ body,
 html {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', 'Inter Fallback', sans-serif;
+  font-family: 'Poppins', 'Inter', sans-serif;
   background-color: white;
   overflow-x: hidden;
   height: 100%;
@@ -312,11 +313,7 @@ Also work on all alignments okay
 and profile and setting pages should be fully funtional and working and rest all also okay now create the prompt   */
 
 /* ---------------------------------------------------- */
-/* NEW LOGIN PAGE STYLES (Redesign) */
-/* ---------------------------------------------------- */
-
-/* ---------------------------------------------------- */
-/* GENTYX REBRANDED LOGIN PAGE STYLES */
+/* PERFECTED NAVY LOGIN PAGE STYLES (MATCHING REFERENCE) */
 /* ---------------------------------------------------- */
 
 .login-page-new {
@@ -326,181 +323,158 @@ and profile and setting pages should be fully funtional and working and rest all
   justify-content: center;
   min-height: 100vh;
   width: 100%;
-  background-color: #f8fafc;
-  background-image:
-    radial-gradient(at 0% 0%, hsla(225, 87%, 16%, 0.05) 0px, transparent 50%),
-    radial-gradient(at 50% 0%, hsla(85, 100%, 33%, 0.05) 0px, transparent 50%);
-  font-family: 'Inter', sans-serif;
-  padding: 24px;
+  background-color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  padding: 40px 20px;
 }
 
-.login-card-container {
+.login-container-navy {
   width: 100%;
-  max-width: 440px;
-  background: white;
-  border-radius: 12px;
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06),
-    0 10px 15px -3px rgba(0, 0, 0, 0.03);
-  padding: 40px;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border: 1px solid #e2e8f0;
 }
 
-.logo-container {
-  margin-bottom: 32px;
+.logo-outer-container {
+  margin-bottom: 30px;
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
-.logo-img {
-  width: 200px;
+.logo-img-navy {
+  width: 260px;
   height: auto;
 }
 
-.portal-title {
-  color: #002E36;
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 32px;
-  text-align: center;
+.login-card-navy {
+  width: 100%;
+  background-color: #05164D;
+  padding: 32px 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.login-form-container {
+.portal-title-navy {
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 35px;
+  text-align: center;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.login-form-navy {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group-navy {
+  margin-bottom: 20px;
   width: 100%;
 }
 
-.input-group {
-  margin-bottom: 20px;
-}
-
-.input-label {
+.input-label-navy {
   display: block;
-  font-size: 0.875rem;
-  margin-bottom: 6px;
-  font-weight: 500;
-  color: #334155;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #ffffff;
   text-align: left;
 }
 
-.input-field {
+.input-field-navy {
   width: 100%;
-  padding: 12px 14px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
-  font-size: 0.9375rem;
-  color: #1e293b;
+  padding: 11px 14px;
+  border-radius: 4px;
+  border: none;
+  font-size: 0.875rem;
+  color: #64748b;
   background-color: #ffffff;
-  transition: border-color 0.2s, box-shadow 0.2s;
   outline: none;
 }
 
-.input-field:focus {
-  border-color: #05164D;
-  box-shadow: 0 0 0 3px rgba(5, 22, 77, 0.1);
-}
-
-.password-wrapper {
+.password-wrapper-navy {
   position: relative;
   width: 100%;
 }
 
-.eye-btn {
+.eye-btn-navy {
   position: absolute;
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
-  color: #64748b;
+  color: #94a3b8;
   cursor: pointer;
   padding: 4px;
   display: flex;
   align-items: center;
-  border-radius: 4px;
-  transition: color 0.2s;
 }
 
-.eye-btn:hover {
-  color: #05164D;
-}
-
-.gentyx-logo {
-  height: 48px;
+.login-button-navy {
   width: auto;
-  margin-bottom: 2rem;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
-  transition: transform 0.3s ease;
-}
-
-.gentyx-logo:hover {
-  transform: scale(1.05);
-}
-
-.login-button-new {
-  width: 100%;
-  background-color: #05164D;
-  color: white;
+  min-width: 110px;
+  background-color: #ffffff;
+  color: #05164D;
   border: none;
-  border-radius: 8px;
-  padding: 14px;
-  font-weight: 600;
-  font-size: 1rem;
+  border-radius: 100px;
+  /* Perfect pill */
+  padding: 10px 24px;
+  font-weight: 800;
+  font-size: 0.875rem;
   cursor: pointer;
-  margin-top: 24px;
-  transition: background-color 0.2s, transform 0.1s;
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  transition: opacity 0.2s;
+  text-transform: uppercase;
 }
 
-.login-button-new:hover {
-  background-color: #030d30;
+.login-button-navy:hover {
+  opacity: 0.95;
 }
 
-.login-button-new:active {
-  transform: scale(0.99);
-}
-
-.login-button-new:disabled {
+.login-button-navy:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
 
-.error-text {
-  color: #e11d48;
+.error-text-navy {
+  color: #fca5a5;
   text-align: center;
-  margin-bottom: 16px;
-  font-size: 0.875rem;
-  background-color: #fff1f2;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #fecdd3;
-}
-
-.footer-container {
-  margin-top: 32px;
-  text-align: center;
-  color: #64748b;
-}
-
-.powered-by {
-  font-weight: 600;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-  letter-spacing: 0.05em;
+  margin-top: 10px;
   font-size: 0.75rem;
+  font-weight: 500;
 }
 
-.footer-container p {
-  font-size: 0.8125rem;
-  margin: 0;
+.footer-container-navy {
+  margin-top: 8px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Mobile Responsiveness */
-@media screen and (max-width: 480px) {
-  .login-card-container {
-    padding: 32px 24px;
-  }
+.powered-by-navy {
+  color: #05164D;
+  font-weight: 800;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-align: right;
+  width: 100%;
+  text-transform: uppercase;
+}
+
+.copyright-navy {
+  color: #2E2E2E;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 50px;
+  text-align: center;
 }

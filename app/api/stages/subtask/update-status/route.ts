@@ -21,10 +21,10 @@ export async function POST(req: Request) {
         const { data: subtaskData, error: fetchError } = await supabase
             .from('client_stage_subtasks')
             .select(`
-                id,
-                title,
+                subtask_id,
+                subtask_title,
                 status,
-                client_stages (
+                client_stage:client_stages (
                     stage_name,
                     client_id,
                     Clients (
@@ -35,11 +35,16 @@ export async function POST(req: Request) {
                     )
                 )
             `)
-            .eq('id', subtaskId)
+            .eq('subtask_id', subtaskId)
             .single();
 
         if (fetchError || !subtaskData) {
-            return NextResponse.json({ success: false, error: "Subtask not found" }, { status: 404 });
+            console.error("Subtask fetch error:", fetchError);
+            return NextResponse.json({
+                success: false,
+                error: "Subtask not found",
+                details: fetchError?.message || "No data"
+            }, { status: 404 });
         }
 
         const previousStatus = subtaskData.status;
@@ -51,7 +56,7 @@ export async function POST(req: Request) {
                 status: status,
                 updated_at: new Date().toISOString()
             })
-            .eq('id', subtaskId);
+            .eq('subtask_id', subtaskId);
 
         if (updateError) throw updateError;
 
@@ -61,8 +66,8 @@ export async function POST(req: Request) {
             try {
                 const admins = await getAdminsWithNotificationsEnabled();
                 if (admins.length > 0) {
-                    const stage = subtaskData.client_stages as any;
-                    const client = stage.Clients as any;
+                    const stage = subtaskData.client_stage as any;
+                    const client = stage?.Clients as any || {};
                     const cpa = Array.isArray(client.cpa) ? client.cpa[0] : client.cpa;
                     const sc = Array.isArray(client.service_center) ? client.service_center[0] : client.service_center;
 
@@ -79,12 +84,12 @@ export async function POST(req: Request) {
                         await sendAdminTaskCompletionEmail({
                             adminEmail: admin.email,
                             adminName: admin.name || "Admin",
-                            taskTitle: subtaskData.title,
+                            taskTitle: subtaskData.subtask_title,
                             clientName: client.client_name || "Unknown Client",
                             completedByRole: whoRole as any,
                             completedByName: whoName,
                             taskType: "ONBOARDING",
-                            stageName: stage.stage_name,
+                            stageName: stage?.stage_name || "Unknown Stage",
                         });
                     }
                 }

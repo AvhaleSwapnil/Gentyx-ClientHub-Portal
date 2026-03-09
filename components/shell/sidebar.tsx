@@ -136,11 +136,11 @@ export function Sidebar({ collapsed = false }: SidebarProps) {
               href={href}
               title={collapsed ? label : undefined}
               className={cn(
-                "flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-all duration-200 font-medium",
+                "flex items-center gap-2 px-3 py-2 text-sm font-medium transition-all duration-200",
                 collapsed && "justify-center px-2",
                 active
-                  ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-sm"
-                  : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                  ? "bg-sidebar-primary text-sidebar-primary-foreground rounded-lg shadow-sm"
+                  : "text-sidebar-foreground rounded-lg hover:text-sidebar-primary",
               )}
             >
               <Icon className="size-4 shrink-0" />
@@ -154,7 +154,7 @@ export function Sidebar({ collapsed = false }: SidebarProps) {
         <Button
           variant="ghost"
           className={cn(
-            "w-full text-sidebar-foreground hover:bg-transparent",
+            "w-full text-sidebar-foreground hover:!bg-transparent hover:text-sidebar-primary",
             collapsed ? "justify-center px-2" : "justify-start"
           )}
           onClick={handleLogout}

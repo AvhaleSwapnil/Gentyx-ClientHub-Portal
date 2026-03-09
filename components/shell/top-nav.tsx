@@ -49,7 +49,7 @@ export function TopNav() {
         {/* ✅ RIGHT SIDE ICONS */}
         <div className="flex items-center gap-2">
           <Button
-            className="rounded-full bg-primary text-white hover:bg-primary/90 border border-primary/20 shadow-sm px-4"
+            className="rounded-full bg-primary text-white hover:bg-[#61A800] border border-primary/20 shadow-sm px-4"
             size="sm"
             onClick={() => window.open("https://www.gentyx.com/", "_blank")}
             title="Gentyx.com"
@@ -59,7 +59,7 @@ export function TopNav() {
           </Button>
 
           <Button
-            className="rounded-full bg-primary text-white hover:bg-primary/90 border border-primary/20 shadow-sm ml-1 px-4"
+            className="rounded-full bg-primary text-white hover:bg-[#61A800] border border-primary/20 shadow-sm ml-1 px-4"
             size="sm"
             onClick={() => router.push("/inbox")}
             title="Inbox"
@@ -69,7 +69,7 @@ export function TopNav() {
           </Button>
 
           <Button
-            className="rounded-full bg-primary text-white hover:bg-primary/90 border border-primary/20 shadow-sm ml-1 px-4"
+            className="rounded-full bg-primary text-white hover:bg-[#61A800] border border-primary/20 shadow-sm ml-1 px-4"
             size="sm"
             onClick={() => router.push("/help")}
             title="Help"
@@ -79,7 +79,7 @@ export function TopNav() {
           </Button>
 
           <Button
-            className="rounded-full bg-primary text-white hover:bg-primary/90 border border-primary/20 shadow-sm ml-1 px-4"
+            className="rounded-full bg-primary text-white hover:bg-[#61A800] border border-primary/20 shadow-sm ml-1 px-4"
             size="sm"
             onClick={() => router.push(getSettingsPath())}
             title="Profile & Settings"

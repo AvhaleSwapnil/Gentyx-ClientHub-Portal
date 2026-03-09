@@ -15,9 +15,9 @@
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  /* Subtle UI Accent for hovers, dropdowns etc. - Using a light navy tint */
-  --accent: #F0F2F9;
-  --accent-foreground: #05164D;
+  /* Accent for hovers, dropdowns, button hover - Gentyx Lime Green */
+  --accent: #61A800;
+  --accent-foreground: #FFFFFF;
   /* Gentyx Accent Lime Green (stored in a separate brand token) */
   --brand-accent: #61A800;
   --destructive: oklch(0.577 0.245 27.325);
@@ -32,17 +32,17 @@
   --chart-4: #05164D;
   --chart-5: oklch(0.769 0.188 70.08);
   --radius: 0.625rem;
-  /* Sidebar: White background with navy accents */
+  /* Sidebar: White background with brand green accents */
   --sidebar: #FFFFFF;
-  --sidebar-foreground: #334155;
-  /* Active tab: Gentyx Navy BG with White text */
-  --sidebar-primary: #05164D;
+  --sidebar-foreground: #6D6E71;
+  /* Active tab: Brand Green BG with White text */
+  --sidebar-primary: #8BC53D;
   --sidebar-primary-foreground: #FFFFFF;
-  /* Hover state: Remove background color */
-  --sidebar-accent: transparent;
-  --sidebar-accent-foreground: #334155;
+  /* Hover state: Brand Green BG with White text */
+  --sidebar-accent: #8BC53D;
+  --sidebar-accent-foreground: #FFFFFF;
   --sidebar-border: #E2E8F0;
-  --sidebar-ring: #05164D;
+  --sidebar-ring: #8BC53D;
 
   /* Company color tokens */
   --color-success: #61A800;
@@ -63,9 +63,9 @@
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
-  /* Dark mode subtle accent */
-  --accent: #1E293B;
-  --accent-foreground: oklch(0.985 0 0);
+  /* Dark mode accent - Gentyx Lime Green */
+  --accent: #61A800;
+  --accent-foreground: #FFFFFF;
   /* Gentyx Accent Lime Green for dark mode */
   --brand-accent: #a3e635;
   --destructive: oklch(0.396 0.141 25.723);
@@ -79,15 +79,15 @@
   --chart-3: oklch(0.55 0.2 20);
   --chart-4: #2d3a6d;
   --chart-5: oklch(0.645 0.246 16.439);
-  /* Dark mode sidebar: Gentyx Navy background */
-  --sidebar: #05164D;
-  --sidebar-foreground: #f1f5f9;
-  --sidebar-primary: #f1f5f9;
-  --sidebar-primary-foreground: #05164D;
-  --sidebar-accent: transparent;
-  --sidebar-accent-foreground: #f1f5f9;
-  --sidebar-border: #1e293b;
-  --sidebar-ring: #64748b;
+  /* Dark mode sidebar: Dark background with brand green accents */
+  --sidebar: #1E1E2E;
+  --sidebar-foreground: #A5A5A5;
+  --sidebar-primary: #8BC53D;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #8BC53D;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #2E2E3E;
+  --sidebar-ring: #8BC53D;
   /* Dark mode company colors */
   --color-success: #a3e635;
   --color-warning: oklch(0.65 0.2 40);

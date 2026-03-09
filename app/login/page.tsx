@@ -194,75 +194,77 @@ export default function LoginPage() {
   );
   */
 
-  // NEW LOGIN UI
+  // NEW LOGIN UI (Matching Navy Reference)
   return (
     <div className="login-page-new">
-      <div className="login-card-container">
-        {/* LOGO */}
-        <div className="logo-container">
+      <div className="login-container-navy">
+        {/* LOGO OUTSIDE THE BOX */}
+        <div className="logo-outer-container">
           <img
             src="/images/gentyxfinallogo.png"
             alt="Gentyx Logo"
-            className="logo-img"
+            className="logo-img-navy"
           />
         </div>
 
-        {/* TITLE */}
-        <h1 className="portal-title">Client Portal</h1>
+        {/* NAVY APP BOX */}
+        <div className="login-card-navy">
+          <h1 className="portal-title-navy">CLIENTHUB</h1>
 
-        {/* FORM */}
-        <form onSubmit={handleSubmit} className="login-form-container">
-          <div className="input-group">
-            <label className="input-label">Email Address</label>
-            <input
-              type="email"
-              placeholder="name@company.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="input-field"
-              required
-            />
-          </div>
-
-          <div className="input-group">
-            <label className="input-label">Password</label>
-            <div className="password-wrapper">
+          {/* FORM */}
+          <form onSubmit={handleSubmit} className="login-form-navy">
+            <div className="input-group-navy">
+              <label className="input-label-navy">Email Address</label>
               <input
-                type={showPassword ? "text" : "password"}
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="input-field"
+                type="email"
+                placeholder="user@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="input-field-navy"
                 required
               />
-              <button
-                type="button"
-                className="eye-btn"
-                onClick={() => setShowPassword((prev) => !prev)}
-              >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
             </div>
-          </div>
 
-          {errorMsg && (
-            <p className="error-text">
-              {errorMsg}
-            </p>
-          )}
+            <div className="input-group-navy">
+              <label className="input-label-navy">Password</label>
+              <div className="password-wrapper-navy">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="input-field-navy"
+                  required
+                />
+                <button
+                  type="button"
+                  className="eye-btn-navy"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            </div>
 
-          <button type="submit" className="login-button-new" disabled={loading}>
-            {loading ? "Signing in..." : "Log In"}
-          </button>
-        </form>
-      </div>
+            {errorMsg && (
+              <p className="error-text-navy">
+                {errorMsg}
+              </p>
+            )}
 
-      {/* FOOTER */}
-      <div className="footer-container">
-        <div className="powered-by">POWERED BY GENTYX</div>
-        <p>
-          © 2014–{new Date().getFullYear()} Gentyx Inc. All Rights Reserved
-        </p>
+            <button type="submit" className="login-button-navy" disabled={loading}>
+              {loading ? "LOGGING IN..." : "LOG IN"}
+            </button>
+          </form>
+        </div>
+
+        {/* FOOTER */}
+        <div className="footer-container-navy">
+          <div className="powered-by-navy">POWERED BY HUBONE SYSTEMS</div>
+          <p className="copyright-navy">
+            © 2014–{new Date().getFullYear()} HubOne Systems Inc. – All Rights Reserved
+          </p>
+        </div>
       </div>
     </div>
   );

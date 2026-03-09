@@ -12,7 +12,6 @@ import { FlexibleChat } from "@/components/widgets/flexible-chat"
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useToast } from "@/hooks/use-toast"
-import { useState } from "react"
 import {
   ArrowLeft,
   Building2,
