@@ -35,7 +35,8 @@ class RequestShimImpl implements IRequestShim {
     // 2. Auto-fix known case-sensitive Postgres tables from unquoted SQL Server variants
     pgSql = pgSql
       .replace(/(?<!")\bClients\b(?!")/g, 'public."Clients"')
-      .replace(/(?<!")\bUsers\b(?!")/g, 'public."Users"');
+      .replace(/(?<!")\bUsers\b(?!")/g, 'public."Users"')
+      .replace(/(?<!")\bAdminSettings\b(?!")/g, 'public."AdminSettings"');
 
     // 3. Translate SQL Server @param syntax to Postgres $1 syntax mapping parameters
     const values: any[] = [];

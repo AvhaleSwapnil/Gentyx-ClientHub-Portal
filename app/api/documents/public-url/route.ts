@@ -28,7 +28,7 @@ export async function GET(req: Request) {
         }
 
         const supabase = createServerClient();
-        const bucket = process.env.SUPABASE_STORAGE_BUCKET || "clienthub";
+        const bucket = process.env.SUPABASE_STORAGE_BUCKET || "Documents";
 
         // Provide a signed URL (Supabase's equivalent to Azure SAS with permissions)
         const { data, error } = await supabase.storage

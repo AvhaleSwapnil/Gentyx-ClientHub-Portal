@@ -35,11 +35,11 @@
   /* Sidebar: White background with brand green accents */
   --sidebar: #FFFFFF;
   --sidebar-foreground: #6D6E71;
-  /* Active tab: Brand Green BG with White text */
-  --sidebar-primary: #8BC53D;
+  /* Active tab: Brand Navy BG with White text */
+  --sidebar-primary: #05164D;
   --sidebar-primary-foreground: #FFFFFF;
   /* Hover state: Brand Green BG with White text */
-  --sidebar-accent: #8BC53D;
+  --sidebar-accent: #61A800;
   --sidebar-accent-foreground: #FFFFFF;
   --sidebar-border: #E2E8F0;
   --sidebar-ring: #8BC53D;

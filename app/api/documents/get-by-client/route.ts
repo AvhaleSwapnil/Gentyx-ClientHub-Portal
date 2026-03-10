@@ -22,7 +22,7 @@ export async function GET(req: Request) {
     }
 
     const supabase = createServerClient();
-    const bucket = process.env.SUPABASE_STORAGE_BUCKET || "clienthub";
+    const bucket = process.env.SUPABASE_STORAGE_BUCKET || "Documents";
     const rootFolder = await getClientRootFolder(clientId);
 
     // ─── CLIENT ROLE: TRANSPARENT SECTION HANDLING ───
@@ -32,7 +32,7 @@ export async function GET(req: Request) {
 
     // ─── ADMIN ROLE: Normal listing ───
     const prefix = folder ? `${rootFolder}/${folder}` : rootFolder;
-    
+
     const { data: entries, error } = await supabase.storage
       .from(bucket)
       .list(prefix, { limit: 1000 });
@@ -40,33 +40,33 @@ export async function GET(req: Request) {
     if (error) throw error;
 
     const items = await Promise.all((entries || []).map(async entry => {
-        const isFolder = !entry.id;
-        const name = entry.name;
-        if (name === ".keep") return null;
+      const isFolder = !entry.id;
+      const name = entry.name;
+      if (name === ".keep") return null;
 
-        const fullPath = `${prefix}/${name}`;
+      const fullPath = `${prefix}/${name}`;
 
-        if (isFolder) {
-            return { type: "folder", name };
-        }
+      if (isFolder) {
+        return { type: "folder", name };
+      }
 
-        const visibility = entry.metadata?.visibility || "shared";
-        const uploadedBy = entry.metadata?.uploadedby || "unknown";
+      const visibility = entry.metadata?.visibility || "shared";
+      const uploadedBy = entry.metadata?.uploadedby || "unknown";
 
-        // Generate a signed URL for 1 hour
-        const { data: signedData } = await supabase.storage
-            .from(bucket)
-            .createSignedUrl(fullPath, 3600);
+      // Generate a signed URL for 1 hour
+      const { data: signedData } = await supabase.storage
+        .from(bucket)
+        .createSignedUrl(fullPath, 3600);
 
-        return {
-            type: "file",
-            name,
-            url: signedData?.signedUrl,
-            size: entry.metadata?.size ?? 0,
-            fullPath,
-            visibility,
-            uploadedBy,
-        };
+      return {
+        type: "file",
+        name,
+        url: signedData?.signedUrl,
+        size: entry.metadata?.size ?? 0,
+        fullPath,
+        visibility,
+        uploadedBy,
+      };
     }));
 
     return NextResponse.json({ success: true, data: items.filter(Boolean) });
@@ -118,30 +118,30 @@ async function handleClientView(supabase: any, bucket: string, rootFolder: strin
     // Legacy fallback at root (not in section folders)
     const { data: rootEntries } = await supabase.storage.from(bucket).list(rootFolder, { limit: 1000 });
     for (const entry of rootEntries || []) {
-        if (entry.name === ".keep" || SECTION_FOLDERS.includes(entry.name)) continue;
-        const isFolder = !entry.id;
+      if (entry.name === ".keep" || SECTION_FOLDERS.includes(entry.name)) continue;
+      const isFolder = !entry.id;
 
-        if (isFolder) {
-            if (!items.find(i => i.type === "folder" && i.name === entry.name)) {
-                items.push({ type: "folder", name: entry.name, _section: "legacy" });
-            }
-        } else {
-            if (entry.metadata?.visibility === "private") continue;
-            const fullPath = `${rootFolder}/${entry.name}`;
-            const { data: signedData } = await supabase.storage.from(bucket).createSignedUrl(fullPath, 3600);
-            if (!items.find(i => i.type === "file" && i.name === entry.name)) {
-                items.push({
-                    type: "file",
-                    name: entry.name,
-                    url: signedData?.signedUrl,
-                    size: entry.metadata?.size ?? 0,
-                    fullPath,
-                    visibility: "shared",
-                    uploadedBy: entry.metadata?.uploadedby || "unknown",
-                    _section: "legacy"
-                });
-            }
+      if (isFolder) {
+        if (!items.find(i => i.type === "folder" && i.name === entry.name)) {
+          items.push({ type: "folder", name: entry.name, _section: "legacy" });
         }
+      } else {
+        if (entry.metadata?.visibility === "private") continue;
+        const fullPath = `${rootFolder}/${entry.name}`;
+        const { data: signedData } = await supabase.storage.from(bucket).createSignedUrl(fullPath, 3600);
+        if (!items.find(i => i.type === "file" && i.name === entry.name)) {
+          items.push({
+            type: "file",
+            name: entry.name,
+            url: signedData?.signedUrl,
+            size: entry.metadata?.size ?? 0,
+            fullPath,
+            visibility: "shared",
+            uploadedBy: entry.metadata?.uploadedby || "unknown",
+            _section: "legacy"
+          });
+        }
+      }
     }
   } else {
     // SUBFOLDER VIEW: Search across possible prefixes

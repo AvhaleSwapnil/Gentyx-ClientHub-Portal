@@ -1,7 +1,7 @@
 // components/widgets/client-documents-viewer.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useSWR from "swr";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -64,7 +64,7 @@ export function ClientDocumentsViewer({
     const [currentPath, setCurrentPath] = useState(baseFolderPath);
 
     // Fetch documents for current path
-    const { data: documentsData, isLoading } = useSWR(
+    const { data: documentsData, isLoading, mutate } = useSWR(
         clientId ? [`client-documents-${clientId}`, currentPath] : null,
         async () => {
             // Use the same API as admin documents page which supports folder navigation
@@ -78,6 +78,21 @@ export function ClientDocumentsViewer({
         },
         { revalidateOnFocus: false }
     );
+
+    // Auto-refresh when documents are updated (e.g. from upload form)
+    useEffect(() => {
+        const handleRefresh = () => {
+            mutate();
+        };
+        window.addEventListener("clienthub:docs-updated", handleRefresh);
+        window.addEventListener("clienthub:doc-deleted", handleRefresh);
+        window.addEventListener("clienthub:folder-deleted", handleRefresh);
+        return () => {
+            window.removeEventListener("clienthub:docs-updated", handleRefresh);
+            window.removeEventListener("clienthub:doc-deleted", handleRefresh);
+            window.removeEventListener("clienthub:folder-deleted", handleRefresh);
+        };
+    }, [mutate]);
 
     const documents: DocumentItem[] = documentsData || [];
 

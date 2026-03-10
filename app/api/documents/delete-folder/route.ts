@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     }
 
     const supabase = createServerClient();
-    const bucket = process.env.SUPABASE_STORAGE_BUCKET || "clienthub";
+    const bucket = process.env.SUPABASE_STORAGE_BUCKET || "Documents";
     const rootFolder = await getClientRootFolder(clientId);
     const prefix = `${rootFolder}/${folderPath}`;
 

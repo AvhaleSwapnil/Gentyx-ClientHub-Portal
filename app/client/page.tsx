@@ -120,6 +120,7 @@ export default function ClientHome() {
     data: docsResponse,
     isLoading: docsLoading,
     error: docsError,
+    mutate: mutateDocs,
   } = useSWR(
     clientId ? ["client-home-docs", clientId] : null,
     async () => {
@@ -129,6 +130,22 @@ export default function ClientHome() {
     },
     { revalidateOnFocus: false }
   );
+
+  // Auto-refresh docs when uploaded or deleted
+  useEffect(() => {
+    const handleUpdate = () => {
+      mutateDocs();
+    };
+    window.addEventListener("clienthub:docs-updated", handleUpdate);
+    window.addEventListener("clienthub:doc-deleted", handleUpdate);
+    window.addEventListener("clienthub:folder-deleted", handleUpdate);
+    return () => {
+      window.removeEventListener("clienthub:docs-updated", handleUpdate);
+      window.removeEventListener("clienthub:doc-deleted", handleUpdate);
+      window.removeEventListener("clienthub:folder-deleted", handleUpdate);
+    };
+  }, [mutateDocs]);
+
   const docs = (docsResponse?.data || []).filter(
     (d: any) => (d.type === 'file' || d.type === 'folder') && !d.name?.endsWith('.keep') && d.name !== '.keep'
   );

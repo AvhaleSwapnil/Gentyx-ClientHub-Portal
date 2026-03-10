@@ -139,8 +139,8 @@ export function Sidebar({ collapsed = false }: SidebarProps) {
                 "flex items-center gap-2 px-3 py-2 text-sm font-medium transition-all duration-200",
                 collapsed && "justify-center px-2",
                 active
-                  ? "bg-sidebar-primary text-sidebar-primary-foreground rounded-lg shadow-sm"
-                  : "text-sidebar-foreground rounded-lg hover:text-sidebar-primary",
+                  ? "bg-sidebar-primary text-sidebar-primary-foreground rounded-lg shadow-sm hover:bg-sidebar-accent transition-colors"
+                  : "text-sidebar-foreground rounded-lg hover:text-sidebar-accent transition-colors",
               )}
             >
               <Icon className="size-4 shrink-0" />
@@ -154,7 +154,7 @@ export function Sidebar({ collapsed = false }: SidebarProps) {
         <Button
           variant="ghost"
           className={cn(
-            "w-full text-sidebar-foreground hover:!bg-transparent hover:text-sidebar-primary",
+            "w-full text-sidebar-foreground hover:!bg-transparent hover:text-sidebar-accent",
             collapsed ? "justify-center px-2" : "justify-start"
           )}
           onClick={handleLogout}

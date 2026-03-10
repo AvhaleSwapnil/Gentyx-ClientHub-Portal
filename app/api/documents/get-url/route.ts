@@ -14,7 +14,7 @@ export async function GET(req: Request) {
     }
 
     const supabase = createServerClient();
-    const bucket = process.env.SUPABASE_STORAGE_BUCKET || "clienthub";
+    const bucket = process.env.SUPABASE_STORAGE_BUCKET || "Documents";
     const rootFolder = await getClientRootFolder(clientId);
 
     const storagePath = `${rootFolder}/${folder}/${fileName}`;
