@@ -397,6 +397,7 @@ export default function AdminDocumentsPage() {
     });
 
     const data = await res.json();
+  /* ─────────── DELETE DOCUMENT ─────────── */
 
     if (data.success) {
       toast({ title: "Folder created successfully" });
